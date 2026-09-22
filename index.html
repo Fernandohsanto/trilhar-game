@@ -1,1 +1,147 @@
-<img src="tela1.png" alt="Tela do jogo">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guima Show</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+}
+
+.tela {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide {
+    position: relative;
+    width: min(100vw, 177.7778vh);
+    aspect-ratio: 16 / 9;
+}
+
+.slide img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    display: block;
+}
+
+.resposta {
+    position: absolute;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* RESPOSTA 1 */
+#A {
+    left: 7.5%;
+    top: 38.8%;
+    width: 43.8%;
+    height: 6.5%;
+}
+
+/* RESPOSTA 2 */
+#B {
+    left: 7.5%;
+    top: 47.0%;
+    width: 43.8%;
+    height: 6.5%;
+}
+
+/* RESPOSTA 3 */
+#C {
+    left: 7.5%;
+    top: 55.2%;
+    width: 43.8%;
+    height: 6.5%;
+}
+
+/* RESPOSTA 4 */
+#D {
+    left: 7.5%;
+    top: 63.3%;
+    width: 43.8%;
+    height: 6.5%;
+}
+
+.resposta:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+#mensagem {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,.9);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    display: none;
+    z-index: 100;
+}
+</style>
+</head>
+
+<body>
+
+<div class="tela">
+
+    <div class="slide">
+
+        <img src="tela1.png" alt="Guima Show">
+
+        <button id="A" class="resposta"
+            onclick="responder('1')"></button>
+
+        <button id="B" class="resposta"
+            onclick="responder('2')"></button>
+
+        <button id="C" class="resposta"
+            onclick="responder('3')"></button>
+
+        <button id="D" class="resposta"
+            onclick="responder('4')"></button>
+
+    </div>
+
+</div>
+
+<div id="mensagem"></div>
+
+<script>
+function responder(numero) {
+
+    const mensagem = document.getElementById("mensagem");
+
+    mensagem.innerText = "Você selecionou a resposta " + numero;
+
+    mensagem.style.display = "block";
+
+    setTimeout(function() {
+        mensagem.style.display = "none";
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
