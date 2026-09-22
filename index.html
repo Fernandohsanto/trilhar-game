@@ -135,29 +135,34 @@ html, body {
 
     <div class="slide">
 
-        <!-- IMAGEM ORIGINAL -->
         <img src="tela1.png" alt="Guima Show">
 
-        <!-- ALTERNATIVAS -->
-
-        <button id="A"
-                class="resposta"
-                onclick="responder(1)">
+        <!-- RESPOSTA A -->
+        <button
+            id="A"
+            class="resposta"
+            onclick="responder(1)">
         </button>
 
-        <button id="B"
-                class="resposta"
-                onclick="responder(2)">
+        <!-- RESPOSTA B -->
+        <button
+            id="B"
+            class="resposta"
+            onclick="responder(2)">
         </button>
 
-        <button id="C"
-                class="resposta"
-                onclick="responder(3)">
+        <!-- RESPOSTA C -->
+        <button
+            id="C"
+            class="resposta"
+            onclick="responder(3)">
         </button>
 
-        <button id="D"
-                class="resposta"
-                onclick="responder(4)">
+        <!-- RESPOSTA D -->
+        <button
+            id="D"
+            class="resposta"
+            onclick="responder(4)">
         </button>
 
     </div>
@@ -176,7 +181,9 @@ html, body {
      ========================= -->
 
 <audio id="audioCerta" preload="auto">
-    <source src="certa resposta.mp3" type="audio/mpeg">
+    <source
+        src="./certa%20resposta.mp3"
+        type="audio/mpeg">
 </audio>
 
 
@@ -185,15 +192,17 @@ html, body {
      ========================= -->
 
 <audio id="audioErrada" preload="auto">
-    <source src="Que pena vc errou.mp3" type="audio/mpeg">
+    <source
+        src="./Que%20pena%20vc%20errou.mp3"
+        type="audio/mpeg">
 </audio>
 
 
 <script>
 
-/* =========================
+/* ==========================================
    PERGUNTA 1
-   ========================= */
+   ========================================== */
 
 const perguntas = [
 
@@ -207,20 +216,18 @@ const perguntas = [
 ];
 
 
-/* =========================
+/* ==========================================
    VARIÁVEIS
-   ========================= */
+   ========================================== */
 
 let perguntaAtual = 0;
-
 let pontos = 0;
-
 let respondeu = false;
 
 
-/* =========================
+/* ==========================================
    ÁUDIOS
-   ========================= */
+   ========================================== */
 
 const audioCerta =
     document.getElementById("audioCerta");
@@ -228,14 +235,15 @@ const audioCerta =
 const audioErrada =
     document.getElementById("audioErrada");
 
+audioCerta.volume = 1;
+audioErrada.volume = 1;
 
-/* =========================
+
+/* ==========================================
    RESPONDER
-   ========================= */
+   ========================================== */
 
 function responder(numero) {
-
-    /* Impede clicar duas vezes */
 
     if (respondeu) {
         return;
@@ -243,18 +251,14 @@ function responder(numero) {
 
     respondeu = true;
 
-
     const pergunta =
         perguntas[perguntaAtual];
-
 
     const resultado =
         document.getElementById("resultado");
 
-
     const pontuacao =
         document.getElementById("pontuacao");
-
 
     const pontosTela =
         document.getElementById("pontos");
@@ -263,19 +267,17 @@ function responder(numero) {
     pontuacao.style.display = "block";
 
 
-    /* =========================
+    /* ======================================
        ACERTOU
-       ========================= */
+       ====================================== */
 
     if (numero === pergunta.correta) {
 
         pontos += 1000;
 
-
         resultado.innerHTML =
             "✅ ACERTOU!<br>" +
             "<small>+1.000 pontos</small>";
-
 
         resultado.className =
             "acertou";
@@ -283,16 +285,21 @@ function responder(numero) {
 
         /* TOCA ÁUDIO DE ACERTO */
 
+        audioErrada.pause();
+        audioErrada.currentTime = 0;
+
         audioCerta.currentTime = 0;
 
-        audioCerta.play().catch(function() {});
+        audioCerta.play().catch(function(erro) {
+            console.log("Erro no áudio de acerto:", erro);
+        });
 
     }
 
 
-    /* =========================
+    /* ======================================
        ERROU
-       ========================= */
+       ====================================== */
 
     else {
 
@@ -302,31 +309,34 @@ function responder(numero) {
             pergunta.correta +
             "</small>";
 
-
         resultado.className =
             "errou";
 
 
         /* TOCA ÁUDIO DE ERRO */
 
+        audioCerta.pause();
+        audioCerta.currentTime = 0;
+
         audioErrada.currentTime = 0;
 
-        audioErrada.play().catch(function() {});
+        audioErrada.play().catch(function(erro) {
+            console.log("Erro no áudio de erro:", erro);
+        });
 
     }
 
 
-    /* MOSTRA PONTUAÇÃO */
+    /* ATUALIZA PONTUAÇÃO */
 
     pontosTela.innerText = pontos;
-
 
     resultado.style.display = "block";
 
 
-    /* =========================
+    /* ======================================
        LIBERA NOVO CLIQUE
-       ========================= */
+       ====================================== */
 
     setTimeout(function() {
 
