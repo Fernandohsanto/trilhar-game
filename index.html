@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Trilhar Game</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .tela {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* ÁREAS CLICÁVEIS */
+
+        .resposta {
+            position: absolute;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .resposta:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /*
+        POSIÇÕES PROVISÓRIAS.
+        Depois vamos ajustar exatamente
+        em cima das respostas do PowerPoint.
+        */
+
+        #A {
+            left: 20%;
+            top: 55%;
+            width: 27%;
+            height: 10%;
+        }
+
+        #B {
+            right: 20%;
+            top: 55%;
+            width: 27%;
+            height: 10%;
+        }
+
+        #C {
+            left: 20%;
+            top: 68%;
+            width: 27%;
+            height: 10%;
+        }
+
+        #D {
+            right: 20%;
+            top: 68%;
+            width: 27%;
+            height: 10%;
+        }
+
+        #mensagem {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            background: rgba(0,0,0,0.9);
+            color: white;
+
+            padding: 15px 30px;
+            border-radius: 10px;
+
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+
+            display: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="tela">
+
+    <div class="slide">
+
+        <!-- IMAGEM ORIGINAL DO POWERPOINT -->
+        <img src="tela1.png" alt="Tela do jogo">
+
+        <!-- RESPOSTAS -->
+        <button id="A" class="resposta"
+                onclick="responder('A')"></button>
+
+        <button id="B" class="resposta"
+                onclick="responder('B')"></button>
+
+        <button id="C" class="resposta"
+                onclick="responder('C')"></button>
+
+        <button id="D" class="resposta"
+                onclick="responder('D')"></button>
+
+    </div>
+
+</div>
+
+<div id="mensagem"></div>
+
+<script>
+
+function responder(resposta) {
+
+    const mensagem = document.getElementById("mensagem");
+
+    mensagem.innerText =
+        "Você selecionou a resposta " + resposta;
+
+    mensagem.style.display = "block";
+
+    setTimeout(function() {
+        mensagem.style.display = "none";
+    }, 1500);
+}
+
+</script>
+
+</body>
+</html>
