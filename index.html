@@ -52,7 +52,6 @@ html, body {
     z-index: 10;
 }
 
-/* Resposta 1 */
 #A {
     left: 7.5%;
     top: 38.8%;
@@ -60,7 +59,6 @@ html, body {
     height: 6.5%;
 }
 
-/* Resposta 2 */
 #B {
     left: 7.5%;
     top: 47%;
@@ -68,7 +66,6 @@ html, body {
     height: 6.5%;
 }
 
-/* Resposta 3 */
 #C {
     left: 7.5%;
     top: 55.2%;
@@ -76,7 +73,6 @@ html, body {
     height: 6.5%;
 }
 
-/* Resposta 4 */
 #D {
     left: 7.5%;
     top: 63.3%;
@@ -143,6 +139,7 @@ html, body {
         <img src="tela1.png" alt="Guima Show">
 
         <!-- ÁREAS CLICÁVEIS -->
+
         <button id="A"
                 class="resposta"
                 onclick="responder(1)">
@@ -173,10 +170,21 @@ html, body {
     Pontos: <span id="pontos">0</span>
 </div>
 
+<!-- ÁUDIOS -->
+
+<audio id="audioPergunta" preload="auto">
+    <source src="Mídia1.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="audioCerta" preload="auto">
+    <source src="certa resposta.mp3" type="audio/mpeg">
+</audio>
+
+
 <script>
 
 /* ==========================================
-   PERGUNTAS DO ARQUIVO CORRETO
+   PERGUNTA 1
    ========================================== */
 
 const perguntas = [
@@ -184,60 +192,82 @@ const perguntas = [
     {
         pergunta: "Qual das alternativas a seguir expressa a definição correta de Visão de Dono?",
         correta: 1
-    },
-
-    {
-        pergunta: "Assinale a frase que resume adequadamente o conceito de Autorresponsabilidade segundo o material:",
-        correta: 1
-    },
-
-    {
-        pergunta: "No Círculo da Autorresponsabilidade, qual item pertence ao Círculo do Controle?",
-        correta: 4
-    },
-
-    {
-        pergunta: "Como a Autorresponsabilidade se conecta com a Visão de Dono?",
-        correta: 2
-    },
-
-    {
-        pergunta: "A VISÃO da organização estabelece a aspiração de longo prazo da empresa. O que ela prevê?",
-        correta: 2
-    },
-
-    {
-        pergunta: "O que significa Excelência Operacional na prática?",
-        correta: 3
-    },
-
-    {
-        pergunta: "Ao celebrar 35 anos de história, a empresa destaca que sua longevidade exige:",
-        correta: 4
-    },
-
-    {
-        pergunta: "Como se articulam as competências de Foco no Cliente e Protagonismo?",
-        correta: 2
-    },
-
-    {
-        pergunta: "Dentre os Acordos estabelecidos no início do módulo, NÃO faz parte:",
-        correta: 3
-    },
-
-    {
-        pergunta: "Qual o fechamento da reflexão sobre os próximos 35 anos da empresa?",
-        correta: 4
     }
 
 ];
 
-/* COMEÇA NA PERGUNTA 1 */
+
+/* ==========================================
+   VARIÁVEIS
+   ========================================== */
 
 let perguntaAtual = 0;
 let pontos = 0;
 let respondeu = false;
+
+
+/* ==========================================
+   ÁUDIO DA PERGUNTA
+   ========================================== */
+
+const audioPergunta = document.getElementById("audioPergunta");
+const audioCerta = document.getElementById("audioCerta");
+
+audioPergunta.volume = 1;
+audioCerta.volume = 1;
+
+
+/*
+Tenta tocar automaticamente.
+Alguns navegadores bloqueiam áudio automático.
+Nesse caso, o primeiro clique/touch do usuário
+libera o áudio.
+*/
+
+function tocarPergunta() {
+
+    audioPergunta.currentTime = 0;
+
+    const tentativa = audioPergunta.play();
+
+    if (tentativa !== undefined) {
+
+        tentativa.catch(function() {
+
+            document.addEventListener(
+                "click",
+                liberarAudio,
+                { once: true }
+            );
+
+            document.addEventListener(
+                "touchstart",
+                liberarAudio,
+                { once: true }
+            );
+
+        });
+
+    }
+}
+
+
+function liberarAudio() {
+
+    audioPergunta.currentTime = 0;
+
+    audioPergunta.play().catch(function() {});
+
+}
+
+
+/* Toca o áudio da pergunta 1 */
+
+window.addEventListener("load", function() {
+
+    tocarPergunta();
+
+});
 
 
 /* ==========================================
@@ -254,39 +284,74 @@ function responder(numero) {
 
     const pergunta = perguntas[perguntaAtual];
 
-    const resultado = document.getElementById("resultado");
-    const pontuacao = document.getElementById("pontuacao");
-    const pontosTela = document.getElementById("pontos");
+    const resultado =
+        document.getElementById("resultado");
+
+    const pontuacao =
+        document.getElementById("pontuacao");
+
+    const pontosTela =
+        document.getElementById("pontos");
+
 
     pontuacao.style.display = "block";
+
+
+    /* PARA O ÁUDIO DA PERGUNTA */
+
+    audioPergunta.pause();
+    audioPergunta.currentTime = 0;
+
+
+    /* ======================================
+       RESPOSTA CORRETA
+       ====================================== */
 
     if (numero === pergunta.correta) {
 
         pontos += 1000;
 
         resultado.innerHTML =
-            "✅ ACERTOU!<br><small>+1.000 pontos</small>";
+            "✅ ACERTOU!<br>" +
+            "<small>+1.000 pontos</small>";
 
         resultado.className = "acertou";
 
-    } else {
+
+        /* TOCA ÁUDIO DA RESPOSTA CERTA */
+
+        audioCerta.currentTime = 0;
+
+        audioCerta.play().catch(function() {});
+
+    }
+
+
+    /* ======================================
+       RESPOSTA ERRADA
+       ====================================== */
+
+    else {
 
         resultado.innerHTML =
-            "❌ ERROU!<br><small>A resposta correta é " +
+            "❌ ERROU!<br>" +
+            "<small>A resposta correta é " +
             pergunta.correta +
             "</small>";
 
         resultado.className = "errou";
+
     }
+
 
     pontosTela.innerText = pontos;
 
     resultado.style.display = "block";
 
-    /*
-    Depois de 2 segundos,
-    libera uma nova resposta.
-    */
+
+    /* ======================================
+       LIBERA NOVA RESPOSTA
+       ====================================== */
 
     setTimeout(function() {
 
@@ -295,6 +360,7 @@ function responder(numero) {
         respondeu = false;
 
     }, 2500);
+
 }
 
 </script>
