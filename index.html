@@ -42,7 +42,7 @@ html, body {
     display: block;
 }
 
-/* ÁREAS INVISÍVEIS DE CLIQUE */
+/* BOTÕES INVISÍVEIS */
 
 .resposta {
     position: absolute;
@@ -135,10 +135,10 @@ html, body {
 
     <div class="slide">
 
-        <!-- TELA ORIGINAL DO POWERPOINT -->
+        <!-- IMAGEM ORIGINAL -->
         <img src="tela1.png" alt="Guima Show">
 
-        <!-- ÁREAS CLICÁVEIS -->
+        <!-- ALTERNATIVAS -->
 
         <button id="A"
                 class="resposta"
@@ -170,111 +170,72 @@ html, body {
     Pontos: <span id="pontos">0</span>
 </div>
 
-<!-- ÁUDIOS -->
 
-<audio id="audioPergunta" preload="auto">
-    <source src="Mídia1.mp3" type="audio/mpeg">
-</audio>
+<!-- =========================
+     ÁUDIO DE ACERTO
+     ========================= -->
 
 <audio id="audioCerta" preload="auto">
     <source src="certa resposta.mp3" type="audio/mpeg">
 </audio>
 
 
+<!-- =========================
+     ÁUDIO DE ERRO
+     ========================= -->
+
+<audio id="audioErrada" preload="auto">
+    <source src="Que pena vc errou.mp3" type="audio/mpeg">
+</audio>
+
+
 <script>
 
-/* ==========================================
+/* =========================
    PERGUNTA 1
-   ========================================== */
+   ========================= */
 
 const perguntas = [
 
     {
-        pergunta: "Qual das alternativas a seguir expressa a definição correta de Visão de Dono?",
+        pergunta:
+        "Qual das alternativas a seguir expressa a definição correta de Visão de Dono?",
+
         correta: 1
     }
 
 ];
 
 
-/* ==========================================
+/* =========================
    VARIÁVEIS
-   ========================================== */
+   ========================= */
 
 let perguntaAtual = 0;
+
 let pontos = 0;
+
 let respondeu = false;
 
 
-/* ==========================================
-   ÁUDIO DA PERGUNTA
-   ========================================== */
+/* =========================
+   ÁUDIOS
+   ========================= */
 
-const audioPergunta = document.getElementById("audioPergunta");
-const audioCerta = document.getElementById("audioCerta");
+const audioCerta =
+    document.getElementById("audioCerta");
 
-audioPergunta.volume = 1;
-audioCerta.volume = 1;
-
-
-/*
-Tenta tocar automaticamente.
-Alguns navegadores bloqueiam áudio automático.
-Nesse caso, o primeiro clique/touch do usuário
-libera o áudio.
-*/
-
-function tocarPergunta() {
-
-    audioPergunta.currentTime = 0;
-
-    const tentativa = audioPergunta.play();
-
-    if (tentativa !== undefined) {
-
-        tentativa.catch(function() {
-
-            document.addEventListener(
-                "click",
-                liberarAudio,
-                { once: true }
-            );
-
-            document.addEventListener(
-                "touchstart",
-                liberarAudio,
-                { once: true }
-            );
-
-        });
-
-    }
-}
+const audioErrada =
+    document.getElementById("audioErrada");
 
 
-function liberarAudio() {
-
-    audioPergunta.currentTime = 0;
-
-    audioPergunta.play().catch(function() {});
-
-}
-
-
-/* Toca o áudio da pergunta 1 */
-
-window.addEventListener("load", function() {
-
-    tocarPergunta();
-
-});
-
-
-/* ==========================================
+/* =========================
    RESPONDER
-   ========================================== */
+   ========================= */
 
 function responder(numero) {
+
+    /* Impede clicar duas vezes */
 
     if (respondeu) {
         return;
@@ -282,13 +243,18 @@ function responder(numero) {
 
     respondeu = true;
 
-    const pergunta = perguntas[perguntaAtual];
+
+    const pergunta =
+        perguntas[perguntaAtual];
+
 
     const resultado =
         document.getElementById("resultado");
 
+
     const pontuacao =
         document.getElementById("pontuacao");
+
 
     const pontosTela =
         document.getElementById("pontos");
@@ -297,28 +263,25 @@ function responder(numero) {
     pontuacao.style.display = "block";
 
 
-    /* PARA O ÁUDIO DA PERGUNTA */
-
-    audioPergunta.pause();
-    audioPergunta.currentTime = 0;
-
-
-    /* ======================================
-       RESPOSTA CORRETA
-       ====================================== */
+    /* =========================
+       ACERTOU
+       ========================= */
 
     if (numero === pergunta.correta) {
 
         pontos += 1000;
 
+
         resultado.innerHTML =
             "✅ ACERTOU!<br>" +
             "<small>+1.000 pontos</small>";
 
-        resultado.className = "acertou";
+
+        resultado.className =
+            "acertou";
 
 
-        /* TOCA ÁUDIO DA RESPOSTA CERTA */
+        /* TOCA ÁUDIO DE ACERTO */
 
         audioCerta.currentTime = 0;
 
@@ -327,9 +290,9 @@ function responder(numero) {
     }
 
 
-    /* ======================================
-       RESPOSTA ERRADA
-       ====================================== */
+    /* =========================
+       ERROU
+       ========================= */
 
     else {
 
@@ -339,19 +302,31 @@ function responder(numero) {
             pergunta.correta +
             "</small>";
 
-        resultado.className = "errou";
+
+        resultado.className =
+            "errou";
+
+
+        /* TOCA ÁUDIO DE ERRO */
+
+        audioErrada.currentTime = 0;
+
+        audioErrada.play().catch(function() {});
 
     }
 
 
+    /* MOSTRA PONTUAÇÃO */
+
     pontosTela.innerText = pontos;
+
 
     resultado.style.display = "block";
 
 
-    /* ======================================
-       LIBERA NOVA RESPOSTA
-       ====================================== */
+    /* =========================
+       LIBERA NOVO CLIQUE
+       ========================= */
 
     setTimeout(function() {
 
