@@ -6,177 +6,177 @@
 <title>Guima Show — Trilhar</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    background:#000;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
 }
 
-#game {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#game{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-#stage {
-    position: relative;
-    width: min(100vw, 177.7778vh);
-    aspect-ratio: 16 / 9;
-    max-height: 100vh;
+#stage{
+    position:relative;
+    width:min(100vw,177.7778vh);
+    aspect-ratio:16/9;
+    max-height:100vh;
 }
 
-#screen {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    display: block;
-    user-select: none;
+#screen{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:fill;
+    display:block;
+    user-select:none;
 }
 
-/* BOTÕES INVISÍVEIS */
-.hot {
-    position: absolute;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    z-index: 10;
-    padding: 0;
+.hot{
+    position:absolute;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    z-index:10;
+    padding:0;
 }
 
-/* INÍCIO */
-#playHot {
-    left: 25%;
-    top: 70%;
-    width: 50%;
-    height: 25%;
+/* JOGAR */
+#playHot{
+    left:25%;
+    top:70%;
+    width:50%;
+    height:25%;
 }
 
 /* REGRAS */
-#rulesHot {
-    inset: 0;
+#rulesHot{
+    inset:0;
 }
 
 /* ENTRAR */
-#enterHot {
-    left: 69%;
-    top: 20%;
-    width: 25%;
-    height: 18%;
+#enterHot{
+    left:69%;
+    top:20%;
+    width:25%;
+    height:18%;
 }
 
 /* VOLTAR */
-#backHot {
-    left: 69%;
-    top: 55%;
-    width: 25%;
-    height: 18%;
+#backHot{
+    left:69%;
+    top:55%;
+    width:25%;
+    height:18%;
 }
 
 /* RESPOSTAS */
-#answerA {
-    left: 7.5%;
-    top: 38.8%;
-    width: 43.8%;
-    height: 6.5%;
+#answerA{
+    left:7.5%;
+    top:38.8%;
+    width:43.8%;
+    height:6.5%;
 }
 
-#answerB {
-    left: 7.5%;
-    top: 47%;
-    width: 43.8%;
-    height: 6.5%;
+#answerB{
+    left:7.5%;
+    top:47%;
+    width:43.8%;
+    height:6.5%;
 }
 
-#answerC {
-    left: 7.5%;
-    top: 55.2%;
-    width: 43.8%;
-    height: 6.5%;
+#answerC{
+    left:7.5%;
+    top:55.2%;
+    width:43.8%;
+    height:6.5%;
 }
 
-#answerD {
-    left: 7.5%;
-    top: 63.3%;
-    width: 43.8%;
-    height: 6.5%;
+#answerD{
+    left:7.5%;
+    top:63.3%;
+    width:43.8%;
+    height:6.5%;
 }
 
-/* CAMPO DO NOME */
-#nameBox {
-    position: absolute;
-    left: 29%;
-    top: 65%;
-    width: 42%;
-    z-index: 20;
-    display: none;
+/* NOME */
+#nameBox{
+    position:absolute;
+    left:29%;
+    top:65%;
+    width:42%;
+    z-index:20;
+    display:none;
 }
 
-#nameInput {
-    width: 100%;
-    height: 58px;
-    border: 3px solid #b8d99c;
-    border-radius: 12px;
-    padding: 0 18px;
-    font-size: 28px;
-    text-align: center;
-    outline: none;
-    background: rgba(255,255,255,.96);
-    color: #1b1b1b;
+#nameInput{
+    width:100%;
+    height:58px;
+    border:3px solid #b8d99c;
+    border-radius:12px;
+    padding:0 18px;
+    font-size:28px;
+    text-align:center;
+    outline:none;
+    background:rgba(255,255,255,.96);
+    color:#1b1b1b;
 }
 
-#nameHint {
-    margin-top: 7px;
-    text-align: center;
-    color: #fff;
-    font-size: 17px;
-    text-shadow: 0 2px 4px #000;
+#nameHint{
+    margin-top:7px;
+    text-align:center;
+    color:#fff;
+    font-size:17px;
+    text-shadow:0 2px 4px #000;
 }
 
-/* CONTINUAÇÃO */
-#continueOverlay {
-    position: absolute;
-    inset: 0;
-    z-index: 9;
-    display: none;
-    cursor: pointer;
+/* CONTINUAR */
+#continueOverlay{
+    position:absolute;
+    inset:0;
+    z-index:9;
+    display:none;
+    cursor:pointer;
 }
 
 /* MENSAGEM */
-#message {
-    position: fixed;
-    left: 50%;
-    bottom: 18px;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,.75);
-    color: #fff;
-    padding: 9px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    display: none;
-    z-index: 100;
+#message{
+    position:fixed;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%);
+    background:rgba(0,0,0,.8);
+    color:#fff;
+    padding:10px 16px;
+    border-radius:8px;
+    font-size:15px;
+    display:none;
+    z-index:100;
+    text-align:center;
+    max-width:90%;
 }
 
-/* RESPONSIVO */
-@media(max-width:700px) {
+@media(max-width:700px){
 
-    #nameInput {
-        height: 46px;
-        font-size: 20px;
+    #nameInput{
+        height:46px;
+        font-size:20px;
     }
 
-    #nameHint {
-        font-size: 13px;
+    #nameHint{
+        font-size:13px;
     }
 }
 </style>
@@ -186,114 +186,83 @@ html, body {
 
 <div id="game">
 
-    <div id="stage">
+<div id="stage">
 
-        <img
-            id="screen"
-            src="inicio.png"
-            alt="Guima Show"
-        >
+<img
+    id="screen"
+    src="inicio.png"
+    alt="Guima Show"
+>
 
-        <!-- BOTÃO JOGAR -->
-        <button
-            id="playHot"
-            class="hot"
-            aria-label="Jogar">
-        </button>
+<button
+    id="playHot"
+    class="hot">
+</button>
 
-        <!-- BOTÃO REGRAS -->
-        <button
-            id="rulesHot"
-            class="hot"
-            aria-label="Continuar">
-        </button>
+<button
+    id="rulesHot"
+    class="hot">
+</button>
 
-        <!-- BOTÃO ENTRAR -->
-        <button
-            id="enterHot"
-            class="hot"
-            aria-label="Entrar">
-        </button>
+<button
+    id="enterHot"
+    class="hot">
+</button>
 
-        <!-- BOTÃO VOLTAR -->
-        <button
-            id="backHot"
-            class="hot"
-            aria-label="Voltar">
-        </button>
+<button
+    id="backHot"
+    class="hot">
+</button>
 
-        <!-- CONTINUAÇÃO -->
-        <div id="continueOverlay"></div>
+<div id="continueOverlay"></div>
 
-        <!-- NOME -->
-        <div id="nameBox">
+<div id="nameBox">
 
-            <input
-                id="nameInput"
-                type="text"
-                maxlength="32"
-                autocomplete="name"
-                placeholder="Digite seu nome"
-            >
+<input
+    id="nameInput"
+    type="text"
+    maxlength="32"
+    autocomplete="name"
+    placeholder="Digite seu nome"
+>
 
-            <div id="nameHint">
-                Digite seu nome e clique em ENTRAR
-            </div>
+<div id="nameHint">
+Digite seu nome e clique em ENTRAR
+</div>
 
-        </div>
+</div>
 
-        <!-- RESPOSTA A -->
-        <button
-            id="answerA"
-            class="hot"
-            aria-label="Resposta 1">
-        </button>
+<button
+    id="answerA"
+    class="hot">
+</button>
 
-        <!-- RESPOSTA B -->
-        <button
-            id="answerB"
-            class="hot"
-            aria-label="Resposta 2">
-        </button>
+<button
+    id="answerB"
+    class="hot">
+</button>
 
-        <!-- RESPOSTA C -->
-        <button
-            id="answerC"
-            class="hot"
-            aria-label="Resposta 3">
-        </button>
+<button
+    id="answerC"
+    class="hot">
+</button>
 
-        <!-- RESPOSTA D -->
-        <button
-            id="answerD"
-            class="hot"
-            aria-label="Resposta 4">
-        </button>
+<button
+    id="answerD"
+    class="hot">
+</button>
 
-    </div>
-
+</div>
 </div>
 
 <div id="message"></div>
 
+
 <script>
 
-/* =========================================================
-   CONFIGURAÇÃO
-   ========================================================= */
-
-/*
-   IMPORTANTE:
-   Os arquivos estão na RAIZ do GitHub.
-   Por isso não usamos "assets/".
-*/
-
-const A = "";
-
-
-/* =========================================================
+/* =====================================================
    ÁUDIOS
-   ========================================================= */
+   ===================================================== */
 
 const audio = {
 
@@ -318,7 +287,7 @@ const audio = {
     coin:
         "Moeda caindo quando perde.mp3",
 
-    values: [
+    values:[
 
         "1 Mil.mp3",
 
@@ -328,7 +297,7 @@ const audio = {
 
         "30 mil.mp3",
 
-        "50 mil(1).mp3",
+        "50 mil.mp3",
 
         "1000 mil.mp3",
 
@@ -347,9 +316,9 @@ const audio = {
 };
 
 
-/* =========================================================
-   IMAGENS
-   ========================================================= */
+/* =====================================================
+   TELAS
+   ===================================================== */
 
 const screens = {
 
@@ -368,62 +337,43 @@ const screens = {
     final:
         "parabens.png",
 
-    values: [
+    values:[
 
         "valor-1k.png",
-
         "valor-5k.png",
-
         "valor-10k.png",
-
         "valor-30k.png",
-
         "valor-50k.png",
-
         "valor-100k.png",
-
         "valor-200k.png",
-
         "valor-400k.png",
-
         "valor-500k.png",
-
         "valor-1m.png"
 
     ],
 
-    questions: [
+    questions:[
 
         "pergunta-1.png",
-
         "pergunta-2.png",
-
         "pergunta-3.png",
-
         "pergunta-4.png",
-
         "pergunta-5.png",
-
         "pergunta-6.png",
-
         "pergunta-7.png",
-
         "pergunta-8.png",
-
         "pergunta-9.png",
-
         "pergunta-10.png"
 
     ]
 };
 
 
-/* =========================================================
+/* =====================================================
    RESPOSTAS CORRETAS
-   ========================================================= */
+   ===================================================== */
 
 const correct = [
-
     1,
     4,
     2,
@@ -434,13 +384,12 @@ const correct = [
     3,
     4,
     4
-
 ];
 
 
-/* =========================================================
-   VARIÁVEIS DO JOGO
-   ========================================================= */
+/* =====================================================
+   VARIÁVEIS
+   ===================================================== */
 
 let current = 0;
 
@@ -453,9 +402,9 @@ let currentAudio = null;
 let audioToken = 0;
 
 
-/* =========================================================
+/* =====================================================
    ELEMENTOS
-   ========================================================= */
+   ===================================================== */
 
 const screen =
     document.getElementById("screen");
@@ -481,46 +430,56 @@ const backHot =
 const continueOverlay =
     document.getElementById("continueOverlay");
 
-const answerA =
-    document.getElementById("answerA");
-
-const answerB =
-    document.getElementById("answerB");
-
-const answerC =
-    document.getElementById("answerC");
-
-const answerD =
-    document.getElementById("answerD");
-
 const answers = [
 
-    answerA,
-    answerB,
-    answerC,
-    answerD
+    document.getElementById("answerA"),
+    document.getElementById("answerB"),
+    document.getElementById("answerC"),
+    document.getElementById("answerD")
 
 ];
 
 
-/* =========================================================
-   CAMINHO DOS ARQUIVOS
-   ========================================================= */
+/* =====================================================
+   CAMINHO
+   ===================================================== */
 
-function path(file) {
+function path(file){
 
-    return encodeURI(A + file);
+    return encodeURI(file);
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   MENSAGEM
+   ===================================================== */
+
+function showMessage(text){
+
+    const m =
+        document.getElementById("message");
+
+    m.textContent = text;
+
+    m.style.display = "block";
+
+    setTimeout(function(){
+
+        m.style.display = "none";
+
+    },4000);
+
+}
+
+
+/* =====================================================
    PARAR ÁUDIO
-   ========================================================= */
+   ===================================================== */
 
-function stopAudio() {
+function stopAudio(){
 
-    if (currentAudio) {
+    if(currentAudio){
 
         currentAudio.pause();
 
@@ -535,72 +494,107 @@ function stopAudio() {
 }
 
 
-/* =========================================================
+/* =====================================================
    TOCAR ÁUDIO
-   ========================================================= */
+   ===================================================== */
 
-function play(file, onEnd) {
+function play(file,onEnd){
 
     stopAudio();
 
     const token = audioToken;
 
-    const a = new Audio(path(file));
+    const src = path(file);
 
-    currentAudio = a;
+    const a = new Audio();
 
     a.preload = "auto";
 
-    a.onended = function() {
+    a.src = src;
 
-        if (token !== audioToken) {
-            return;
+    currentAudio = a;
+
+
+    a.addEventListener(
+        "ended",
+        function(){
+
+            if(token !== audioToken){
+                return;
+            }
+
+            currentAudio = null;
+
+            if(onEnd){
+                onEnd();
+            }
+
         }
+    );
 
-        currentAudio = null;
 
-        if (onEnd) {
-            onEnd();
+    a.addEventListener(
+        "error",
+        function(){
+
+            if(token !== audioToken){
+                return;
+            }
+
+            currentAudio = null;
+
+            console.error(
+                "Erro ao carregar áudio:",
+                src
+            );
+
+            showMessage(
+                "Não foi possível carregar o áudio: " +
+                file
+            );
+
+            /*
+               Mesmo se o áudio falhar,
+               o jogo continua.
+            */
+
+            if(onEnd){
+                onEnd();
+            }
+
         }
+    );
 
-    };
 
-    a.onerror = function() {
+    const promise = a.play();
 
-        if (token !== audioToken) {
-            return;
-        }
+    if(promise !== undefined){
 
-        currentAudio = null;
+        promise.catch(function(error){
 
-        showMessage(
-            "Não foi possível carregar este áudio."
-        );
+            console.warn(
+                "Autoplay bloqueado:",
+                error
+            );
 
-        if (onEnd) {
-            onEnd();
-        }
+            /*
+               O áudio será liberado
+               no próximo toque.
+            */
 
-    };
+        });
 
-    a.play().catch(function() {
-
-        showMessage(
-            "Toque na tela para liberar o áudio."
-        );
-
-    });
+    }
 
     return a;
-
 }
 
 
-/* =========================================================
-   ESCONDER TODOS OS BOTÕES
-   ========================================================= */
+/* =====================================================
+   ESCONDER ELEMENTOS
+   ===================================================== */
 
-function hideAll() {
+function hideAll(){
 
     playHot.style.display = "none";
 
@@ -612,57 +606,33 @@ function hideAll() {
 
     continueOverlay.style.display = "none";
 
-    answerA.style.display = "none";
-
-    answerB.style.display = "none";
-
-    answerC.style.display = "none";
-
-    answerD.style.display = "none";
-
     nameBox.style.display = "none";
+
+    answers.forEach(function(button){
+
+        button.style.display = "none";
+
+    });
 
 }
 
 
-/* =========================================================
-   TROCAR IMAGEM
-   ========================================================= */
+/* =====================================================
+   TROCAR TELA
+   ===================================================== */
 
-function setScreen(file) {
+function setScreen(file){
 
     screen.src = path(file);
 
 }
 
 
-/* =========================================================
-   MENSAGEM
-   ========================================================= */
+/* =====================================================
+   INÍCIO
+   ===================================================== */
 
-function showMessage(text) {
-
-    const message =
-        document.getElementById("message");
-
-    message.textContent = text;
-
-    message.style.display = "block";
-
-    setTimeout(function() {
-
-        message.style.display = "none";
-
-    }, 2600);
-
-}
-
-
-/* =========================================================
-   TELA INICIAL
-   ========================================================= */
-
-function showStart() {
+function showStart(){
 
     state = "start";
 
@@ -670,20 +640,24 @@ function showStart() {
 
     hideAll();
 
-    setScreen(screens.start);
+    setScreen(
+        screens.start
+    );
 
     playHot.style.display = "block";
 
-    play(audio.start);
+    play(
+        audio.start
+    );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    REGRAS
-   ========================================================= */
+   ===================================================== */
 
-function showRules() {
+function showRules(){
 
     state = "rules";
 
@@ -691,18 +665,20 @@ function showRules() {
 
     hideAll();
 
-    setScreen(screens.rules);
+    setScreen(
+        screens.rules
+    );
 
     continueOverlay.style.display = "block";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    ENTRAR
-   ========================================================= */
+   ===================================================== */
 
-function showEnter() {
+function showEnter(){
 
     state = "enter";
 
@@ -710,7 +686,9 @@ function showEnter() {
 
     hideAll();
 
-    setScreen(screens.enter);
+    setScreen(
+        screens.enter
+    );
 
     enterHot.style.display = "block";
 
@@ -720,25 +698,27 @@ function showEnter() {
 
     nameInput.focus();
 
-    play(audio.participant);
+    play(
+        audio.participant
+    );
 
 }
 
 
-/* =========================================================
-   ENVIAR NOME
-   ========================================================= */
+/* =====================================================
+   NOME
+   ===================================================== */
 
-function submitName() {
+function submitName(){
 
-    if (busy) {
+    if(busy){
         return;
     }
 
     const name =
         nameInput.value.trim();
 
-    if (!name) {
+    if(!name){
 
         nameInput.focus();
 
@@ -765,17 +745,17 @@ function submitName() {
 }
 
 
-/* =========================================================
-   PRIMEIRA TELA DE VALOR
-   ========================================================= */
+/* =====================================================
+   PRIMEIRO VALOR
+   ===================================================== */
 
-function showValuesFirst() {
+function showValuesFirst(){
 
     current = 0;
 
     state = "value";
 
-    busy = false;
+    busy = true;
 
     hideAll();
 
@@ -791,11 +771,11 @@ function showValuesFirst() {
 }
 
 
-/* =========================================================
-   TELA DE VALOR
-   ========================================================= */
+/* =====================================================
+   PRÓXIMO VALOR
+   ===================================================== */
 
-function showValuesFor(index) {
+function showValuesFor(index){
 
     state = "value";
 
@@ -815,11 +795,11 @@ function showValuesFor(index) {
 }
 
 
-/* =========================================================
+/* =====================================================
    PERGUNTA
-   ========================================================= */
+   ===================================================== */
 
-function showQuestion() {
+function showQuestion(){
 
     state = "question";
 
@@ -831,27 +811,29 @@ function showQuestion() {
         screens.questions[current]
     );
 
-    answers.forEach(function(button) {
+    answers.forEach(function(button){
 
         button.style.display = "block";
 
     });
 
-    play(audio.suspense);
+    play(
+        audio.suspense
+    );
 
 }
 
 
-/* =========================================================
-   RESPONDER
-   ========================================================= */
+/* =====================================================
+   RESPOSTA
+   ===================================================== */
 
-function answer(number) {
+function answer(number){
 
-    if (
+    if(
         state !== "question" ||
         busy
-    ) {
+    ){
         return;
     }
 
@@ -860,21 +842,23 @@ function answer(number) {
     stopAudio();
 
 
-    /* =========================================
-       RESPOSTA CORRETA
-       ========================================= */
+    /* ================================================
+       ACERTO
+       ================================================ */
 
-    if (number === correct[current]) {
+    if(
+        number === correct[current]
+    ){
 
         play(
             audio.correct,
-            function() {
+            function(){
 
                 /*
-                   ÚLTIMA PERGUNTA
+                   PERGUNTA 10
                 */
 
-                if (current === 9) {
+                if(current === 9){
 
                     state = "final";
 
@@ -899,25 +883,26 @@ function answer(number) {
                    PRÓXIMO VALOR
                 */
 
+                current++;
+
                 showValuesFor(
-                    current + 1
+                    current
                 );
 
             }
         );
 
         return;
-
     }
 
 
-    /* =========================================
-       RESPOSTA ERRADA
-       ========================================= */
+    /* ================================================
+       ERRO
+       ================================================ */
 
     play(
         audio.wrong,
-        function() {
+        function(){
 
             state = "lost";
 
@@ -927,18 +912,13 @@ function answer(number) {
                 screens.lost
             );
 
-            /*
-               Depois da tela de derrota,
-               toca o som da moeda.
-            */
-
             play(
                 audio.coin,
-                function() {
+                function(){
 
                     /*
                        VOLTA PARA A MESMA
-                       PERGUNTA QUE ERROU.
+                       PERGUNTA.
                     */
 
                     showQuestion();
@@ -952,16 +932,13 @@ function answer(number) {
 }
 
 
-/* =========================================================
-   CLIQUES
-   ========================================================= */
+/* =====================================================
+   BOTÃO JOGAR
+   ===================================================== */
 
+playHot.onclick = function(){
 
-/* JOGAR */
-
-playHot.onclick = function() {
-
-    if (state !== "start") {
+    if(state !== "start"){
         return;
     }
 
@@ -972,24 +949,13 @@ playHot.onclick = function() {
 };
 
 
-/* REGRAS */
+/* =====================================================
+   REGRAS
+   ===================================================== */
 
-rulesHot.onclick = function() {
+rulesHot.onclick = function(){
 
-    if (state === "rules") {
-
-        showEnter();
-
-    }
-
-};
-
-
-/* CONTINUAR REGRAS */
-
-continueOverlay.onclick = function() {
-
-    if (state === "rules") {
+    if(state === "rules"){
 
         showEnter();
 
@@ -998,11 +964,24 @@ continueOverlay.onclick = function() {
 };
 
 
-/* ENTRAR */
+continueOverlay.onclick = function(){
 
-enterHot.onclick = function() {
+    if(state === "rules"){
 
-    if (state === "enter") {
+        showEnter();
+
+    }
+
+};
+
+
+/* =====================================================
+   ENTRAR
+   ===================================================== */
+
+enterHot.onclick = function(){
+
+    if(state === "enter"){
 
         submitName();
 
@@ -1011,11 +990,13 @@ enterHot.onclick = function() {
 };
 
 
-/* VOLTAR */
+/* =====================================================
+   VOLTAR
+   ===================================================== */
 
-backHot.onclick = function() {
+backHot.onclick = function(){
 
-    if (state === "enter") {
+    if(state === "enter"){
 
         stopAudio();
 
@@ -1026,40 +1007,36 @@ backHot.onclick = function() {
 };
 
 
-/* RESPOSTAS */
+/* =====================================================
+   RESPOSTAS
+   ===================================================== */
 
-answerA.onclick = function() {
-
+answers[0].onclick = function(){
     answer(1);
-
 };
 
-answerB.onclick = function() {
-
+answers[1].onclick = function(){
     answer(2);
-
 };
 
-answerC.onclick = function() {
-
+answers[2].onclick = function(){
     answer(3);
-
 };
 
-answerD.onclick = function() {
-
+answers[3].onclick = function(){
     answer(4);
-
 };
 
 
-/* ENTER NO CAMPO DE NOME */
+/* =====================================================
+   ENTER NO NOME
+   ===================================================== */
 
 nameInput.addEventListener(
     "keydown",
-    function(event) {
+    function(event){
 
-        if (event.key === "Enter") {
+        if(event.key === "Enter"){
 
             submitName();
 
@@ -1069,18 +1046,18 @@ nameInput.addEventListener(
 );
 
 
-/* =========================================================
-   LIBERAÇÃO DE ÁUDIO DO NAVEGADOR
-   ========================================================= */
+/* =====================================================
+   LIBERAR ÁUDIO
+   ===================================================== */
 
 document.addEventListener(
     "pointerdown",
-    function() {
+    function(){
 
-        if (
+        if(
             currentAudio &&
             currentAudio.paused
-        ) {
+        ){
 
             currentAudio
                 .play()
@@ -1092,9 +1069,9 @@ document.addEventListener(
 );
 
 
-/* =========================================================
+/* =====================================================
    INICIAR
-   ========================================================= */
+   ===================================================== */
 
 showStart();
 
