@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Guima Show</title>
 
+
 <style>
+
+/* =========================================================
+   BASE
+========================================================= */
 
 * {
     box-sizing: border-box;
@@ -16,22 +27,33 @@
 
 html,
 body {
+
     width: 100%;
     height: 100%;
+
     overflow: hidden;
+
     background: #000;
+
 }
 
 #game {
+
     position: relative;
+
     width: 100vw;
     height: 100vh;
+
     overflow: hidden;
+
     background: #000;
+
 }
 
 #screen {
+
     position: absolute;
+
     inset: 0;
 
     width: 100%;
@@ -40,61 +62,71 @@ body {
     object-fit: contain;
 
     user-select: none;
+
 }
 
-/* =====================================================
+
+/* =========================================================
    BOTÕES INVISÍVEIS
-===================================================== */
+========================================================= */
 
 .hotspot {
+
     position: absolute;
 
     border: none;
-    outline: none;
 
     background: transparent;
 
     cursor: pointer;
 
     z-index: 20;
+
 }
+
 
 /* INÍCIO */
 
 #playHot {
+
     left: 25%;
     top: 70%;
 
     width: 50%;
     height: 25%;
+
 }
 
 
 /* REGRAS */
 
 #rulesHot {
+
     left: 0;
     top: 0;
 
     width: 100%;
     height: 100%;
+
 }
 
 
 /* ENTRAR */
 
 #enterHot {
+
     left: 69%;
     top: 20%;
 
     width: 25%;
     height: 18%;
+
 }
 
 
-/* =====================================================
-   CAMPO DE NOME
-===================================================== */
+/* =========================================================
+   NOME
+========================================================= */
 
 #nameBox {
 
@@ -110,30 +142,34 @@ body {
 
     z-index: 30;
 
-    border: 3px solid white;
+    border: 3px solid #fff;
+
     border-radius: 10px;
 
     background: rgba(0,0,0,.85);
 
-    color: white;
+    color: #fff;
 
     text-align: center;
 
-    font-size: clamp(18px, 2vw, 32px);
+    font-size: clamp(18px,2vw,32px);
 
     font-weight: bold;
 
     outline: none;
+
 }
 
 #nameBox::placeholder {
+
     color: #ddd;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    RESPOSTAS
-===================================================== */
+========================================================= */
 
 .answer {
 
@@ -148,6 +184,7 @@ body {
     background: transparent;
 
     cursor: pointer;
+
 }
 
 
@@ -160,6 +197,7 @@ body {
 
     width: 43.8%;
     height: 6.5%;
+
 }
 
 
@@ -172,6 +210,7 @@ body {
 
     width: 43.8%;
     height: 6.5%;
+
 }
 
 
@@ -184,6 +223,7 @@ body {
 
     width: 43.8%;
     height: 6.5%;
+
 }
 
 
@@ -196,21 +236,22 @@ body {
 
     width: 43.8%;
     height: 6.5%;
+
 }
 
 
-/* =====================================================
-   MENSAGEM DE ERRO
-===================================================== */
+/* =========================================================
+   STATUS
+========================================================= */
 
-#audioError {
+#status {
 
     display: none;
 
     position: absolute;
 
     left: 50%;
-    bottom: 20px;
+    bottom: 15px;
 
     transform: translateX(-50%);
 
@@ -218,33 +259,32 @@ body {
 
     max-width: 90%;
 
-    padding: 12px 20px;
+    padding: 10px 18px;
 
     border-radius: 8px;
 
     background: rgba(180,0,0,.95);
 
-    color: white;
+    color: #fff;
 
-    font-family: Arial, sans-serif;
+    font-family: Arial,sans-serif;
 
     font-size: 14px;
 
     text-align: center;
+
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
 <div id="game">
 
-
-    <!-- =================================================
-         TELA
-    ================================================== -->
 
     <img
         id="screen"
@@ -252,10 +292,6 @@ body {
         alt="Guima Show"
     >
 
-
-    <!-- =================================================
-         BOTÕES
-    ================================================== -->
 
     <button
         id="playHot"
@@ -278,10 +314,6 @@ body {
     ></button>
 
 
-    <!-- =================================================
-         NOME
-    ================================================== -->
-
     <input
         id="nameBox"
         type="text"
@@ -290,10 +322,6 @@ body {
         autocomplete="off"
     >
 
-
-    <!-- =================================================
-         RESPOSTAS
-    ================================================== -->
 
     <button
         id="answerA"
@@ -323,16 +351,14 @@ body {
     ></button>
 
 
-    <!-- =================================================
-         ERRO DE ÁUDIO
-    ================================================== -->
+    <div id="status"></div>
 
-    <div id="audioError"></div>
 
 </div>
 
 
 <script>
+
 
 /* =========================================================
    ELEMENTOS
@@ -353,6 +379,10 @@ const enterHot =
 const nameBox =
     document.getElementById("nameBox");
 
+const statusBox =
+    document.getElementById("status");
+
+
 const answerButtons = [
 
     document.getElementById("answerA"),
@@ -365,75 +395,546 @@ const answerButtons = [
 
 ];
 
-const audioError =
-    document.getElementById("audioError");
-
 
 /* =========================================================
-   ÁUDIOS
+   CONFIGURAÇÃO DO GITHUB
 ========================================================= */
 
-const AUDIO = {
-
-    inicio:
-        "Vai começar o show do milhao.mp3",
-
-    participante:
-        "Vamos conhecer nosso participante.mp3",
-
-    boaSorte:
-        "Boa Sorte.mp3",
-
-    valor1:
-        "1 Mil.mp3",
-
-    valor5:
-        "5 mil.mp3",
-
-    valor10:
-        "10 mil.mp3",
-
-    valor30:
-        "30 mil.mp3",
-
-    valor50:
-        "50 mil.mp3",
-
-    valor100:
-        "1000 mil.mp3",
-
-    valor200:
-        "2000 mil.mp3",
-
-    valor400:
-        "4000 mil.mp3",
-
-    valor500:
-        "5000 mil.mp3",
-
-    valor1M:
-        "1000 mil.mp3",
-
-    suspense:
-        "Música suspense de perguntas.mp3",
-
-    certa:
-        "certa resposta.mp3",
-
-    errada:
-        "Que pena vc errou.mp3",
-
-    moeda:
-        "Moeda caindo quando perde.mp3",
-
-    final:
-        "Parabens vc ganhou 1mila de reais.mp3"
-
-};
+const GITHUB_API =
+    "https://api.github.com/repos/Fernandohsanto/trilhar-game/contents/";
 
 
 /* =========================================================
-   IMAGENS DOS VALORES
+   ÁUDIOS ENCONTRADOS NO GITHUB
+========================================================= */
+
+let AUDIO = {};
+
+let audioReady = false;
+
+let currentAudio = null;
+
+
+/* =========================================================
+   NORMALIZA NOME
+========================================================= */
+
+function normalizeName(text) {
+
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "");
+
+}
+
+
+/* =========================================================
+   BUSCAR TODOS OS ARQUIVOS DO GITHUB
+========================================================= */
+
+async function loadAudioFiles() {
+
+    try {
+
+        const response =
+            await fetch(GITHUB_API, {
+                cache: "no-store"
+            });
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "GitHub API: " +
+                response.status
+            );
+
+        }
+
+
+        const files =
+            await response.json();
+
+
+        const mp3Files =
+            files.filter(function(file) {
+
+                return (
+                    file.type === "file" &&
+                    file.name
+                        .toLowerCase()
+                        .endsWith(".mp3")
+                );
+
+            });
+
+
+        console.log(
+            "MP3 encontrados:",
+            mp3Files
+        );
+
+
+        /*
+           Função que procura um áudio
+           pelas palavras do nome.
+        */
+
+        function findAudio(words) {
+
+            const wanted =
+                words.map(function(word) {
+
+                    return normalizeName(word);
+
+                });
+
+
+            const found =
+                mp3Files.find(function(file) {
+
+                    const name =
+                        normalizeName(file.name);
+
+
+                    return wanted.every(
+                        function(word) {
+
+                            return name.includes(word);
+
+                        }
+                    );
+
+                });
+
+
+            if (!found) {
+
+                console.error(
+                    "Áudio não encontrado:",
+                    words
+                );
+
+                return null;
+
+            }
+
+
+            console.log(
+                "Áudio localizado:",
+                found.name,
+                found.download_url
+            );
+
+
+            return found.download_url;
+
+        }
+
+
+        /* =================================================
+           LOCALIZA CADA ÁUDIO
+        ================================================= */
+
+
+        AUDIO.inicio =
+            findAudio([
+                "vai",
+                "comecar",
+                "show",
+                "milhao"
+            ]);
+
+
+        AUDIO.participante =
+            findAudio([
+                "vamos",
+                "participante"
+            ]);
+
+
+        AUDIO.boaSorte =
+            findAudio([
+                "boa",
+                "sorte"
+            ]);
+
+
+        AUDIO.valor1 =
+            findAudio([
+                "1",
+                "mil"
+            ]);
+
+
+        AUDIO.valor5 =
+            findAudio([
+                "5",
+                "mil"
+            ]);
+
+
+        AUDIO.valor10 =
+            findAudio([
+                "10",
+                "mil"
+            ]);
+
+
+        AUDIO.valor30 =
+            findAudio([
+                "30",
+                "mil"
+            ]);
+
+
+        AUDIO.valor50 =
+            findAudio([
+                "50",
+                "mil"
+            ]);
+
+
+        AUDIO.valor100 =
+            findAudio([
+                "1000",
+                "mil"
+            ]);
+
+
+        AUDIO.valor200 =
+            findAudio([
+                "2000",
+                "mil"
+            ]);
+
+
+        AUDIO.valor400 =
+            findAudio([
+                "4000",
+                "mil"
+            ]);
+
+
+        AUDIO.valor500 =
+            findAudio([
+                "5000",
+                "mil"
+            ]);
+
+
+        /*
+           Para 1 milhão procuramos
+           especificamente "milhao".
+
+           Assim não confundimos com
+           "1000 mil".
+        */
+
+        AUDIO.valor1M =
+            findAudio([
+                "milhao"
+            ]);
+
+
+        AUDIO.suspense =
+            findAudio([
+                "suspense",
+                "perguntas"
+            ]);
+
+
+        AUDIO.certa =
+            findAudio([
+                "certa",
+                "resposta"
+            ]);
+
+
+        AUDIO.errada =
+            findAudio([
+                "que",
+                "pena",
+                "errou"
+            ]);
+
+
+        AUDIO.moeda =
+            findAudio([
+                "moeda",
+                "caindo"
+            ]);
+
+
+        AUDIO.final =
+            findAudio([
+                "parabens",
+                "ganhou"
+            ]);
+
+
+        audioReady = true;
+
+
+        console.log(
+            "MAPA DE ÁUDIOS:",
+            AUDIO
+        );
+
+
+    } catch(error) {
+
+        console.error(
+            "Erro ao consultar GitHub:",
+            error
+        );
+
+
+        showStatus(
+            "Não consegui acessar os áudios do GitHub."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function showStatus(message) {
+
+    statusBox.innerText =
+        message;
+
+    statusBox.style.display =
+        "block";
+
+}
+
+
+function hideStatus() {
+
+    statusBox.style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   ESCONDER ELEMENTOS
+========================================================= */
+
+function hideAll() {
+
+    playHot.style.display =
+        "none";
+
+    rulesHot.style.display =
+        "none";
+
+    enterHot.style.display =
+        "none";
+
+    nameBox.style.display =
+        "none";
+
+
+    answerButtons.forEach(
+        function(button) {
+
+            button.style.display =
+                "none";
+
+            button.style.pointerEvents =
+                "none";
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PARAR ÁUDIO
+========================================================= */
+
+function stopAudio() {
+
+    if (currentAudio) {
+
+        currentAudio.pause();
+
+        currentAudio.currentTime =
+            0;
+
+        currentAudio =
+            null;
+
+    }
+
+}
+
+
+/* =========================================================
+   TOCAR ÁUDIO
+========================================================= */
+
+function playAudio(
+    url,
+    callback
+) {
+
+
+    stopAudio();
+
+
+    if (!url) {
+
+        console.error(
+            "URL de áudio inexistente."
+        );
+
+
+        showStatus(
+            "Este áudio não foi encontrado no GitHub."
+        );
+
+
+        if (callback) {
+
+            callback();
+
+        }
+
+        return;
+
+    }
+
+
+    console.log(
+        "TOCANDO:",
+        url
+    );
+
+
+    const audio =
+        new Audio(url);
+
+
+    currentAudio =
+        audio;
+
+
+    audio.preload =
+        "auto";
+
+
+    audio.addEventListener(
+        "ended",
+        function() {
+
+            currentAudio =
+                null;
+
+
+            if (callback) {
+
+                callback();
+
+            }
+
+        }
+    );
+
+
+    audio.addEventListener(
+        "error",
+        function(event) {
+
+            console.error(
+                "Erro no áudio:",
+                url,
+                event
+            );
+
+
+            currentAudio =
+                null;
+
+
+            showStatus(
+                "Erro ao reproduzir o áudio."
+            );
+
+        }
+    );
+
+
+    audio.play()
+        .then(function() {
+
+            console.log(
+                "ÁUDIO TOCANDO!"
+            );
+
+        })
+        .catch(function(error) {
+
+            console.error(
+                "Falha no play:",
+                error
+            );
+
+
+            showStatus(
+                "O navegador bloqueou o áudio."
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   TROCAR TELA
+========================================================= */
+
+function showScreen(file) {
+
+    screen.src =
+        file;
+
+}
+
+
+/* =========================================================
+   TELAS
+========================================================= */
+
+function showStart() {
+
+    stopAudio();
+
+    hideAll();
+
+    hideStatus();
+
+    showScreen(
+        "inicio.png"
+    );
+
+    playHot.style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   VALORES
 ========================================================= */
 
 const VALUES = [
@@ -491,14 +992,42 @@ const QUESTIONS = [
 
 
 /* =========================================================
-   RESPOSTAS CORRETAS
-=========================================================
+   ÁUDIO DOS VALORES
+========================================================= */
 
-A = 1
-B = 2
-C = 3
-D = 4
+function getValueAudio(index) {
 
+    const list = [
+
+        AUDIO.valor1,
+
+        AUDIO.valor5,
+
+        AUDIO.valor10,
+
+        AUDIO.valor30,
+
+        AUDIO.valor50,
+
+        AUDIO.valor100,
+
+        AUDIO.valor200,
+
+        AUDIO.valor400,
+
+        AUDIO.valor500,
+
+        AUDIO.valor1M
+
+    ];
+
+    return list[index];
+
+}
+
+
+/* =========================================================
+   RESPOSTAS
 ========================================================= */
 
 const CORRECT = [
@@ -517,294 +1046,15 @@ const CORRECT = [
 ];
 
 
-/* =========================================================
-   ÁUDIO DOS VALORES
-========================================================= */
+let currentQuestion =
+    0;
 
-const VALUE_AUDIO = [
-
-    AUDIO.valor1,
-
-    AUDIO.valor5,
-
-    AUDIO.valor10,
-
-    AUDIO.valor30,
-
-    AUDIO.valor50,
-
-    AUDIO.valor100,
-
-    AUDIO.valor200,
-
-    AUDIO.valor400,
-
-    AUDIO.valor500,
-
-    AUDIO.valor1M
-
-];
+let answering =
+    false;
 
 
 /* =========================================================
-   CONTROLE
-========================================================= */
-
-let currentQuestion = 0;
-
-let currentAudio = null;
-
-let answering = false;
-
-
-/* =========================================================
-   FUNÇÃO PARA CRIAR O CAMINHO DO ARQUIVO
-=========================================================
-
-IMPORTANTE:
-
-Não escrevemos manualmente:
-
-%20
-%C3%A7
-%C3%BA
-
-O navegador faz isso automaticamente.
-
-========================================================= */
-
-function fileURL(filename) {
-
-    return "./" + encodeURI(filename);
-
-}
-
-
-/* =========================================================
-   ESCONDER TUDO
-========================================================= */
-
-function hideAll() {
-
-    playHot.style.display = "none";
-
-    rulesHot.style.display = "none";
-
-    enterHot.style.display = "none";
-
-    nameBox.style.display = "none";
-
-
-    answerButtons.forEach(function(button) {
-
-        button.style.display = "none";
-
-        button.style.pointerEvents = "none";
-
-    });
-
-}
-
-
-/* =========================================================
-   PARAR ÁUDIO
-========================================================= */
-
-function stopAudio() {
-
-    if (currentAudio) {
-
-        currentAudio.pause();
-
-        currentAudio.currentTime = 0;
-
-        currentAudio = null;
-
-    }
-
-}
-
-
-/* =========================================================
-   ERRO
-========================================================= */
-
-function hideAudioError() {
-
-    audioError.style.display = "none";
-
-    audioError.textContent = "";
-
-}
-
-
-function showAudioError(file) {
-
-    audioError.textContent =
-        "Não consegui carregar: " + file;
-
-    audioError.style.display = "block";
-
-}
-
-
-/* =========================================================
-   TOCAR ÁUDIO
-========================================================= */
-
-function playAudio(file, callback) {
-
-    stopAudio();
-
-    hideAudioError();
-
-
-    const audio =
-        new Audio();
-
-
-    currentAudio =
-        audio;
-
-
-    audio.preload =
-        "auto";
-
-
-    /*
-       Aqui está a correção importante.
-
-       O nome normal do arquivo é passado para
-       encodeURI(), que transforma corretamente:
-
-       espaço
-       ç
-       ã
-       ú
-       etc.
-
-       em uma URL válida.
-    */
-
-    audio.src =
-        fileURL(file);
-
-
-    console.log(
-        "Carregando áudio:",
-        audio.src
-    );
-
-
-    audio.addEventListener(
-        "ended",
-        function() {
-
-            if (currentAudio === audio) {
-
-                currentAudio = null;
-
-            }
-
-            if (callback) {
-
-                callback();
-
-            }
-
-        }
-    );
-
-
-    audio.addEventListener(
-        "error",
-        function() {
-
-            console.error(
-                "ERRO NO ÁUDIO:",
-                audio.src
-            );
-
-
-            if (currentAudio === audio) {
-
-                currentAudio = null;
-
-            }
-
-
-            showAudioError(file);
-
-        }
-    );
-
-
-    audio.play()
-        .then(function() {
-
-            console.log(
-                "Áudio reproduzindo:",
-                file
-            );
-
-        })
-        .catch(function(error) {
-
-            console.error(
-                "Navegador bloqueou o áudio:",
-                error
-            );
-
-
-            showAudioError(file);
-
-        });
-
-}
-
-
-/* =========================================================
-   TROCAR IMAGEM
-========================================================= */
-
-function showScreen(file) {
-
-    screen.src =
-        file;
-
-}
-
-
-/* =========================================================
-   TELA INICIAL
-========================================================= */
-
-function showStart() {
-
-    stopAudio();
-
-    hideAll();
-
-    hideAudioError();
-
-
-    showScreen(
-        "inicio.png"
-    );
-
-
-    playHot.style.display =
-        "block";
-
-}
-
-
-/* =========================================================
-   INÍCIO DO JOGO
-=========================================================
-
-O áudio começa somente depois do clique.
-
+   INÍCIO
 ========================================================= */
 
 playHot.addEventListener(
@@ -814,14 +1064,14 @@ playHot.addEventListener(
 
         hideAll();
 
+        hideStatus();
+
 
         /*
            IMPORTANTE:
 
-           O play acontece diretamente dentro
-           do clique do usuário.
-
-           Isso evita bloqueio de autoplay.
+           Este play acontece diretamente
+           dentro do clique do usuário.
         */
 
         playAudio(
@@ -830,16 +1080,9 @@ playHot.addEventListener(
 
             function() {
 
-
-                /*
-                   Quando o áudio acabar,
-                   entra nas regras.
-                */
-
                 showScreen(
                     "regras.png"
                 );
-
 
                 rulesHot.style.display =
                     "block";
@@ -861,12 +1104,7 @@ rulesHot.addEventListener(
     function() {
 
 
-        stopAudio();
-
         hideAll();
-
-        hideAudioError();
-
 
         showScreen(
             "entrar.png"
@@ -884,12 +1122,6 @@ rulesHot.addEventListener(
         nameBox.focus();
 
 
-        /*
-           Áudio:
-
-           Vamos conhecer nosso participante
-        */
-
         playAudio(
             AUDIO.participante
         );
@@ -904,23 +1136,17 @@ rulesHot.addEventListener(
 
 enterHot.addEventListener(
     "click",
-    function() {
-
-        submitName();
-
-    }
+    submitName
 );
 
-
-/* =========================================================
-   ENTER NO NOME
-========================================================= */
 
 nameBox.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "Enter") {
+        if (
+            event.key === "Enter"
+        ) {
 
             submitName();
 
@@ -930,18 +1156,14 @@ nameBox.addEventListener(
 );
 
 
-/* =========================================================
-   ENVIAR NOME
-========================================================= */
-
 function submitName() {
 
 
-    const playerName =
+    const name =
         nameBox.value.trim();
 
 
-    if (!playerName) {
+    if (!name) {
 
         nameBox.focus();
 
@@ -952,19 +1174,12 @@ function submitName() {
 
     localStorage.setItem(
         "trilhar_player_name",
-        playerName
+        name
     );
 
 
     hideAll();
 
-
-    /*
-       Boa Sorte.
-
-       Depois do áudio:
-       primeira tela de valor.
-    */
 
     playAudio(
 
@@ -982,7 +1197,7 @@ function submitName() {
 
 
 /* =========================================================
-   TELA DO VALOR
+   VALOR
 ========================================================= */
 
 function showValueScreen(index) {
@@ -991,8 +1206,6 @@ function showValueScreen(index) {
     stopAudio();
 
     hideAll();
-
-    hideAudioError();
 
 
     currentQuestion =
@@ -1004,16 +1217,9 @@ function showValueScreen(index) {
     );
 
 
-    /*
-       Toca o áudio do valor.
-
-       Quando acabar:
-       pergunta.
-    */
-
     playAudio(
 
-        VALUE_AUDIO[index],
+        getValueAudio(index),
 
         function() {
 
@@ -1036,8 +1242,6 @@ function showQuestion(index) {
     stopAudio();
 
     hideAll();
-
-    hideAudioError();
 
 
     answering =
@@ -1062,10 +1266,6 @@ function showQuestion(index) {
     );
 
 
-    /*
-       Suspense.
-    */
-
     playAudio(
         AUDIO.suspense
     );
@@ -1074,17 +1274,15 @@ function showQuestion(index) {
 
 
 /* =========================================================
-   BOTÕES DE RESPOSTA
+   RESPOSTAS
 ========================================================= */
 
 answerButtons.forEach(
-    function(button, index) {
-
+    function(button,index) {
 
         button.addEventListener(
             "click",
             function() {
-
 
                 answer(
                     index + 1
@@ -1136,7 +1334,9 @@ function answer(selected) {
        ACERTO
     ===================================================== */
 
-    if (selected === correct) {
+    if (
+        selected === correct
+    ) {
 
 
         playAudio(
@@ -1147,14 +1347,12 @@ function answer(selected) {
 
 
                 /*
-                   Pergunta 10:
-                   final.
+                   Última pergunta.
                 */
 
                 if (
                     currentQuestion === 9
                 ) {
-
 
                     showFinal();
 
@@ -1162,10 +1360,6 @@ function answer(selected) {
 
                 }
 
-
-                /*
-                   Próxima.
-                */
 
                 currentQuestion++;
 
@@ -1203,10 +1397,6 @@ function answer(selected) {
             );
 
 
-            /*
-               Som da moeda.
-            */
-
             playAudio(
 
                 AUDIO.moeda,
@@ -1215,8 +1405,8 @@ function answer(selected) {
 
 
                     /*
-                       Volta para a MESMA
-                       pergunta.
+                       Retorna para a
+                       mesma pergunta.
                     */
 
                     showQuestion(
@@ -1245,17 +1435,13 @@ function showFinal() {
 
     hideAll();
 
-    hideAudioError();
+    hideStatus();
 
 
     showScreen(
-        "parabenos.png"
+        "parabens.png"
     );
 
-
-    /*
-       Parabéns!
-    */
 
     playAudio(
         AUDIO.final
@@ -1265,12 +1451,24 @@ function showFinal() {
 
 
 /* =========================================================
-   INICIAR
+   INICIALIZAÇÃO
 ========================================================= */
 
 showStart();
 
+
+/*
+   Começa a localizar os MP3
+   imediatamente.
+
+   Não tenta reproduzir nada
+   automaticamente.
+*/
+
+loadAudioFiles();
+
 </script>
 
 </body>
+
 </html>
