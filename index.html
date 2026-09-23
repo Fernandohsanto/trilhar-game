@@ -37,34 +37,20 @@ body {
     overflow: hidden;
 }
 
-
-/* =========================================================
-   TELAS
-========================================================= */
-
 .screen {
     position: absolute;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     display: none;
-
     justify-content: center;
     align-items: center;
-
     background: #000;
 }
 
 .screen.active {
     display: flex;
 }
-
-
-/* =========================================================
-   IMAGENS
-========================================================= */
 
 .screen > img {
     width: 100%;
@@ -92,29 +78,16 @@ body {
 
 
 /* =========================================================
-   TELA "VAMOS CONHECER NOSSO PARTICIPANTE"
-   
-   ESTA É A TELA DA IMAGEM:
-   GUIMA SHOW
-   ENTRAR
-   SAIR
-   VOLTAR
+   TELA DO PARTICIPANTE
 ========================================================= */
 
 #participantScreen {
     position: relative;
 }
 
-
-/*
-   A imagem correta da tela é tela1.png.
-*/
-
 #participantBackground {
     position: absolute;
-
-    left: 0;
-    top: 0;
+    inset: 0;
 
     width: 100%;
     height: 100%;
@@ -125,29 +98,22 @@ body {
 }
 
 
-/* =========================================================
-   BOTÃO INVISÍVEL "ENTRAR" DA PRÓPRIA IMAGEM
-========================================================= */
+/*
+   Área invisível sobre o botão ENTRAR
+   existente dentro da imagem tela1.png.
+*/
 
 #enterHotspot {
 
     position: absolute;
 
-    /*
-       Área correspondente ao botão ENTRAR
-       da imagem tela1.png.
-    */
-
     right: 5%;
-
     top: 12%;
 
     width: 28%;
-
     height: 15%;
 
     border: none;
-
     background: transparent;
 
     cursor: pointer;
@@ -163,6 +129,7 @@ body {
 ========================================================= */
 
 #nameScreen {
+
     position: absolute;
     inset: 0;
 
@@ -179,7 +146,6 @@ body {
 #nameScreen.active {
     display: flex;
 }
-
 
 #nameBackground {
 
@@ -199,7 +165,6 @@ body {
     position: absolute;
 
     left: 50%;
-
     bottom: 7%;
 
     transform: translateX(-50%);
@@ -207,7 +172,6 @@ body {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     gap: 12px;
@@ -266,33 +230,33 @@ body {
 
 
 /* =========================================================
-   VALOR
+   VALORES
 ========================================================= */
 
 #valueScreen img {
+
     width: 100%;
     height: 100%;
+
     object-fit: contain;
 }
 
 
 /* =========================================================
-   PERGUNTA
+   PERGUNTAS
 ========================================================= */
 
 #questionScreen {
 
-    background: #000;
-
     position: absolute;
-
     inset: 0;
 
     display: none;
 
     justify-content: center;
-
     align-items: center;
+
+    background: #000;
 }
 
 #questionScreen.active {
@@ -305,11 +269,9 @@ body {
     position: relative;
 
     width: 100vw;
-
     height: 56.25vw;
 
     max-width: 177.777vh;
-
     max-height: 100vh;
 
     aspect-ratio: 16 / 9;
@@ -333,7 +295,7 @@ body {
 
 
 /* =========================================================
-   ÁREAS INVISÍVEIS DAS ALTERNATIVAS
+   ÁREAS INVISÍVEIS DAS RESPOSTAS
 ========================================================= */
 
 #answerHotspots {
@@ -341,17 +303,14 @@ body {
     position: absolute;
 
     left: 7.3%;
-
     top: 37.5%;
 
     width: 43%;
-
     height: 33%;
 
     display: grid;
 
     grid-template-columns: 1fr;
-
     grid-template-rows: repeat(4, 1fr);
 
     gap: 4%;
@@ -363,7 +322,6 @@ body {
 .answerHotspot {
 
     border: none;
-
     outline: none;
 
     background: transparent;
@@ -375,7 +333,7 @@ body {
 
 
 /* =========================================================
-   PARTICIPANTE
+   NOME DO PARTICIPANTE
 ========================================================= */
 
 #playerDisplay {
@@ -383,7 +341,6 @@ body {
     position: absolute;
 
     top: 2%;
-
     left: 50%;
 
     transform: translateX(-50%);
@@ -415,7 +372,6 @@ body {
 #resultScreen {
 
     position: absolute;
-
     inset: 0;
 
     background: #000;
@@ -427,7 +383,6 @@ body {
 #resultImage {
 
     width: 100%;
-
     height: 100%;
 
     object-fit: contain;
@@ -443,7 +398,6 @@ body {
     position: absolute;
 
     left: 50%;
-
     bottom: 5%;
 
     transform: translateX(-50%);
@@ -451,7 +405,6 @@ body {
     padding: 15px 35px;
 
     border: none;
-
     border-radius: 10px;
 
     background: #00a651;
@@ -509,6 +462,7 @@ body {
 
         text-overflow: ellipsis;
     }
+
 }
 
 </style>
@@ -521,7 +475,7 @@ body {
 
 
     <!-- =====================================================
-         TELA INICIAL
+         TELA 1 — INÍCIO
     ====================================================== -->
 
     <div
@@ -538,7 +492,7 @@ body {
 
 
     <!-- =====================================================
-         REGRAS
+         TELA 2 — REGRAS
     ====================================================== -->
 
     <div
@@ -555,8 +509,7 @@ body {
 
 
     <!-- =====================================================
-         TELA CORRETA:
-         GUIMA SHOW / ENTRAR / SAIR / VOLTAR
+         TELA 3 — VAMOS CONHECER O PARTICIPANTE
     ====================================================== -->
 
     <div
@@ -570,12 +523,6 @@ body {
             alt="Guima Show"
         >
 
-
-        <!--
-            Botão invisível sobre o ENTRAR
-            que já existe dentro da imagem.
-        -->
-
         <button
             id="enterHotspot"
             type="button"
@@ -586,7 +533,7 @@ body {
 
 
     <!-- =====================================================
-         DIGITAR NOME
+         TELA 4 — DIGITAR NOME
     ====================================================== -->
 
     <div
@@ -599,7 +546,6 @@ body {
             src="entrar.png"
             alt="Entrada do participante"
         >
-
 
         <div class="nameControls">
 
@@ -624,7 +570,7 @@ body {
 
 
     <!-- =====================================================
-         VALOR
+         TELA DE VALOR
     ====================================================== -->
 
     <div
@@ -642,7 +588,7 @@ body {
 
 
     <!-- =====================================================
-         PERGUNTA
+         TELA DE PERGUNTA
     ====================================================== -->
 
     <div
@@ -657,7 +603,6 @@ body {
                 src=""
                 alt="Pergunta"
             >
-
 
             <div id="answerHotspots">
 
@@ -1048,7 +993,9 @@ function showScreen(id) {
 
 
 /* =========================================================
-   INÍCIO
+   TELA 1
+   ÁUDIO PRIMEIRO.
+   SÓ MUDA PARA A TELA 2 QUANDO TERMINAR.
 ========================================================= */
 
 startScreen.addEventListener(
@@ -1056,17 +1003,27 @@ startScreen.addEventListener(
     function() {
 
         /*
-           Primeiro áudio:
-           Vai começar o Show do Milhão.
+           A PRIMEIRA TELA CONTINUA VISÍVEL.
+
+           O áudio começa aqui.
+
+           A tela NÃO muda imediatamente.
         */
 
         playAudio(
-            "Vai comecar o show do milhao.mp3"
-        );
+            "Vai comecar o show do milhao.mp3",
+            function() {
 
+                /*
+                   SOMENTE QUANDO O ÁUDIO TERMINAR
+                   passa para as regras.
+                */
 
-        showScreen(
-            "rulesScreen"
+                showScreen(
+                    "rulesScreen"
+                );
+
+            }
         );
 
     }
@@ -1074,7 +1031,7 @@ startScreen.addEventListener(
 
 
 /* =========================================================
-   REGRAS
+   TELA 2 — REGRAS
 ========================================================= */
 
 rulesScreen.addEventListener(
@@ -1082,15 +1039,20 @@ rulesScreen.addEventListener(
     function() {
 
         /*
-           AGORA O ÁUDIO "VAMOS CONHECER
-           NOSSO PARTICIPANTE" TOCA NA
-           TELA CORRETA: tela1.png.
+           Vai para a tela correta
+           do Guima Show.
         */
 
         showScreen(
             "participantScreen"
         );
 
+
+        /*
+           O áudio toca enquanto
+           a tela do participante
+           está sendo mostrada.
+        */
 
         playAudio(
             "Vamos conhecer nosso participante.mp3"
@@ -1101,7 +1063,7 @@ rulesScreen.addEventListener(
 
 
 /* =========================================================
-   BOTÃO ENTRAR DA TELA GUIMA SHOW
+   TELA 3 — BOTÃO ENTRAR
 ========================================================= */
 
 enterHotspot.addEventListener(
@@ -1110,15 +1072,9 @@ enterHotspot.addEventListener(
 
         stopAudio();
 
-
-        /*
-           Abre a tela para digitar o nome.
-        */
-
         showScreen(
             "nameScreen"
         );
-
 
         setTimeout(
             function() {
@@ -1197,10 +1153,6 @@ function startGame() {
     stopAudio();
 
 
-    /*
-       Boa Sorte.
-    */
-
     playAudio(
         "Boa Sorte.mp3",
         function() {
@@ -1216,7 +1168,7 @@ function startGame() {
 
 
 /* =========================================================
-   MOSTRAR VALOR
+   VALOR
 ========================================================= */
 
 function showValue() {
@@ -1272,7 +1224,7 @@ function showValue() {
 
 
 /* =========================================================
-   MOSTRAR PERGUNTA
+   PERGUNTA
 ========================================================= */
 
 function showQuestion() {
@@ -1384,7 +1336,7 @@ answerHotspots.forEach(
 
 
 /* =========================================================
-   CERTA
+   RESPOSTA CERTA
 ========================================================= */
 
 function correctAnswer() {
@@ -1419,7 +1371,7 @@ function correctAnswer() {
 
 
 /* =========================================================
-   ERRADA
+   RESPOSTA ERRADA
 ========================================================= */
 
 function wrongAnswer() {
@@ -1474,7 +1426,7 @@ function showLostScreen() {
 
 
 /* =========================================================
-   VOLTAR PARA A MESMA PERGUNTA
+   VOLTAR À MESMA PERGUNTA
 ========================================================= */
 
 continueButton.addEventListener(
@@ -1522,7 +1474,7 @@ function showFinalWin() {
 
 
 /* =========================================================
-   PRÉ-CARREGAMENTO
+   PRÉ-CARREGAR IMAGENS
 ========================================================= */
 
 questions.forEach(
@@ -1542,7 +1494,7 @@ questions.forEach(
 
 
 /* =========================================================
-   LOG
+   CONSOLE
 ========================================================= */
 
 console.log(
@@ -1550,7 +1502,7 @@ console.log(
 );
 
 console.log(
-    "Tela do participante: tela1.png"
+    "Fluxo: Início > Áudio > Regras > Participante > Nome > Jogo"
 );
 
 console.log(
