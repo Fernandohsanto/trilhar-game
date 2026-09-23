@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trilhar - Visão de Dono</title>
+<title>Guima Show - Trilhar Visão de Dono</title>
 
 <style>
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -36,322 +37,554 @@ body {
     overflow: hidden;
 }
 
+/* =========================================================
+   TELAS
+========================================================= */
+
 .screen {
     position: absolute;
     inset: 0;
-    display: none;
+
     width: 100%;
     height: 100%;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background: #000;
 }
 
 .screen.active {
     display: flex;
 }
 
-.screen img {
+
+/* =========================================================
+   IMAGENS
+========================================================= */
+
+.fullImage {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-/* =========================
+
+/* =========================================================
    TELA INICIAL
-========================= */
+========================================================= */
 
 #startScreen {
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
 }
 
 #startScreen img {
-    object-fit: cover;
-}
-
-/* =========================
-   REGRAS
-========================= */
-
-#rulesScreen {
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-/* =========================
-   PARTICIPANTE
-========================= */
-
-#participantScreen {
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: #000;
-}
-
-.participantBox {
-    position: absolute;
-    width: min(700px, 85vw);
-    text-align: center;
-}
-
-.participantBox img {
     width: 100%;
-    max-height: 65vh;
+    height: 100%;
     object-fit: contain;
 }
 
-.nameArea {
-    margin-top: 20px;
+
+/* =========================================================
+   TELA DE REGRAS
+========================================================= */
+
+#rulesScreen {
+    cursor: pointer;
+}
+
+#rulesScreen img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   PARTICIPANTE
+========================================================= */
+
+#participantScreen {
+    flex-direction: column;
+    position: relative;
+}
+
+#participantScreen img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.participantControls {
+    position: absolute;
+
+    left: 50%;
+    bottom: 7%;
+
+    transform: translateX(-50%);
+
     display: flex;
-    justify-content: center;
     gap: 12px;
+
+    z-index: 10;
 }
 
 #playerName {
-    width: min(450px, 70vw);
-    padding: 18px 20px;
-    border-radius: 12px;
+    width: 400px;
+
+    padding: 16px 20px;
+
+    border-radius: 10px;
     border: 3px solid #fff;
-    font-size: 25px;
+
+    background: rgba(0,0,0,0.85);
+
+    color: #fff;
+
+    font-size: 22px;
+
     text-align: center;
+
     outline: none;
 }
 
+#playerName::placeholder {
+    color: #ddd;
+}
+
 #enterButton {
-    padding: 18px 30px;
+    padding: 16px 28px;
+
     border: 0;
-    border-radius: 12px;
+    border-radius: 10px;
+
     background: #00a651;
-    color: white;
-    font-size: 23px;
+
+    color: #fff;
+
+    font-size: 21px;
     font-weight: bold;
+
     cursor: pointer;
 }
 
 #enterButton:hover {
-    background: #008c45;
+    background: #008f45;
 }
 
-/* =========================
-   VALOR
-========================= */
 
-#valueScreen {
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+/* =========================================================
+   TELA DE VALOR
+========================================================= */
+
+#valueScreen img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-/* =========================
-   PERGUNTA
-========================= */
+
+/* =========================================================
+   ÁREA DA PERGUNTA
+========================================================= */
 
 #questionScreen {
+    position: absolute;
+    inset: 0;
+
+    display: none;
+
     justify-content: center;
     align-items: center;
-    cursor: pointer;
+
+    background: #000;
+}
+
+#questionScreen.active {
+    display: flex;
+}
+
+
+/*
+    O palco mantém exatamente a proporção 16:9
+    da imagem original.
+*/
+
+.questionStage {
+
+    position: relative;
+
+    width: 100vw;
+    height: 56.25vw;
+
+    max-width: 177.777vh;
+    max-height: 100vh;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
 }
 
 #questionImage {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
     object-fit: contain;
 }
 
-/* =========================
+
+/* =========================================================
+   ÁREAS INVISÍVEIS SOBRE AS ALTERNATIVAS
+========================================================= */
+
+#answerHotspots {
+
+    position: absolute;
+
+    /*
+       Posição baseada na imagem original 16:9.
+       As áreas ficam sobre as alternativas
+       que já estão dentro da imagem.
+    */
+
+    left: 8.2%;
+    top: 37.8%;
+
+    width: 42%;
+
+    height: 32%;
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    grid-template-rows:
+        repeat(4, 1fr);
+
+    gap: 4.5%;
+
+    z-index: 20;
+}
+
+
+.answerHotspot {
+
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    opacity: 0;
+}
+
+
+/*
+   Não aparece nenhuma caixa.
+   O usuário enxerga somente a arte original.
+*/
+
+.answerHotspot:hover,
+.answerHotspot:focus,
+.answerHotspot:active {
+
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+
+/* =========================================================
+   NOME DO PARTICIPANTE
+========================================================= */
+
+#playerDisplay {
+
+    position: absolute;
+
+    top: 2%;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 100;
+
+    padding: 8px 20px;
+
+    background: rgba(0,0,0,0.65);
+
+    border-radius: 10px;
+
+    color: #fff;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    display: none;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
    RESULTADO
-========================= */
+========================================================= */
 
 #resultScreen {
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    inset: 0;
+
+    background: #000;
+
+    z-index: 50;
 }
 
 #resultImage {
+
+    width: 100%;
+    height: 100%;
+
     object-fit: contain;
 }
 
-/* =========================
-   BOTÕES DE RESPOSTA
-========================= */
 
-#answers {
+/* =========================================================
+   BOTÃO CONTINUAR
+========================================================= */
+
+#continueButton {
+
     position: absolute;
+
     left: 50%;
-    bottom: 7%;
+    bottom: 5%;
+
     transform: translateX(-50%);
-    width: min(1000px, 90vw);
 
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
+    padding: 15px 35px;
 
-.answer {
-    min-height: 75px;
-    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
 
-    border: 3px solid #fff;
-    border-radius: 18px;
+    background: #00a651;
 
-    background: rgba(0,0,0,0.75);
-    color: #fff;
+    color: white;
 
-    font-size: 23px;
+    font-size: 21px;
     font-weight: bold;
 
     cursor: pointer;
-    transition: 0.2s;
-}
-
-.answer:hover {
-    background: rgba(0,166,81,0.85);
-    transform: scale(1.02);
-}
-
-.answer.correct {
-    background: #00a651;
-}
-
-.answer.wrong {
-    background: #d00000;
-}
-
-/* =========================
-   CONTROLES
-========================= */
-
-#continueButton {
-    position: absolute;
-    left: 50%;
-    bottom: 4%;
-    transform: translateX(-50%);
 
     display: none;
 
-    padding: 16px 35px;
-
-    border: 0;
-    border-radius: 12px;
-
-    background: #00a651;
-    color: white;
-
-    font-size: 22px;
-    font-weight: bold;
-
-    cursor: pointer;
+    z-index: 100;
 }
 
 #continueButton:hover {
-    background: #008c45;
+    background: #008f45;
 }
 
-/* =========================
-   PARTICIPANTE
-========================= */
 
-#playerDisplay {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    z-index: 20;
-
-    padding: 10px 25px;
-
-    background: rgba(0,0,0,0.7);
-    border-radius: 10px;
-
-    color: white;
-
-    font-size: 24px;
-    font-weight: bold;
-
-    display: none;
-}
-
-/* =========================
+/* =========================================================
    RESPONSIVO
-========================= */
+========================================================= */
 
 @media (max-width: 800px) {
 
-    #answers {
-        width: 92vw;
-        gap: 10px;
-        bottom: 3%;
-    }
+    .participantControls {
 
-    .answer {
-        min-height: 60px;
-        padding: 10px;
-        font-size: 16px;
-        border-radius: 12px;
-    }
+        width: 90%;
 
-    .nameArea {
         flex-direction: column;
+
         align-items: center;
+
+        bottom: 5%;
     }
 
     #playerName {
-        width: 85vw;
-        font-size: 20px;
+
+        width: 100%;
+
+        font-size: 18px;
     }
 
     #enterButton {
-        width: 85vw;
-        font-size: 20px;
+
+        width: 100%;
+
+        font-size: 18px;
     }
+
+    #playerDisplay {
+
+        font-size: 16px;
+
+        max-width: 90%;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div id="game">
 
-    <!-- =========================
+
+    <!-- =====================================================
          TELA INICIAL
-    ========================== -->
+    ====================================================== -->
 
-    <div id="startScreen" class="screen active">
-        <img src="inicio.png" alt="Início">
+    <div
+        id="startScreen"
+        class="screen active"
+    >
+
+        <img
+            src="inicio.png"
+            alt="Início"
+        >
+
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          REGRAS
-    ========================== -->
+    ====================================================== -->
 
-    <div id="rulesScreen" class="screen">
-        <img src="regras.png" alt="Regras">
+    <div
+        id="rulesScreen"
+        class="screen"
+    >
+
+        <img
+            src="regras.png"
+            alt="Regras"
+        >
+
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          PARTICIPANTE
-    ========================== -->
+    ====================================================== -->
 
-    <div id="participantScreen" class="screen">
+    <div
+        id="participantScreen"
+        class="screen"
+    >
 
-        <div class="participantBox">
+        <img
+            src="tela1.png"
+            alt="Participante"
+        >
 
-            <img src="tela1.png" alt="Participante">
+        <div class="participantControls">
 
-            <div class="nameArea">
+            <input
+                id="playerName"
+                type="text"
+                maxlength="30"
+                placeholder="Digite seu nome"
+                autocomplete="off"
+            >
 
-                <input
-                    id="playerName"
-                    type="text"
-                    placeholder="Digite seu nome"
-                    maxlength="30"
-                >
+            <button id="enterButton">
+                ENTRAR
+            </button>
 
-                <button id="enterButton">
-                    ENTRAR
-                </button>
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         VALOR
+    ====================================================== -->
+
+    <div
+        id="valueScreen"
+        class="screen"
+    >
+
+        <img
+            id="valueImage"
+            src=""
+            alt="Valor"
+        >
+
+    </div>
+
+
+    <!-- =====================================================
+         PERGUNTA
+    ====================================================== -->
+
+    <div
+        id="questionScreen"
+        class="screen"
+    >
+
+        <div class="questionStage">
+
+            <img
+                id="questionImage"
+                src=""
+                alt="Pergunta"
+            >
+
+
+            <!--
+                ÁREAS INVISÍVEIS DE CLIQUE.
+                NÃO APARECEM NA TELA.
+            -->
+
+            <div id="answerHotspots">
+
+                <button
+                    class="answerHotspot"
+                    data-answer="1"
+                    aria-label="Resposta 1"
+                ></button>
+
+                <button
+                    class="answerHotspot"
+                    data-answer="2"
+                    aria-label="Resposta 2"
+                ></button>
+
+                <button
+                    class="answerHotspot"
+                    data-answer="3"
+                    aria-label="Resposta 3"
+                ></button>
+
+                <button
+                    class="answerHotspot"
+                    data-answer="4"
+                    aria-label="Resposta 4"
+                ></button>
 
             </div>
 
@@ -360,46 +593,14 @@ body {
     </div>
 
 
-    <!-- =========================
-         TELA DE VALOR
-    ========================== -->
+    <!-- =====================================================
+         RESULTADO
+    ====================================================== -->
 
-    <div id="valueScreen" class="screen">
-
-        <img id="valueImage" src="" alt="Valor">
-
-    </div>
-
-
-    <!-- =========================
-         TELA DE PERGUNTA
-    ========================== -->
-
-    <div id="questionScreen" class="screen">
-
-        <img
-            id="questionImage"
-            src=""
-            alt="Pergunta"
-        >
-
-        <div id="answers">
-
-            <button class="answer" data-answer="1"></button>
-            <button class="answer" data-answer="2"></button>
-            <button class="answer" data-answer="3"></button>
-            <button class="answer" data-answer="4"></button>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================
-         TELA DE RESULTADO
-    ========================== -->
-
-    <div id="resultScreen" class="screen">
+    <div
+        id="resultScreen"
+        class="screen"
+    >
 
         <img
             id="resultImage"
@@ -408,59 +609,66 @@ body {
         >
 
         <button id="continueButton">
-            CONTINUAR
+            VOLTAR À PERGUNTA
         </button>
 
     </div>
 
 
+    <!-- =====================================================
+         PARTICIPANTE NO TOPO
+    ====================================================== -->
+
     <div id="playerDisplay"></div>
+
 
 </div>
 
 
 <script>
 
-/* ============================================================
+/* =========================================================
    CONFIGURAÇÃO
-============================================================ */
+========================================================= */
 
 const BASE = "./";
 
 
-/* ============================================================
-   FUNÇÃO PARA TROCAR DE TELA
-============================================================ */
-
-function showScreen(id) {
-
-    document.querySelectorAll(".screen").forEach(screen => {
-        screen.classList.remove("active");
-    });
-
-    document.getElementById(id).classList.add("active");
-}
-
-
-/* ============================================================
-   ÁUDIO
-============================================================ */
+/* =========================================================
+   ÁUDIO ATUAL
+========================================================= */
 
 let currentAudio = null;
+
+
+/* =========================================================
+   PARAR ÁUDIO
+========================================================= */
 
 function stopAudio() {
 
     if (currentAudio) {
 
         try {
+
             currentAudio.pause();
+
             currentAudio.currentTime = 0;
-        } catch (e) {}
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
 
         currentAudio = null;
     }
 }
 
+
+/* =========================================================
+   TOCAR ÁUDIO
+========================================================= */
 
 function playAudio(file, callback = null) {
 
@@ -468,44 +676,79 @@ function playAudio(file, callback = null) {
 
     const audio = new Audio();
 
-    audio.preload = "auto";
+    /*
+       encodeURI preserva o nome do arquivo
+       e transforma espaços/acentos corretamente.
+    */
 
-    audio.src = BASE + encodeURIComponent(file);
+    audio.src =
+        BASE + encodeURI(file);
+
+    audio.preload = "auto";
 
     currentAudio = audio;
 
-    audio.onended = function() {
 
-        if (currentAudio === audio) {
-            currentAudio = null;
+    audio.addEventListener(
+        "ended",
+        function() {
+
+            if (currentAudio === audio) {
+
+                currentAudio = null;
+
+            }
+
+            if (callback) {
+
+                callback();
+
+            }
+
         }
+    );
 
-        if (callback) {
-            callback();
+
+    audio.addEventListener(
+        "error",
+        function() {
+
+            console.error(
+                "NÃO FOI POSSÍVEL CARREGAR O ÁUDIO:",
+                file
+            );
+
+            console.error(
+                "CAMINHO:",
+                audio.src
+            );
+
+
+            /*
+               Mesmo se o áudio não carregar,
+               o jogo continua.
+            */
+
+            if (callback) {
+
+                callback();
+
+            }
+
         }
-    };
+    );
 
-    audio.onerror = function() {
-
-        console.error(
-            "Erro ao carregar áudio:",
-            file,
-            audio.src
-        );
-
-        if (callback) {
-            callback();
-        }
-    };
 
     const promise = audio.play();
 
+
     if (promise !== undefined) {
 
-        promise.catch(error => {
+        promise.catch(function(error) {
 
             console.error(
-                "O navegador bloqueou o áudio:",
+                "ERRO AO TOCAR ÁUDIO:",
+                file,
                 error
             );
 
@@ -513,13 +756,14 @@ function playAudio(file, callback = null) {
 
     }
 
+
     return audio;
 }
 
 
-/* ============================================================
-   DADOS DAS PERGUNTAS
-============================================================ */
+/* =========================================================
+   PERGUNTAS
+========================================================= */
 
 const questions = [
 
@@ -596,9 +840,9 @@ const questions = [
 ];
 
 
-/* ============================================================
-   ESTADO DO JOGO
-============================================================ */
+/* =========================================================
+   ESTADO
+========================================================= */
 
 let currentQuestion = 0;
 
@@ -607,119 +851,222 @@ let playerName = "";
 let waitingForAnswer = false;
 
 
-/* ============================================================
+/* =========================================================
    ELEMENTOS
-============================================================ */
+========================================================= */
 
 const startScreen =
-    document.getElementById("startScreen");
-
-const rulesScreen =
-    document.getElementById("rulesScreen");
-
-const participantScreen =
-    document.getElementById("participantScreen");
-
-const valueScreen =
-    document.getElementById("valueScreen");
-
-const questionScreen =
-    document.getElementById("questionScreen");
-
-const resultScreen =
-    document.getElementById("resultScreen");
-
-const playerNameInput =
-    document.getElementById("playerName");
-
-const enterButton =
-    document.getElementById("enterButton");
-
-const valueImage =
-    document.getElementById("valueImage");
-
-const questionImage =
-    document.getElementById("questionImage");
-
-const resultImage =
-    document.getElementById("resultImage");
-
-const continueButton =
-    document.getElementById("continueButton");
-
-const playerDisplay =
-    document.getElementById("playerDisplay");
-
-const answerButtons =
-    document.querySelectorAll(".answer");
-
-
-/* ============================================================
-   INÍCIO
-============================================================ */
-
-startScreen.addEventListener("click", function() {
-
-    stopAudio();
-
-    showScreen("rulesScreen");
-
-});
-
-
-/* ============================================================
-   REGRAS
-============================================================ */
-
-rulesScreen.addEventListener("click", function() {
-
-    showScreen("participantScreen");
-
-    playAudio(
-        "Vamos conhecer nosso participante.mp3"
+    document.getElementById(
+        "startScreen"
     );
 
-});
+const rulesScreen =
+    document.getElementById(
+        "rulesScreen"
+    );
+
+const participantScreen =
+    document.getElementById(
+        "participantScreen"
+    );
+
+const valueScreen =
+    document.getElementById(
+        "valueScreen"
+    );
+
+const questionScreen =
+    document.getElementById(
+        "questionScreen"
+    );
+
+const resultScreen =
+    document.getElementById(
+        "resultScreen"
+    );
+
+const playerNameInput =
+    document.getElementById(
+        "playerName"
+    );
+
+const enterButton =
+    document.getElementById(
+        "enterButton"
+    );
+
+const valueImage =
+    document.getElementById(
+        "valueImage"
+    );
+
+const questionImage =
+    document.getElementById(
+        "questionImage"
+    );
+
+const resultImage =
+    document.getElementById(
+        "resultImage"
+    );
+
+const continueButton =
+    document.getElementById(
+        "continueButton"
+    );
+
+const playerDisplay =
+    document.getElementById(
+        "playerDisplay"
+    );
+
+const answerHotspots =
+    document.querySelectorAll(
+        ".answerHotspot"
+    );
 
 
-/* ============================================================
-   ENTRAR
-============================================================ */
+/* =========================================================
+   TROCAR TELA
+========================================================= */
 
-enterButton.addEventListener("click", startGame);
+function showScreen(id) {
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(function(screen) {
+
+            screen.classList.remove(
+                "active"
+            );
+
+        });
 
 
-playerNameInput.addEventListener("keydown", function(event) {
+    document
+        .getElementById(id)
+        .classList.add("active");
+}
 
-    if (event.key === "Enter") {
-        startGame();
+
+/* =========================================================
+   TELA INICIAL
+========================================================= */
+
+startScreen.addEventListener(
+    "click",
+    function() {
+
+        /*
+           AGORA A MÚSICA INICIAL É TOCADA
+           PELO CLIQUE DO USUÁRIO.
+        */
+
+        playAudio(
+            "Vai comecar o show do milhao.mp3"
+        );
+
+
+        /*
+           Mostra as regras.
+        */
+
+        showScreen(
+            "rulesScreen"
+        );
+
     }
+);
 
-});
 
+/* =========================================================
+   REGRAS
+========================================================= */
+
+rulesScreen.addEventListener(
+    "click",
+    function() {
+
+        playAudio(
+            "Vamos conhecer nosso participante.mp3"
+        );
+
+
+        showScreen(
+            "participantScreen"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ENTRAR
+========================================================= */
+
+enterButton.addEventListener(
+    "click",
+    startGame
+);
+
+
+playerNameInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            startGame();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   COMEÇAR JOGO
+========================================================= */
 
 function startGame() {
 
     const name =
         playerNameInput.value.trim();
 
+
     if (!name) {
 
-        alert("Digite seu nome para continuar.");
+        alert(
+            "Digite seu nome para continuar."
+        );
 
         playerNameInput.focus();
 
         return;
+
     }
+
 
     playerName = name;
 
-    playerDisplay.textContent =
-        "Participante: " + playerName;
 
-    playerDisplay.style.display = "block";
+    playerDisplay.textContent =
+        "Participante: " +
+        playerName;
+
+
+    playerDisplay.style.display =
+        "block";
+
 
     stopAudio();
+
+
+    /*
+       Boa Sorte.
+    */
 
     playAudio(
         "Boa Sorte.mp3",
@@ -735,23 +1082,40 @@ function startGame() {
 }
 
 
-/* ============================================================
+/* =========================================================
    MOSTRAR VALOR
-============================================================ */
+========================================================= */
 
 function showValue() {
 
     const question =
         questions[currentQuestion];
 
+
     stopAudio();
 
+
     valueImage.src =
-        BASE + encodeURIComponent(question.valueImage);
+        BASE +
+        encodeURI(
+            question.valueImage
+        );
 
-    showScreen("valueScreen");
 
-    if (question.valueAudio) {
+    showScreen(
+        "valueScreen"
+    );
+
+
+    /*
+       Última pergunta:
+       não existe áudio de valor
+       na lista fornecida.
+    */
+
+    if (
+        question.valueAudio
+    ) {
 
         playAudio(
             question.valueAudio,
@@ -764,45 +1128,60 @@ function showValue() {
 
     } else {
 
-        setTimeout(function() {
+        setTimeout(
+            function() {
 
-            showQuestion();
+                showQuestion();
 
-        }, 1000);
+            },
+            1000
+        );
 
     }
 
 }
 
 
-/* ============================================================
+/* =========================================================
    MOSTRAR PERGUNTA
-============================================================ */
+========================================================= */
 
 function showQuestion() {
 
     const question =
         questions[currentQuestion];
 
+
     stopAudio();
 
-    questionImage.src =
-        BASE + encodeURIComponent(question.image);
 
-    showScreen("questionScreen");
+    questionImage.src =
+        BASE +
+        encodeURI(
+            question.image
+        );
+
+
+    showScreen(
+        "questionScreen"
+    );
+
 
     waitingForAnswer = true;
 
-    answerButtons.forEach(button => {
 
-        button.disabled = false;
+    answerHotspots.forEach(
+        function(button) {
 
-        button.classList.remove(
-            "correct",
-            "wrong"
-        );
+            button.disabled = false;
 
-    });
+        }
+    );
+
+
+    /*
+       Música de suspense.
+    */
 
     playAudio(
         "Música suspense de perguntas.mp3"
@@ -811,71 +1190,104 @@ function showQuestion() {
 }
 
 
-/* ============================================================
-   RESPOSTAS
-============================================================ */
+/* =========================================================
+   CLICAR NA ALTERNATIVA
+========================================================= */
 
-answerButtons.forEach(button => {
+answerHotspots.forEach(
+    function(button) {
 
-    button.addEventListener("click", function() {
+        button.addEventListener(
+            "click",
+            function() {
 
-        if (!waitingForAnswer) {
-            return;
-        }
+                if (
+                    !waitingForAnswer
+                ) {
 
-        waitingForAnswer = false;
+                    return;
 
-        answerButtons.forEach(btn => {
-            btn.disabled = true;
-        });
-
-        const selected =
-            Number(this.dataset.answer);
-
-        const correct =
-            questions[currentQuestion].correct;
-
-        stopAudio();
-
-        if (selected === correct) {
-
-            this.classList.add("correct");
-
-            correctAnswer();
-
-        } else {
-
-            this.classList.add("wrong");
-
-            wrongAnswer();
-
-        }
-
-    });
-
-});
+                }
 
 
-/* ============================================================
+                waitingForAnswer = false;
+
+
+                answerHotspots.forEach(
+                    function(btn) {
+
+                        btn.disabled = true;
+
+                    }
+                );
+
+
+                const selected =
+                    Number(
+                        this.dataset.answer
+                    );
+
+
+                const correct =
+                    questions[
+                        currentQuestion
+                    ].correct;
+
+
+                stopAudio();
+
+
+                if (
+                    selected === correct
+                ) {
+
+                    correctAnswer();
+
+                } else {
+
+                    wrongAnswer();
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
    RESPOSTA CERTA
-============================================================ */
+========================================================= */
 
 function correctAnswer() {
 
     stopAudio();
 
+
     playAudio(
         "certa resposta.mp3",
         function() {
 
-            if (currentQuestion === questions.length - 1) {
+            /*
+               Se for a última pergunta,
+               vai direto para o parabéns.
+            */
+
+            if (
+                currentQuestion ===
+                questions.length - 1
+            ) {
 
                 showFinalWin();
 
                 return;
+
             }
 
+
             currentQuestion++;
+
 
             showValue();
 
@@ -885,13 +1297,14 @@ function correctAnswer() {
 }
 
 
-/* ============================================================
+/* =========================================================
    RESPOSTA ERRADA
-============================================================ */
+========================================================= */
 
 function wrongAnswer() {
 
     stopAudio();
+
 
     playAudio(
         "Que pena vc errou.mp3",
@@ -905,24 +1318,37 @@ function wrongAnswer() {
 }
 
 
-/* ============================================================
+/* =========================================================
    PERDEU
-============================================================ */
+========================================================= */
 
 function showLostScreen() {
 
     stopAudio();
 
+
+    /*
+       Caso exista perdeu.png,
+       ele será exibido.
+    */
+
     resultImage.src =
-        BASE + "perdeu.png";
+        BASE +
+        "perdeu.png";
+
 
     continueButton.style.display =
         "block";
 
+
     continueButton.textContent =
         "VOLTAR À PERGUNTA";
 
-    showScreen("resultScreen");
+
+    showScreen(
+        "resultScreen"
+    );
+
 
     playAudio(
         "Moeda caindo quando perde.mp3"
@@ -931,35 +1357,46 @@ function showLostScreen() {
 }
 
 
-/* ============================================================
+/* =========================================================
    VOLTAR PARA A MESMA PERGUNTA
-============================================================ */
+========================================================= */
 
-continueButton.addEventListener("click", function() {
+continueButton.addEventListener(
+    "click",
+    function() {
 
-    continueButton.style.display =
-        "none";
-
-    showQuestion();
-
-});
+        continueButton.style.display =
+            "none";
 
 
-/* ============================================================
+        showQuestion();
+
+    }
+);
+
+
+/* =========================================================
    FINAL
-============================================================ */
+========================================================= */
 
 function showFinalWin() {
 
     stopAudio();
 
+
     resultImage.src =
-        BASE + "parabenos.png";
+        BASE +
+        "parabenos.png";
+
 
     continueButton.style.display =
         "none";
 
-    showScreen("resultScreen");
+
+    showScreen(
+        "resultScreen"
+    );
+
 
     playAudio(
         "Parabens vc ganhou 1mila de reais.mp3"
@@ -968,44 +1405,40 @@ function showFinalWin() {
 }
 
 
-/* ============================================================
-   EVITA MENU DE CONTEXTO
-============================================================ */
+/* =========================================================
+   PRÉ-CARREGAR IMAGENS
+========================================================= */
 
-document.addEventListener(
-    "contextmenu",
-    function(event) {
-        event.preventDefault();
+questions.forEach(
+    function(question) {
+
+        const image =
+            new Image();
+
+        image.src =
+            BASE +
+            encodeURI(
+                question.image
+            );
+
     }
 );
 
 
-/* ============================================================
-   PRÉ-CARREGAMENTO DAS IMAGENS
-============================================================ */
-
-questions.forEach(question => {
-
-    const img =
-        new Image();
-
-    img.src =
-        BASE +
-        encodeURIComponent(question.image);
-
-});
-
-
-/* ============================================================
+/* =========================================================
    LOG
-============================================================ */
+========================================================= */
 
 console.log(
-    "Trilhar Game carregado."
+    "GUIMA SHOW - TRILHAR"
 );
 
 console.log(
-    "Perguntas:",
+    "Jogo carregado com sucesso."
+);
+
+console.log(
+    "Total de perguntas:",
     questions.length
 );
 
