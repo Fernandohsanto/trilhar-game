@@ -2,97 +2,1103 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guima Show — Trilhar</title>
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;background:#000;overflow:hidden;font-family:Arial,sans-serif}
-#game{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}
-#stage{position:relative;width:min(100vw,177.7778vh);aspect-ratio:16/9;max-height:100vh}
-#screen{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;display:block;user-select:none}
-.hot{position:absolute;border:0;background:transparent;cursor:pointer;z-index:10}
-#playHot{left:25%;top:70%;width:50%;height:25%}
-#rulesHot{inset:0}
-#enterHot{left:69%;top:20%;width:25%;height:18%}
-#backHot{left:69%;top:55%;width:25%;height:18%}
-#answerA{left:7.5%;top:38.8%;width:43.8%;height:6.5%}
-#answerB{left:7.5%;top:47%;width:43.8%;height:6.5%}
-#answerC{left:7.5%;top:55.2%;width:43.8%;height:6.5%}
-#answerD{left:7.5%;top:63.3%;width:43.8%;height:6.5%}
-#nameBox{position:absolute;left:29%;top:65%;width:42%;z-index:20;display:none}
-#nameInput{width:100%;height:58px;border:3px solid #b8d99c;border-radius:12px;padding:0 18px;font-size:28px;text-align:center;outline:none;background:rgba(255,255,255,.96);color:#1b1b1b}
-#nameHint{margin-top:7px;text-align:center;color:#fff;font-size:17px;text-shadow:0 2px 4px #000}
-#loading{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;z-index:100;font-size:18px;display:none}
-#continueOverlay{position:absolute;inset:0;z-index:9;display:none;cursor:pointer}
-#message{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(0,0,0,.72);color:#fff;padding:8px 14px;border-radius:8px;font-size:14px;display:none;z-index:100}
-@media(max-width:700px){#nameInput{height:46px;font-size:20px}#nameHint{font-size:13px}}
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+#game {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#stage {
+    position: relative;
+    width: min(100vw, 177.7778vh);
+    aspect-ratio: 16 / 9;
+    max-height: 100vh;
+}
+
+#screen {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+    user-select: none;
+}
+
+/* BOTÕES INVISÍVEIS */
+.hot {
+    position: absolute;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0;
+}
+
+/* INÍCIO */
+#playHot {
+    left: 25%;
+    top: 70%;
+    width: 50%;
+    height: 25%;
+}
+
+/* REGRAS */
+#rulesHot {
+    inset: 0;
+}
+
+/* ENTRAR */
+#enterHot {
+    left: 69%;
+    top: 20%;
+    width: 25%;
+    height: 18%;
+}
+
+/* VOLTAR */
+#backHot {
+    left: 69%;
+    top: 55%;
+    width: 25%;
+    height: 18%;
+}
+
+/* RESPOSTAS */
+#answerA {
+    left: 7.5%;
+    top: 38.8%;
+    width: 43.8%;
+    height: 6.5%;
+}
+
+#answerB {
+    left: 7.5%;
+    top: 47%;
+    width: 43.8%;
+    height: 6.5%;
+}
+
+#answerC {
+    left: 7.5%;
+    top: 55.2%;
+    width: 43.8%;
+    height: 6.5%;
+}
+
+#answerD {
+    left: 7.5%;
+    top: 63.3%;
+    width: 43.8%;
+    height: 6.5%;
+}
+
+/* CAMPO DO NOME */
+#nameBox {
+    position: absolute;
+    left: 29%;
+    top: 65%;
+    width: 42%;
+    z-index: 20;
+    display: none;
+}
+
+#nameInput {
+    width: 100%;
+    height: 58px;
+    border: 3px solid #b8d99c;
+    border-radius: 12px;
+    padding: 0 18px;
+    font-size: 28px;
+    text-align: center;
+    outline: none;
+    background: rgba(255,255,255,.96);
+    color: #1b1b1b;
+}
+
+#nameHint {
+    margin-top: 7px;
+    text-align: center;
+    color: #fff;
+    font-size: 17px;
+    text-shadow: 0 2px 4px #000;
+}
+
+/* CONTINUAÇÃO */
+#continueOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 9;
+    display: none;
+    cursor: pointer;
+}
+
+/* MENSAGEM */
+#message {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,.75);
+    color: #fff;
+    padding: 9px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: none;
+    z-index: 100;
+}
+
+/* RESPONSIVO */
+@media(max-width:700px) {
+
+    #nameInput {
+        height: 46px;
+        font-size: 20px;
+    }
+
+    #nameHint {
+        font-size: 13px;
+    }
+}
 </style>
 </head>
+
 <body>
-<div id="game"><div id="stage">
-<img id="screen" src="assets/inicio.png" alt="Guima Show">
-<button id="playHot" class="hot" aria-label="Jogar"></button>
-<button id="rulesHot" class="hot" aria-label="Continuar regras"></button>
-<button id="enterHot" class="hot" aria-label="Entrar"></button>
-<button id="backHot" class="hot" aria-label="Voltar"></button>
-<div id="continueOverlay"></div>
-<div id="nameBox">
-<input id="nameInput" type="text" maxlength="32" autocomplete="name" placeholder="Digite seu nome">
-<div id="nameHint">Digite seu nome e clique em ENTRAR</div>
+
+<div id="game">
+
+    <div id="stage">
+
+        <img
+            id="screen"
+            src="inicio.png"
+            alt="Guima Show"
+        >
+
+        <!-- BOTÃO JOGAR -->
+        <button
+            id="playHot"
+            class="hot"
+            aria-label="Jogar">
+        </button>
+
+        <!-- BOTÃO REGRAS -->
+        <button
+            id="rulesHot"
+            class="hot"
+            aria-label="Continuar">
+        </button>
+
+        <!-- BOTÃO ENTRAR -->
+        <button
+            id="enterHot"
+            class="hot"
+            aria-label="Entrar">
+        </button>
+
+        <!-- BOTÃO VOLTAR -->
+        <button
+            id="backHot"
+            class="hot"
+            aria-label="Voltar">
+        </button>
+
+        <!-- CONTINUAÇÃO -->
+        <div id="continueOverlay"></div>
+
+        <!-- NOME -->
+        <div id="nameBox">
+
+            <input
+                id="nameInput"
+                type="text"
+                maxlength="32"
+                autocomplete="name"
+                placeholder="Digite seu nome"
+            >
+
+            <div id="nameHint">
+                Digite seu nome e clique em ENTRAR
+            </div>
+
+        </div>
+
+        <!-- RESPOSTA A -->
+        <button
+            id="answerA"
+            class="hot"
+            aria-label="Resposta 1">
+        </button>
+
+        <!-- RESPOSTA B -->
+        <button
+            id="answerB"
+            class="hot"
+            aria-label="Resposta 2">
+        </button>
+
+        <!-- RESPOSTA C -->
+        <button
+            id="answerC"
+            class="hot"
+            aria-label="Resposta 3">
+        </button>
+
+        <!-- RESPOSTA D -->
+        <button
+            id="answerD"
+            class="hot"
+            aria-label="Resposta 4">
+        </button>
+
+    </div>
+
 </div>
-<button id="answerA" class="hot" aria-label="Resposta 1"></button>
-<button id="answerB" class="hot" aria-label="Resposta 2"></button>
-<button id="answerC" class="hot" aria-label="Resposta 3"></button>
-<button id="answerD" class="hot" aria-label="Resposta 4"></button>
-</div></div>
-<div id="loading">Carregando...</div><div id="message"></div>
+
+<div id="message"></div>
+
 <script>
-const A='assets/';
-const audio={
- start:'Vai começar o show do milhão.mp3',
- participant:'Vamos conhecer o nosso participante .mp3',
- lucky:'Boa Sorte.mp3',
- suspense:'Musica suspense de perguntas.mp3',
- correct:'certa resposta.mp3',
- wrong:'Que pena vc errou(1).mp3',
- coin:'Moeda caindo quando perde.mp3',
- value:['1 Mil.mp3','5 mil.mp3','10 mil.mp3','30 mil.mp3','50 mil(1).mp3','1000 mil.mp3','2000 mil.mp3','4000 mil.mp3','5000 mil.mp3','1 milhão.mp3'],
- final:'Parabéns vc ganhou 1milhão de reais.mp3'
+
+/* =========================================================
+   CONFIGURAÇÃO
+   ========================================================= */
+
+/*
+   IMPORTANTE:
+   Os arquivos estão na RAIZ do GitHub.
+   Por isso não usamos "assets/".
+*/
+
+const A = "";
+
+
+/* =========================================================
+   ÁUDIOS
+   ========================================================= */
+
+const audio = {
+
+    start:
+        "Vai começar o show do milhão.mp3",
+
+    participant:
+        "Vamos conhecer o nosso participante.mp3",
+
+    lucky:
+        "Boa Sorte.mp3",
+
+    suspense:
+        "Musica suspense de perguntas.mp3",
+
+    correct:
+        "certa resposta.mp3",
+
+    wrong:
+        "Que pena vc errou.mp3",
+
+    coin:
+        "Moeda caindo quando perde.mp3",
+
+    values: [
+
+        "1 Mil.mp3",
+
+        "5 mil.mp3",
+
+        "10 mil.mp3",
+
+        "30 mil.mp3",
+
+        "50 mil(1).mp3",
+
+        "1000 mil.mp3",
+
+        "2000 mil.mp3",
+
+        "4000 mil.mp3",
+
+        "5000 mil.mp3",
+
+        "1 milhão.mp3"
+
+    ],
+
+    final:
+        "Parabéns vc ganhou 1milhão de reais.mp3"
 };
-const screens={
- start:'inicio.png',rules:'regras.png',enter:'entrar.png',lost:'perdeu.png',final:'parabens.png',
- values:['valor-1k.png','valor-5k.png','valor-10k.png','valor-30k.png','valor-50k.png','valor-100k.png','valor-200k.png','valor-400k.png','valor-500k.png','valor-1m.png'],
- questions:['pergunta-1.png','pergunta-2.png','pergunta-3.png','pergunta-4.png','pergunta-5.png','pergunta-6.png','pergunta-7.png','pergunta-8.png','pergunta-9.png','pergunta-10.png']
+
+
+/* =========================================================
+   IMAGENS
+   ========================================================= */
+
+const screens = {
+
+    start:
+        "inicio.png",
+
+    rules:
+        "regras.png",
+
+    enter:
+        "entrar.png",
+
+    lost:
+        "perdeu.png",
+
+    final:
+        "parabens.png",
+
+    values: [
+
+        "valor-1k.png",
+
+        "valor-5k.png",
+
+        "valor-10k.png",
+
+        "valor-30k.png",
+
+        "valor-50k.png",
+
+        "valor-100k.png",
+
+        "valor-200k.png",
+
+        "valor-400k.png",
+
+        "valor-500k.png",
+
+        "valor-1m.png"
+
+    ],
+
+    questions: [
+
+        "pergunta-1.png",
+
+        "pergunta-2.png",
+
+        "pergunta-3.png",
+
+        "pergunta-4.png",
+
+        "pergunta-5.png",
+
+        "pergunta-6.png",
+
+        "pergunta-7.png",
+
+        "pergunta-8.png",
+
+        "pergunta-9.png",
+
+        "pergunta-10.png"
+
+    ]
 };
-const correct=[1,4,2,2,3,4,2,3,4,4];
-let current=0, state='start', busy=false, currentAudio=null, audioToken=0;
-const screen=document.getElementById('screen'), nameBox=document.getElementById('nameBox'), nameInput=document.getElementById('nameInput');
-const playHot=document.getElementById('playHot'),rulesHot=document.getElementById('rulesHot'),enterHot=document.getElementById('enterHot'),backHot=document.getElementById('backHot');
-const cont=document.getElementById('continueOverlay'), answers=[answerA,answerB,answerC,answerD];
-function path(file){return A+encodeURIComponent(file).replace(/%2F/g,'/');}
-function stopAudio(){if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;currentAudio=null} audioToken++}
-function play(file,onEnd){stopAudio(); const token=audioToken; const a=new Audio(path(file)); currentAudio=a; a.preload='auto'; a.onended=()=>{if(token!==audioToken)return; currentAudio=null;if(onEnd)onEnd()}; a.onerror=()=>{if(token!==audioToken)return;currentAudio=null;if(onEnd)onEnd()}; a.play().catch(()=>{showMessage('Toque na tela para liberar o áudio.');}); return a}
-function hideAll(){[playHot,rulesHot,enterHot,backHot,cont,...answers].forEach(e=>e.style.display='none');nameBox.style.display='none'}
-function setScreen(file){screen.src=path(file)}
-function showMessage(t){const m=document.getElementById('message');m.textContent=t;m.style.display='block';setTimeout(()=>m.style.display='none',2600)}
-function showStart(){state='start';busy=false;hideAll();setScreen(screens.start);playHot.style.display='block';play(audio.start)}
-function showRules(){state='rules';busy=false;hideAll();setScreen(screens.rules);cont.style.display='block'}
-function showEnter(){state='enter';busy=false;hideAll();setScreen(screens.enter);enterHot.style.display='block';nameBox.style.display='block';nameInput.focus();play(audio.participant)}
-function submitName(){if(busy)return; const name=nameInput.value.trim(); if(!name){nameInput.focus();showMessage('Digite seu nome primeiro.');return} localStorage.setItem('guimaShowNome',name);busy=true;play(audio.lucky,showValuesFirst)}
-function showValuesFirst(){current=0;state='value';busy=false;hideAll();setScreen(screens.values[0]);play(audio.value[0],showQuestion)}
-function showValuesFor(index){state='value';busy=true;hideAll();setScreen(screens.values[index]);play(audio.value[index],showQuestion)}
-function showQuestion(){state='question';busy=false;hideAll();setScreen(screens.questions[current]);answers.forEach(e=>e.style.display='block');play(audio.suspense)}
-function answer(n){if(state!=='question'||busy)return;busy=true;stopAudio(); if(n===correct[current]){play(audio.correct,()=>{if(current===9){state='final';hideAll();setScreen(screens.final);play(audio.final);busy=false}else{showValuesFor(current+1)}})}else{play(audio.wrong,()=>{state='lost';hideAll();setScreen(screens.lost);play(audio.coin,()=>{showQuestion()})})}}
-playHot.onclick=()=>{if(state!=='start')return;stopAudio();showRules()};
-rulesHot.onclick=()=>{if(state==='rules')showEnter()};
-cont.onclick=()=>{if(state==='rules')showEnter()};
-enterHot.onclick=()=>{if(state==='enter')submitName()};
-backHot.onclick=()=>{if(state==='enter'){stopAudio();showStart()}};
-answers[0].onclick=()=>answer(1);answers[1].onclick=()=>answer(2);answers[2].onclick=()=>answer(3);answers[3].onclick=()=>answer(4);
-nameInput.addEventListener('keydown',e=>{if(e.key==='Enter')submitName()});
-// Se o navegador bloquear autoplay, o primeiro clique libera o áudio.
-document.addEventListener('pointerdown',()=>{if(state==='start'&&currentAudio&&currentAudio.paused){currentAudio.play().catch(()=>{})}},{once:false});
+
+
+/* =========================================================
+   RESPOSTAS CORRETAS
+   ========================================================= */
+
+const correct = [
+
+    1,
+    4,
+    2,
+    2,
+    3,
+    4,
+    2,
+    3,
+    4,
+    4
+
+];
+
+
+/* =========================================================
+   VARIÁVEIS DO JOGO
+   ========================================================= */
+
+let current = 0;
+
+let state = "start";
+
+let busy = false;
+
+let currentAudio = null;
+
+let audioToken = 0;
+
+
+/* =========================================================
+   ELEMENTOS
+   ========================================================= */
+
+const screen =
+    document.getElementById("screen");
+
+const nameBox =
+    document.getElementById("nameBox");
+
+const nameInput =
+    document.getElementById("nameInput");
+
+const playHot =
+    document.getElementById("playHot");
+
+const rulesHot =
+    document.getElementById("rulesHot");
+
+const enterHot =
+    document.getElementById("enterHot");
+
+const backHot =
+    document.getElementById("backHot");
+
+const continueOverlay =
+    document.getElementById("continueOverlay");
+
+const answerA =
+    document.getElementById("answerA");
+
+const answerB =
+    document.getElementById("answerB");
+
+const answerC =
+    document.getElementById("answerC");
+
+const answerD =
+    document.getElementById("answerD");
+
+const answers = [
+
+    answerA,
+    answerB,
+    answerC,
+    answerD
+
+];
+
+
+/* =========================================================
+   CAMINHO DOS ARQUIVOS
+   ========================================================= */
+
+function path(file) {
+
+    return encodeURI(A + file);
+
+}
+
+
+/* =========================================================
+   PARAR ÁUDIO
+   ========================================================= */
+
+function stopAudio() {
+
+    if (currentAudio) {
+
+        currentAudio.pause();
+
+        currentAudio.currentTime = 0;
+
+        currentAudio = null;
+
+    }
+
+    audioToken++;
+
+}
+
+
+/* =========================================================
+   TOCAR ÁUDIO
+   ========================================================= */
+
+function play(file, onEnd) {
+
+    stopAudio();
+
+    const token = audioToken;
+
+    const a = new Audio(path(file));
+
+    currentAudio = a;
+
+    a.preload = "auto";
+
+    a.onended = function() {
+
+        if (token !== audioToken) {
+            return;
+        }
+
+        currentAudio = null;
+
+        if (onEnd) {
+            onEnd();
+        }
+
+    };
+
+    a.onerror = function() {
+
+        if (token !== audioToken) {
+            return;
+        }
+
+        currentAudio = null;
+
+        showMessage(
+            "Não foi possível carregar este áudio."
+        );
+
+        if (onEnd) {
+            onEnd();
+        }
+
+    };
+
+    a.play().catch(function() {
+
+        showMessage(
+            "Toque na tela para liberar o áudio."
+        );
+
+    });
+
+    return a;
+
+}
+
+
+/* =========================================================
+   ESCONDER TODOS OS BOTÕES
+   ========================================================= */
+
+function hideAll() {
+
+    playHot.style.display = "none";
+
+    rulesHot.style.display = "none";
+
+    enterHot.style.display = "none";
+
+    backHot.style.display = "none";
+
+    continueOverlay.style.display = "none";
+
+    answerA.style.display = "none";
+
+    answerB.style.display = "none";
+
+    answerC.style.display = "none";
+
+    answerD.style.display = "none";
+
+    nameBox.style.display = "none";
+
+}
+
+
+/* =========================================================
+   TROCAR IMAGEM
+   ========================================================= */
+
+function setScreen(file) {
+
+    screen.src = path(file);
+
+}
+
+
+/* =========================================================
+   MENSAGEM
+   ========================================================= */
+
+function showMessage(text) {
+
+    const message =
+        document.getElementById("message");
+
+    message.textContent = text;
+
+    message.style.display = "block";
+
+    setTimeout(function() {
+
+        message.style.display = "none";
+
+    }, 2600);
+
+}
+
+
+/* =========================================================
+   TELA INICIAL
+   ========================================================= */
+
+function showStart() {
+
+    state = "start";
+
+    busy = false;
+
+    hideAll();
+
+    setScreen(screens.start);
+
+    playHot.style.display = "block";
+
+    play(audio.start);
+
+}
+
+
+/* =========================================================
+   REGRAS
+   ========================================================= */
+
+function showRules() {
+
+    state = "rules";
+
+    busy = false;
+
+    hideAll();
+
+    setScreen(screens.rules);
+
+    continueOverlay.style.display = "block";
+
+}
+
+
+/* =========================================================
+   ENTRAR
+   ========================================================= */
+
+function showEnter() {
+
+    state = "enter";
+
+    busy = false;
+
+    hideAll();
+
+    setScreen(screens.enter);
+
+    enterHot.style.display = "block";
+
+    backHot.style.display = "block";
+
+    nameBox.style.display = "block";
+
+    nameInput.focus();
+
+    play(audio.participant);
+
+}
+
+
+/* =========================================================
+   ENVIAR NOME
+   ========================================================= */
+
+function submitName() {
+
+    if (busy) {
+        return;
+    }
+
+    const name =
+        nameInput.value.trim();
+
+    if (!name) {
+
+        nameInput.focus();
+
+        showMessage(
+            "Digite seu nome primeiro."
+        );
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        "guimaShowNome",
+        name
+    );
+
+    busy = true;
+
+    play(
+        audio.lucky,
+        showValuesFirst
+    );
+
+}
+
+
+/* =========================================================
+   PRIMEIRA TELA DE VALOR
+   ========================================================= */
+
+function showValuesFirst() {
+
+    current = 0;
+
+    state = "value";
+
+    busy = false;
+
+    hideAll();
+
+    setScreen(
+        screens.values[0]
+    );
+
+    play(
+        audio.values[0],
+        showQuestion
+    );
+
+}
+
+
+/* =========================================================
+   TELA DE VALOR
+   ========================================================= */
+
+function showValuesFor(index) {
+
+    state = "value";
+
+    busy = true;
+
+    hideAll();
+
+    setScreen(
+        screens.values[index]
+    );
+
+    play(
+        audio.values[index],
+        showQuestion
+    );
+
+}
+
+
+/* =========================================================
+   PERGUNTA
+   ========================================================= */
+
+function showQuestion() {
+
+    state = "question";
+
+    busy = false;
+
+    hideAll();
+
+    setScreen(
+        screens.questions[current]
+    );
+
+    answers.forEach(function(button) {
+
+        button.style.display = "block";
+
+    });
+
+    play(audio.suspense);
+
+}
+
+
+/* =========================================================
+   RESPONDER
+   ========================================================= */
+
+function answer(number) {
+
+    if (
+        state !== "question" ||
+        busy
+    ) {
+        return;
+    }
+
+    busy = true;
+
+    stopAudio();
+
+
+    /* =========================================
+       RESPOSTA CORRETA
+       ========================================= */
+
+    if (number === correct[current]) {
+
+        play(
+            audio.correct,
+            function() {
+
+                /*
+                   ÚLTIMA PERGUNTA
+                */
+
+                if (current === 9) {
+
+                    state = "final";
+
+                    hideAll();
+
+                    setScreen(
+                        screens.final
+                    );
+
+                    play(
+                        audio.final
+                    );
+
+                    busy = false;
+
+                    return;
+
+                }
+
+
+                /*
+                   PRÓXIMO VALOR
+                */
+
+                showValuesFor(
+                    current + 1
+                );
+
+            }
+        );
+
+        return;
+
+    }
+
+
+    /* =========================================
+       RESPOSTA ERRADA
+       ========================================= */
+
+    play(
+        audio.wrong,
+        function() {
+
+            state = "lost";
+
+            hideAll();
+
+            setScreen(
+                screens.lost
+            );
+
+            /*
+               Depois da tela de derrota,
+               toca o som da moeda.
+            */
+
+            play(
+                audio.coin,
+                function() {
+
+                    /*
+                       VOLTA PARA A MESMA
+                       PERGUNTA QUE ERROU.
+                    */
+
+                    showQuestion();
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLIQUES
+   ========================================================= */
+
+
+/* JOGAR */
+
+playHot.onclick = function() {
+
+    if (state !== "start") {
+        return;
+    }
+
+    stopAudio();
+
+    showRules();
+
+};
+
+
+/* REGRAS */
+
+rulesHot.onclick = function() {
+
+    if (state === "rules") {
+
+        showEnter();
+
+    }
+
+};
+
+
+/* CONTINUAR REGRAS */
+
+continueOverlay.onclick = function() {
+
+    if (state === "rules") {
+
+        showEnter();
+
+    }
+
+};
+
+
+/* ENTRAR */
+
+enterHot.onclick = function() {
+
+    if (state === "enter") {
+
+        submitName();
+
+    }
+
+};
+
+
+/* VOLTAR */
+
+backHot.onclick = function() {
+
+    if (state === "enter") {
+
+        stopAudio();
+
+        showStart();
+
+    }
+
+};
+
+
+/* RESPOSTAS */
+
+answerA.onclick = function() {
+
+    answer(1);
+
+};
+
+answerB.onclick = function() {
+
+    answer(2);
+
+};
+
+answerC.onclick = function() {
+
+    answer(3);
+
+};
+
+answerD.onclick = function() {
+
+    answer(4);
+
+};
+
+
+/* ENTER NO CAMPO DE NOME */
+
+nameInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            submitName();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LIBERAÇÃO DE ÁUDIO DO NAVEGADOR
+   ========================================================= */
+
+document.addEventListener(
+    "pointerdown",
+    function() {
+
+        if (
+            currentAudio &&
+            currentAudio.paused
+        ) {
+
+            currentAudio
+                .play()
+                .catch(function(){});
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INICIAR
+   ========================================================= */
+
 showStart();
+
 </script>
+
 </body>
 </html>
