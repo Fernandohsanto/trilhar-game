@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Guima Show - Trilhar Visão de Dono</title>
 
 <style>
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -58,28 +56,25 @@ body {
     object-fit: contain;
 }
 
-
-/* =========================================================
+/* =========================
    TELA INICIAL
-========================================================= */
+========================= */
 
 #startScreen {
     cursor: pointer;
 }
 
-
-/* =========================================================
+/* =========================
    REGRAS
-========================================================= */
+========================= */
 
 #rulesScreen {
     cursor: pointer;
 }
 
-
-/* =========================================================
-   TELA DO PARTICIPANTE
-========================================================= */
+/* =========================
+   PARTICIPANTE
+========================= */
 
 #participantScreen {
     position: relative;
@@ -88,58 +83,37 @@ body {
 #participantBackground {
     position: absolute;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     object-fit: contain;
-
     z-index: 1;
 }
 
-
-/*
-   Área invisível sobre o botão ENTRAR
-   existente dentro da imagem tela1.png.
-*/
-
+/* Área invisível do ENTRAR */
 #enterHotspot {
-
     position: absolute;
-
     right: 5%;
     top: 12%;
-
     width: 28%;
     height: 15%;
-
     border: none;
     background: transparent;
-
     cursor: pointer;
-
     z-index: 10;
-
     opacity: 0;
 }
 
-
-/* =========================================================
-   TELA PARA DIGITAR O NOME
-========================================================= */
+/* =========================
+   NOME
+========================= */
 
 #nameScreen {
-
     position: absolute;
     inset: 0;
-
     display: none;
-
     justify-content: center;
     align-items: center;
-
     background: #000;
-
     z-index: 40;
 }
 
@@ -148,114 +122,73 @@ body {
 }
 
 #nameBackground {
-
     position: absolute;
-
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     object-fit: contain;
 }
 
-
 .nameControls {
-
     position: absolute;
-
     left: 50%;
     bottom: 7%;
-
     transform: translateX(-50%);
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     gap: 12px;
-
     width: 90%;
-
     z-index: 50;
 }
 
-
 #playerName {
-
     width: min(600px, 65vw);
-
     padding: 18px 25px;
-
     border-radius: 12px;
-
     border: 3px solid #fff;
-
     background: #fff;
-
     color: #555;
-
     font-size: 24px;
-
     text-align: center;
-
     outline: none;
 }
-
 
 #playerName::placeholder {
     color: #777;
 }
 
-
 #confirmName {
-
     padding: 18px 35px;
-
     border: none;
-
     border-radius: 12px;
-
     background: #00a651;
-
     color: #fff;
-
     font-size: 23px;
-
     font-weight: bold;
-
     cursor: pointer;
 }
 
-
-/* =========================================================
-   VALORES
-========================================================= */
+/* =========================
+   VALOR
+========================= */
 
 #valueScreen img {
-
     width: 100%;
     height: 100%;
-
     object-fit: contain;
 }
 
-
-/* =========================================================
+/* =========================
    PERGUNTAS
-========================================================= */
+========================= */
 
 #questionScreen {
-
     position: absolute;
     inset: 0;
-
     display: none;
-
     justify-content: center;
     align-items: center;
-
     background: #000;
 }
 
@@ -263,259 +196,151 @@ body {
     display: flex;
 }
 
-
 .questionStage {
-
     position: relative;
-
     width: 100vw;
     height: 56.25vw;
-
     max-width: 177.777vh;
     max-height: 100vh;
-
     aspect-ratio: 16 / 9;
-
     overflow: hidden;
 }
 
-
 #questionImage {
-
     position: absolute;
-
-    left: 0;
-    top: 0;
-
+    inset: 0;
     width: 100%;
     height: 100%;
-
     object-fit: contain;
 }
 
-
-/* =========================================================
-   ÁREAS INVISÍVEIS DAS RESPOSTAS
-========================================================= */
+/* =========================
+   HOTSPOTS DAS RESPOSTAS
+========================= */
 
 #answerHotspots {
-
     position: absolute;
-
     left: 7.3%;
     top: 37.5%;
-
     width: 43%;
     height: 33%;
-
     display: grid;
-
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 1fr);
-
     gap: 4%;
-
     z-index: 20;
 }
 
-
 .answerHotspot {
-
     border: none;
     outline: none;
-
     background: transparent;
-
     cursor: pointer;
-
     opacity: 0;
 }
 
-
-/* =========================================================
-   NOME DO PARTICIPANTE
-========================================================= */
+/* =========================
+   NOME NA TELA
+========================= */
 
 #playerDisplay {
-
     position: absolute;
-
     top: 2%;
     left: 50%;
-
     transform: translateX(-50%);
-
     z-index: 100;
-
     padding: 8px 20px;
-
     background: rgba(0,0,0,0.65);
-
     border-radius: 10px;
-
     color: #fff;
-
     font-size: 20px;
-
     font-weight: bold;
-
     display: none;
-
     white-space: nowrap;
 }
 
-
-/* =========================================================
+/* =========================
    RESULTADO
-========================================================= */
+========================= */
 
 #resultScreen {
-
     position: absolute;
     inset: 0;
-
     background: #000;
-
     z-index: 50;
 }
 
-
 #resultImage {
-
     width: 100%;
     height: 100%;
-
     object-fit: contain;
 }
 
-
-/* =========================================================
-   BOTÃO CONTINUAR
-========================================================= */
-
 #continueButton {
-
     position: absolute;
-
     left: 50%;
     bottom: 5%;
-
     transform: translateX(-50%);
-
     padding: 15px 35px;
-
     border: none;
     border-radius: 10px;
-
     background: #00a651;
-
     color: #fff;
-
     font-size: 21px;
-
     font-weight: bold;
-
     cursor: pointer;
-
     display: none;
-
     z-index: 100;
 }
 
-
-/* =========================================================
+/* =========================
    CELULAR
-========================================================= */
+========================= */
 
 @media (max-width: 800px) {
 
     .nameControls {
-
         width: 92%;
-
         flex-direction: column;
-
         bottom: 5%;
     }
 
     #playerName {
-
         width: 100%;
-
         font-size: 20px;
     }
 
     #confirmName {
-
         width: 100%;
-
         font-size: 20px;
     }
 
     #playerDisplay {
-
         font-size: 16px;
-
         max-width: 90%;
-
         overflow: hidden;
-
         text-overflow: ellipsis;
     }
-
 }
-
 </style>
 </head>
-
 
 <body>
 
 <div id="game">
 
-
-    <!-- =====================================================
-         TELA 1 — INÍCIO
-    ====================================================== -->
-
-    <div
-        id="startScreen"
-        class="screen active"
-    >
-
-        <img
-            src="inicio.png"
-            alt="Início"
-        >
-
+    <!-- INÍCIO -->
+    <div id="startScreen" class="screen active">
+        <img src="inicio.png" alt="Início">
     </div>
 
-
-    <!-- =====================================================
-         TELA 2 — REGRAS
-    ====================================================== -->
-
-    <div
-        id="rulesScreen"
-        class="screen"
-    >
-
-        <img
-            src="regras.png"
-            alt="Regras"
-        >
-
+    <!-- REGRAS -->
+    <div id="rulesScreen" class="screen">
+        <img src="regras.png" alt="Regras">
     </div>
 
-
-    <!-- =====================================================
-         TELA 3 — VAMOS CONHECER O PARTICIPANTE
-    ====================================================== -->
-
-    <div
-        id="participantScreen"
-        class="screen"
-    >
+    <!-- GUIMA SHOW -->
+    <div id="participantScreen" class="screen">
 
         <img
             id="participantBackground"
@@ -531,15 +356,8 @@ body {
 
     </div>
 
-
-    <!-- =====================================================
-         TELA 4 — DIGITAR NOME
-    ====================================================== -->
-
-    <div
-        id="nameScreen"
-        class="screen"
-    >
+    <!-- DIGITAR NOME -->
+    <div id="nameScreen" class="screen">
 
         <img
             id="nameBackground"
@@ -568,15 +386,8 @@ body {
 
     </div>
 
-
-    <!-- =====================================================
-         TELA DE VALOR
-    ====================================================== -->
-
-    <div
-        id="valueScreen"
-        class="screen"
-    >
+    <!-- VALOR -->
+    <div id="valueScreen" class="screen">
 
         <img
             id="valueImage"
@@ -586,15 +397,8 @@ body {
 
     </div>
 
-
-    <!-- =====================================================
-         TELA DE PERGUNTA
-    ====================================================== -->
-
-    <div
-        id="questionScreen"
-        class="screen"
-    >
+    <!-- PERGUNTA -->
+    <div id="questionScreen" class="screen">
 
         <div class="questionStage">
 
@@ -640,15 +444,8 @@ body {
 
     </div>
 
-
-    <!-- =====================================================
-         RESULTADO
-    ====================================================== -->
-
-    <div
-        id="resultScreen"
-        class="screen"
-    >
+    <!-- RESULTADO -->
+    <div id="resultScreen" class="screen">
 
         <img
             id="resultImage"
@@ -665,7 +462,6 @@ body {
 
     </div>
 
-
     <div id="playerDisplay"></div>
 
 </div>
@@ -679,28 +475,25 @@ body {
 
 const BASE = "./";
 
+let currentAudio = null;
+let currentQuestion = 0;
+let playerName = "";
+let waitingForAnswer = false;
+
 
 /* =========================================================
    ÁUDIO
 ========================================================= */
-
-let currentAudio = null;
-
 
 function stopAudio() {
 
     if (currentAudio) {
 
         try {
-
             currentAudio.pause();
-
             currentAudio.currentTime = 0;
-
         } catch (error) {
-
             console.log(error);
-
         }
 
         currentAudio = null;
@@ -716,73 +509,61 @@ function playAudio(file, callback = null) {
 
     audio.preload = "auto";
 
-    audio.src =
-        BASE + encodeURI(file);
+    audio.src = BASE + encodeURI(file);
 
     currentAudio = audio;
 
 
-    audio.addEventListener(
-        "ended",
-        function() {
+    audio.addEventListener("ended", function () {
 
-            if (currentAudio === audio) {
-
-                currentAudio = null;
-
-            }
-
-            if (callback) {
-
-                callback();
-
-            }
-
+        if (currentAudio === audio) {
+            currentAudio = null;
         }
-    );
 
-
-    audio.addEventListener(
-        "error",
-        function() {
-
-            console.error(
-                "Erro ao carregar áudio:",
-                file
-            );
-
-            console.error(
-                "URL:",
-                audio.src
-            );
-
-            if (callback) {
-
-                callback();
-
-            }
-
+        if (callback) {
+            callback();
         }
-    );
+
+    });
 
 
-    const promise =
-        audio.play();
+    audio.addEventListener("error", function () {
 
+        console.error(
+            "Erro ao carregar áudio:",
+            file
+        );
+
+        console.error(
+            "URL:",
+            audio.src
+        );
+
+        /*
+         Se houver erro no áudio,
+         a sequência não fica travada.
+        */
+
+        if (callback) {
+            callback();
+        }
+
+    });
+
+
+    const promise = audio.play();
 
     if (promise !== undefined) {
 
-        promise.catch(
-            function(error) {
+        promise.catch(function (error) {
 
-                console.error(
-                    "Erro ao iniciar áudio:",
-                    file,
-                    error
-                );
+            console.error(
+                "Erro ao iniciar áudio:",
+                file,
+                error
+            );
 
-            }
-        );
+        });
 
     }
 
@@ -870,99 +651,56 @@ const questions = [
 
 
 /* =========================================================
-   ESTADO
-========================================================= */
-
-let currentQuestion = 0;
-
-let playerName = "";
-
-let waitingForAnswer = false;
-
-
-/* =========================================================
    ELEMENTOS
 ========================================================= */
 
 const startScreen =
-    document.getElementById(
-        "startScreen"
-    );
+    document.getElementById("startScreen");
 
 const rulesScreen =
-    document.getElementById(
-        "rulesScreen"
-    );
+    document.getElementById("rulesScreen");
 
 const participantScreen =
-    document.getElementById(
-        "participantScreen"
-    );
+    document.getElementById("participantScreen");
 
 const nameScreen =
-    document.getElementById(
-        "nameScreen"
-    );
+    document.getElementById("nameScreen");
 
 const enterHotspot =
-    document.getElementById(
-        "enterHotspot"
-    );
+    document.getElementById("enterHotspot");
 
 const playerNameInput =
-    document.getElementById(
-        "playerName"
-    );
+    document.getElementById("playerName");
 
 const confirmName =
-    document.getElementById(
-        "confirmName"
-    );
+    document.getElementById("confirmName");
 
 const valueScreen =
-    document.getElementById(
-        "valueScreen"
-    );
+    document.getElementById("valueScreen");
 
 const questionScreen =
-    document.getElementById(
-        "questionScreen"
-    );
+    document.getElementById("questionScreen");
 
 const resultScreen =
-    document.getElementById(
-        "resultScreen"
-    );
+    document.getElementById("resultScreen");
 
 const valueImage =
-    document.getElementById(
-        "valueImage"
-    );
+    document.getElementById("valueImage");
 
 const questionImage =
-    document.getElementById(
-        "questionImage"
-    );
+    document.getElementById("questionImage");
 
 const resultImage =
-    document.getElementById(
-        "resultImage"
-    );
+    document.getElementById("resultImage");
 
 const continueButton =
-    document.getElementById(
-        "continueButton"
-    );
+    document.getElementById("continueButton");
 
 const playerDisplay =
-    document.getElementById(
-        "playerDisplay"
-    );
+    document.getElementById("playerDisplay");
 
 const answerHotspots =
-    document.querySelectorAll(
-        ".answerHotspot"
-    );
+    document.querySelectorAll(".answerHotspot");
 
 
 /* =========================================================
@@ -973,120 +711,93 @@ function showScreen(id) {
 
     document
         .querySelectorAll(".screen")
-        .forEach(
-            function(screen) {
+        .forEach(function (screen) {
 
-                screen.classList.remove(
-                    "active"
-                );
+            screen.classList.remove("active");
 
-            }
-        );
+        });
 
 
     document
         .getElementById(id)
-        .classList.add(
-            "active"
-        );
+        .classList.add("active");
 }
 
 
 /* =========================================================
-   TELA 1
-   ÁUDIO PRIMEIRO.
-   SÓ MUDA PARA A TELA 2 QUANDO TERMINAR.
+   INÍCIO
+   PRIMEIRO CLIQUE LIBERA O ÁUDIO.
+   DEPOIS DISSO, A MUDANÇA É AUTOMÁTICA.
 ========================================================= */
 
-startScreen.addEventListener(
-    "click",
-    function() {
+let gameStarted = false;
 
-        /*
-           A PRIMEIRA TELA CONTINUA VISÍVEL.
+startScreen.addEventListener("click", function () {
 
-           O áudio começa aqui.
-
-           A tela NÃO muda imediatamente.
-        */
-
-        playAudio(
-            "Vai comecar o show do milhao.mp3",
-            function() {
-
-                /*
-                   SOMENTE QUANDO O ÁUDIO TERMINAR
-                   passa para as regras.
-                */
-
-                showScreen(
-                    "rulesScreen"
-                );
-
-            }
-        );
-
+    if (gameStarted) {
+        return;
     }
-);
+
+    gameStarted = true;
+
+    /*
+       A inicio.png continua na tela.
+       O áudio começa.
+       Quando terminar, vai automaticamente
+       para regras.png.
+    */
+
+    playAudio(
+        "Vai comecar o show do milhao.mp3",
+        function () {
+
+            showScreen("rulesScreen");
+
+        }
+    );
+
+});
 
 
 /* =========================================================
-   TELA 2 — REGRAS
+   REGRAS
+   O CLIQUE NAS REGRAS APENAS LIBERA A PRÓXIMA ETAPA.
+   O ÁUDIO DA TELA DO PARTICIPANTE COMEÇA AUTOMATICAMENTE.
 ========================================================= */
 
-rulesScreen.addEventListener(
-    "click",
-    function() {
+rulesScreen.addEventListener("click", function () {
 
-        /*
-           Vai para a tela correta
-           do Guima Show.
-        */
+    showScreen("participantScreen");
 
-        showScreen(
-            "participantScreen"
-        );
+    /*
+       IMPORTANTE:
+       Nome EXATO do arquivo existente.
+    */
 
+    playAudio(
+        "Vamos conhecer o nosso participante .mp3"
+    );
 
-        /*
-           O áudio toca enquanto
-           a tela do participante
-           está sendo mostrada.
-        */
-
-        playAudio(
-            "Vamos conhecer nosso participante.mp3"
-        );
-
-    }
-);
+});
 
 
 /* =========================================================
-   TELA 3 — BOTÃO ENTRAR
+   ENTRAR
 ========================================================= */
 
-enterHotspot.addEventListener(
-    "click",
-    function() {
+enterHotspot.addEventListener("click", function () {
 
-        stopAudio();
+    stopAudio();
 
-        showScreen(
-            "nameScreen"
-        );
+    showScreen("nameScreen");
 
-        setTimeout(
-            function() {
+    setTimeout(function () {
 
-                playerNameInput.focus();
+        playerNameInput.focus();
 
-            },
-            200
-        );
+    }, 200);
 
-    }
-);
+});
 
 
 /* =========================================================
@@ -1101,11 +812,9 @@ confirmName.addEventListener(
 
 playerNameInput.addEventListener(
     "keydown",
-    function(event) {
+    function (event) {
 
-        if (
-            event.key === "Enter"
-        ) {
+        if (event.key === "Enter") {
 
             startGame();
 
@@ -1134,7 +843,6 @@ function startGame() {
         playerNameInput.focus();
 
         return;
-
     }
 
 
@@ -1150,12 +858,14 @@ function startGame() {
         "block";
 
 
-    stopAudio();
-
+    /*
+       O clique no ENTRAR libera
+       automaticamente o próximo áudio.
+    */
 
     playAudio(
         "Boa Sorte.mp3",
-        function() {
+        function () {
 
             currentQuestion = 0;
 
@@ -1168,15 +878,13 @@ function startGame() {
 
 
 /* =========================================================
-   VALOR
+   MOSTRAR VALOR
 ========================================================= */
 
 function showValue() {
 
     const question =
-        questions[
-            currentQuestion
-        ];
+        questions[currentQuestion];
 
 
     stopAudio();
@@ -1189,18 +897,19 @@ function showValue() {
         );
 
 
-    showScreen(
-        "valueScreen"
-    );
+    showScreen("valueScreen");
 
 
-    if (
-        question.valueAudio
-    ) {
+    /*
+       Se existir áudio do valor,
+       toca automaticamente.
+    */
+
+    if (question.valueAudio) {
 
         playAudio(
             question.valueAudio,
-            function() {
+            function () {
 
                 showQuestion();
 
@@ -1209,14 +918,16 @@ function showValue() {
 
     } else {
 
-        setTimeout(
-            function() {
+        /*
+           Para os valores sem áudio,
+           passa automaticamente.
+        */
 
-                showQuestion();
+        setTimeout(function () {
 
-            },
-            1000
-        );
+            showQuestion();
+
+        }, 800);
 
     }
 
@@ -1224,15 +935,13 @@ function showValue() {
 
 
 /* =========================================================
-   PERGUNTA
+   MOSTRAR PERGUNTA
 ========================================================= */
 
 function showQuestion() {
 
     const question =
-        questions[
-            currentQuestion
-        ];
+        questions[currentQuestion];
 
 
     stopAudio();
@@ -1245,22 +954,23 @@ function showQuestion() {
         );
 
 
-    showScreen(
-        "questionScreen"
-    );
+    showScreen("questionScreen");
 
 
     waitingForAnswer = true;
 
 
-    answerHotspots.forEach(
-        function(button) {
+    answerHotspots.forEach(function (button) {
 
-            button.disabled = false;
+        button.disabled = false;
 
-        }
-    );
+    });
 
+
+    /*
+       Suspense começa automaticamente
+       assim que a pergunta aparece.
+    */
 
     playAudio(
         "Música suspense de perguntas.mp3"
@@ -1273,66 +983,58 @@ function showQuestion() {
    RESPOSTAS
 ========================================================= */
 
-answerHotspots.forEach(
-    function(button) {
+answerHotspots.forEach(function (button) {
 
-        button.addEventListener(
-            "click",
-            function() {
+    button.addEventListener(
+        "click",
+        function () {
 
-                if (
-                    !waitingForAnswer
-                ) {
+            if (!waitingForAnswer) {
+                return;
+            }
 
-                    return;
+
+            waitingForAnswer = false;
+
+
+            answerHotspots.forEach(
+                function (btn) {
+
+                    btn.disabled = true;
 
                 }
+            );
 
 
-                waitingForAnswer = false;
-
-
-                answerHotspots.forEach(
-                    function(btn) {
-
-                        btn.disabled = true;
-
-                    }
+            const selected =
+                Number(
+                    this.dataset.answer
                 );
 
 
-                const selected =
-                    Number(
-                        this.dataset.answer
-                    );
+            const correct =
+                questions[
+                    currentQuestion
+                ].correct;
 
 
-                const correct =
-                    questions[
-                        currentQuestion
-                    ].correct;
+            stopAudio();
 
 
-                stopAudio();
+            if (selected === correct) {
 
+                correctAnswer();
 
-                if (
-                    selected === correct
-                ) {
+            } else {
 
-                    correctAnswer();
-
-                } else {
-
-                    wrongAnswer();
-
-                }
+                wrongAnswer();
 
             }
-        );
 
-    }
-);
+        }
+    );
+
+});
 
 
 /* =========================================================
@@ -1346,7 +1048,12 @@ function correctAnswer() {
 
     playAudio(
         "certa resposta.mp3",
-        function() {
+        function () {
+
+            /*
+               Se for a última pergunta,
+               NÃO mostra outro valor.
+            */
 
             if (
                 currentQuestion ===
@@ -1356,11 +1063,16 @@ function correctAnswer() {
                 showFinalWin();
 
                 return;
-
             }
 
 
             currentQuestion++;
+
+
+            /*
+               Próximo valor acontece
+               automaticamente.
+            */
 
             showValue();
 
@@ -1381,7 +1093,7 @@ function wrongAnswer() {
 
     playAudio(
         "Que pena vc errou.mp3",
-        function() {
+        function () {
 
             showLostScreen();
 
@@ -1392,7 +1104,7 @@ function wrongAnswer() {
 
 
 /* =========================================================
-   PERDEU
+   TELA PERDEU
 ========================================================= */
 
 function showLostScreen() {
@@ -1413,9 +1125,7 @@ function showLostScreen() {
         "VOLTAR À PERGUNTA";
 
 
-    showScreen(
-        "resultScreen"
-    );
+    showScreen("resultScreen");
 
 
     playAudio(
@@ -1426,12 +1136,12 @@ function showLostScreen() {
 
 
 /* =========================================================
-   VOLTAR À MESMA PERGUNTA
+   VOLTAR PARA A MESMA PERGUNTA
 ========================================================= */
 
 continueButton.addEventListener(
     "click",
-    function() {
+    function () {
 
         continueButton.style.display =
             "none";
@@ -1461,10 +1171,12 @@ function showFinalWin() {
         "none";
 
 
-    showScreen(
-        "resultScreen"
-    );
+    showScreen("resultScreen");
 
+
+    /*
+       Áudio final automático.
+    */
 
     playAudio(
         "Parabens vc ganhou 1mila de reais.mp3"
@@ -1477,20 +1189,18 @@ function showFinalWin() {
    PRÉ-CARREGAR IMAGENS
 ========================================================= */
 
-questions.forEach(
-    function(question) {
+questions.forEach(function (question) {
 
-        const image =
-            new Image();
+    const image =
+        new Image();
 
-        image.src =
-            BASE +
-            encodeURI(
-                question.image
-            );
+    image.src =
+        BASE +
+        encodeURI(
+            question.image
+        );
 
-    }
-);
+});
 
 
 /* =========================================================
@@ -1502,7 +1212,7 @@ console.log(
 );
 
 console.log(
-    "Fluxo: Início > Áudio > Regras > Participante > Nome > Jogo"
+    "Fluxo automático de áudio ativado."
 );
 
 console.log(
