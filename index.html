@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trilhar - Show do Milhão</title>
+<title>Guima Show</title>
 
 <style>
     * {
-        box-sizing: border-box;
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
         width: 100%;
         height: 100%;
         overflow: hidden;
         background: #000;
-        font-family: Arial, sans-serif;
     }
 
     #game {
@@ -31,23 +31,26 @@
 
     #screen {
         position: absolute;
-        inset: 0;
         width: 100%;
         height: 100%;
+        inset: 0;
         object-fit: contain;
         user-select: none;
     }
 
-    /* Áreas invisíveis clicáveis */
+    /* =====================================================
+       BOTÕES INVISÍVEIS
+    ===================================================== */
+
     .hotspot {
         position: absolute;
-        cursor: pointer;
+        border: 0;
         background: transparent;
-        border: none;
-        outline: none;
+        cursor: pointer;
         z-index: 10;
     }
 
+    /* Botão da tela inicial */
     #playHot {
         left: 25%;
         top: 70%;
@@ -55,10 +58,15 @@
         height: 25%;
     }
 
+    /* Tela de regras */
     #rulesHot {
-        inset: 0;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
     }
 
+    /* Botão entrar */
     #enterHot {
         left: 69%;
         top: 20%;
@@ -66,44 +74,58 @@
         height: 18%;
     }
 
-    #backHot {
-        left: 69%;
-        top: 55%;
-        width: 25%;
-        height: 18%;
-    }
+    /* =====================================================
+       CAMPO DE NOME
+    ===================================================== */
 
-    /* Campo de nome */
     #nameBox {
         display: none;
+
         position: absolute;
         left: 29%;
         top: 65%;
         width: 42%;
         height: 7%;
+
         z-index: 20;
 
-        border: 3px solid #fff;
+        border: 3px solid white;
         border-radius: 10px;
+
         background: rgba(0,0,0,0.85);
 
-        color: #fff;
+        color: white;
+
         text-align: center;
+
         font-size: clamp(18px, 2vw, 32px);
         font-weight: bold;
+
         outline: none;
     }
 
-    /* Alternativas */
-    .answer {
-        display: none;
-        position: absolute;
-        z-index: 15;
-        cursor: pointer;
-        background: transparent;
-        border: none;
+    #nameBox::placeholder {
+        color: #ddd;
     }
 
+    /* =====================================================
+       ALTERNATIVAS
+    ===================================================== */
+
+    .answer {
+        display: none;
+
+        position: absolute;
+
+        z-index: 20;
+
+        border: 0;
+        background: transparent;
+
+        cursor: pointer;
+    }
+
+    /* A */
     #answerA {
         left: 7.5%;
         top: 38.8%;
@@ -111,6 +133,7 @@
         height: 6.5%;
     }
 
+    /* B */
     #answerB {
         left: 7.5%;
         top: 47%;
@@ -118,6 +141,7 @@
         height: 6.5%;
     }
 
+    /* C */
     #answerC {
         left: 7.5%;
         top: 55.2%;
@@ -125,6 +149,7 @@
         height: 6.5%;
     }
 
+    /* D */
     #answerD {
         left: 7.5%;
         top: 63.3%;
@@ -132,27 +157,38 @@
         height: 6.5%;
     }
 
-    #status {
-        display: none;
-        position: absolute;
-        left: 50%;
-        bottom: 2%;
-        transform: translateX(-50%);
-        z-index: 30;
+    /* =====================================================
+       MENSAGEM DE ERRO DE ÁUDIO
+       Fica escondida normalmente.
+    ===================================================== */
 
-        padding: 8px 18px;
+    #audioError {
+        display: none;
+
+        position: absolute;
+
+        left: 50%;
+        bottom: 20px;
+
+        transform: translateX(-50%);
+
+        z-index: 100;
+
+        padding: 10px 18px;
+
+        background: rgba(180,0,0,0.90);
+
+        color: white;
+
         border-radius: 8px;
 
-        color: #fff;
-        background: rgba(0,0,0,.75);
+        font-family: Arial, sans-serif;
+
         font-size: 14px;
+
+        text-align: center;
     }
 
-    @media (max-aspect-ratio: 1/1) {
-        #screen {
-            object-fit: contain;
-        }
-    }
 </style>
 </head>
 
@@ -160,37 +196,93 @@
 
 <div id="game">
 
-    <img id="screen" src="inicio.png" alt="Tela do jogo">
+    <!-- ==================================================
+         IMAGEM PRINCIPAL
+    =================================================== -->
 
-    <!-- Botões -->
-    <button id="playHot" class="hotspot"></button>
-    <button id="rulesHot" class="hotspot"></button>
-    <button id="enterHot" class="hotspot"></button>
-    <button id="backHot" class="hotspot"></button>
+    <img
+        id="screen"
+        src="inicio.png"
+        alt="Guima Show"
+    >
 
-    <!-- Nome -->
+
+    <!-- ==================================================
+         BOTÕES
+    =================================================== -->
+
+    <button
+        id="playHot"
+        class="hotspot"
+        aria-label="Começar"
+    ></button>
+
+    <button
+        id="rulesHot"
+        class="hotspot"
+        aria-label="Continuar"
+    ></button>
+
+    <button
+        id="enterHot"
+        class="hotspot"
+        aria-label="Entrar"
+    ></button>
+
+
+    <!-- ==================================================
+         NOME DO PARTICIPANTE
+    =================================================== -->
+
     <input
         id="nameBox"
         type="text"
-        placeholder="Digite seu nome"
         maxlength="30"
+        placeholder="Digite seu nome"
         autocomplete="off"
     >
 
-    <!-- Alternativas -->
-    <button id="answerA" class="answer"></button>
-    <button id="answerB" class="answer"></button>
-    <button id="answerC" class="answer"></button>
-    <button id="answerD" class="answer"></button>
 
-    <div id="status"></div>
+    <!-- ==================================================
+         RESPOSTAS
+    =================================================== -->
+
+    <button
+        id="answerA"
+        class="answer"
+        aria-label="Resposta A"
+    ></button>
+
+    <button
+        id="answerB"
+        class="answer"
+        aria-label="Resposta B"
+    ></button>
+
+    <button
+        id="answerC"
+        class="answer"
+        aria-label="Resposta C"
+    ></button>
+
+    <button
+        id="answerD"
+        class="answer"
+        aria-label="Resposta D"
+    ></button>
+
+
+    <!-- ERRO DE ÁUDIO -->
+
+    <div id="audioError"></div>
 
 </div>
+
 
 <script>
 
 /* =========================================================
-   CONFIGURAÇÃO
+   ELEMENTOS
 ========================================================= */
 
 const screen = document.getElementById("screen");
@@ -198,18 +290,22 @@ const screen = document.getElementById("screen");
 const playHot = document.getElementById("playHot");
 const rulesHot = document.getElementById("rulesHot");
 const enterHot = document.getElementById("enterHot");
-const backHot = document.getElementById("backHot");
 
 const nameBox = document.getElementById("nameBox");
 
-const answers = [
-    document.getElementById("answerA"),
-    document.getElementById("answerB"),
-    document.getElementById("answerC"),
-    document.getElementById("answerD")
+const answerA = document.getElementById("answerA");
+const answerB = document.getElementById("answerB");
+const answerC = document.getElementById("answerC");
+const answerD = document.getElementById("answerD");
+
+const answerButtons = [
+    answerA,
+    answerB,
+    answerC,
+    answerD
 ];
 
-const statusBox = document.getElementById("status");
+const audioError = document.getElementById("audioError");
 
 
 /* =========================================================
@@ -275,48 +371,99 @@ const AUDIO = {
 
 
 /* =========================================================
-   TELAS
+   IMAGENS
 ========================================================= */
 
 const VALUES = [
+
     "valor-1k.png",
+
     "valor-5k.png",
+
     "valor-10k.png",
+
     "valor-30k.png",
+
     "valor-50k.png",
+
     "valor-100k.png",
+
     "valor-200k.png",
+
     "valor-400k.png",
+
     "valor-500k.png",
+
     "valor-1m.png"
 ];
 
+
 const QUESTIONS = [
+
     "pergunta-1.png",
+
     "pergunta-2.png",
+
     "pergunta-3.png",
+
     "pergunta-4.png",
+
     "pergunta-5.png",
+
     "pergunta-6.png",
+
     "pergunta-7.png",
+
     "pergunta-8.png",
+
     "pergunta-9.png",
+
     "pergunta-10.png"
 ];
 
 
 /* =========================================================
-   RESPOSTAS CORRETAS
+   ÁUDIO DE CADA VALOR
 ========================================================= */
 
-/*
-    1 = A
-    2 = B
-    3 = C
-    4 = D
-*/
+const VALUE_AUDIO = [
+
+    AUDIO.valor1,
+
+    AUDIO.valor5,
+
+    AUDIO.valor10,
+
+    AUDIO.valor30,
+
+    AUDIO.valor50,
+
+    AUDIO.valor100,
+
+    AUDIO.valor200,
+
+    AUDIO.valor400,
+
+    AUDIO.valor500,
+
+    AUDIO.valor1M
+
+];
+
+
+/* =========================================================
+   RESPOSTAS CORRETAS
+=========================================================
+
+   1 = A
+   2 = B
+   3 = C
+   4 = D
+
+========================================================= */
 
 const CORRECT = [
+
     1,
     4,
     2,
@@ -327,24 +474,7 @@ const CORRECT = [
     3,
     4,
     4
-];
 
-
-/* =========================================================
-   ÁUDIO DE CADA VALOR
-========================================================= */
-
-const VALUE_AUDIO = [
-    AUDIO.valor1,
-    AUDIO.valor5,
-    AUDIO.valor10,
-    AUDIO.valor30,
-    AUDIO.valor50,
-    AUDIO.valor100,
-    AUDIO.valor200,
-    AUDIO.valor400,
-    AUDIO.valor500,
-    AUDIO.valor1M
 ];
 
 
@@ -353,28 +483,42 @@ const VALUE_AUDIO = [
 ========================================================= */
 
 let currentQuestion = 0;
+
 let currentAudio = null;
+
 let playerName = "";
+
+let answering = false;
 
 
 /* =========================================================
-   FUNÇÕES
+   ESCONDER TUDO
 ========================================================= */
 
 function hideAllButtons() {
 
     playHot.style.display = "none";
+
     rulesHot.style.display = "none";
+
     enterHot.style.display = "none";
-    backHot.style.display = "none";
 
     nameBox.style.display = "none";
 
-    answers.forEach(btn => {
-        btn.style.display = "none";
+    answerButtons.forEach(function(button) {
+
+        button.style.display = "none";
+
+        button.style.pointerEvents = "none";
+
     });
+
 }
 
+
+/* =========================================================
+   PARAR ÁUDIO
+========================================================= */
 
 function stopAudio() {
 
@@ -385,67 +529,150 @@ function stopAudio() {
         currentAudio.currentTime = 0;
 
         currentAudio = null;
+
     }
+
 }
 
+
+/* =========================================================
+   ESCONDER ERRO
+========================================================= */
+
+function hideAudioError() {
+
+    audioError.style.display = "none";
+
+    audioError.textContent = "";
+
+}
+
+
+/* =========================================================
+   MOSTRAR ERRO
+========================================================= */
+
+function showAudioError(file) {
+
+    audioError.textContent =
+        "Não foi possível carregar o áudio: " + file;
+
+    audioError.style.display = "block";
+
+}
+
+
+/* =========================================================
+   TOCAR ÁUDIO
+========================================================= */
 
 function playAudio(file, callback) {
 
     stopAudio();
 
-    if (!file) {
+    hideAudioError();
 
-        if (callback) {
-            callback();
+    console.log("Tentando tocar:", file);
+
+    const audio = new Audio();
+
+    currentAudio = audio;
+
+    audio.preload = "auto";
+
+    /*
+       encodeURI permite espaços e acentos
+       no nome do arquivo.
+    */
+
+    audio.src = encodeURI(file);
+
+    audio.onended = function() {
+
+        if (currentAudio === audio) {
+
+            currentAudio = null;
+
         }
 
-        return;
+        if (callback) {
+
+            callback();
+
+        }
+
+    };
+
+
+    audio.onerror = function() {
+
+        console.error(
+            "Erro ao carregar áudio:",
+            file
+        );
+
+        if (currentAudio === audio) {
+
+            currentAudio = null;
+
+        }
+
+        showAudioError(file);
+
+        /*
+           Mesmo se o áudio der erro,
+           o jogo continua.
+        */
+
+        if (callback) {
+
+            callback();
+
+        }
+
+    };
+
+
+    const promise = audio.play();
+
+
+    if (promise !== undefined) {
+
+        promise.catch(function(error) {
+
+            console.error(
+                "Erro ao reproduzir áudio:",
+                file,
+                error
+            );
+
+            /*
+               Se o navegador bloquear,
+               mostra o erro.
+            */
+
+            showAudioError(file);
+
+        });
+
     }
 
-    currentAudio = new Audio(file);
-
-    currentAudio.preload = "auto";
-
-    currentAudio.onended = function() {
-
-        currentAudio = null;
-
-        if (callback) {
-            callback();
-        }
-    };
-
-    currentAudio.onerror = function() {
-
-        console.warn("Erro ao carregar áudio:", file);
-
-        currentAudio = null;
-
-        if (callback) {
-            callback();
-        }
-    };
-
-    currentAudio.play().catch(error => {
-
-        console.warn("Não foi possível reproduzir:", file, error);
-
-        if (callback) {
-            callback();
-        }
-
-    });
-}
-
-
-function showScreen(file) {
-
-    screen.src = file;
 }
 
 
 /* =========================================================
-   INÍCIO
+   MOSTRAR IMAGEM
+========================================================= */
+
+function showScreen(file) {
+
+    screen.src = file;
+
+}
+
+
+/* =========================================================
+   TELA INICIAL
 ========================================================= */
 
 function showStart() {
@@ -454,19 +681,55 @@ function showStart() {
 
     hideAllButtons();
 
+    hideAudioError();
+
     showScreen("inicio.png");
 
     playHot.style.display = "block";
+
 }
 
+
+/* =========================================================
+   CLIQUE NA TELA INICIAL
+=========================================================
+
+   IMPORTANTE:
+
+   O áudio começa somente depois do clique.
+   Isso evita o bloqueio de autoplay do navegador.
+
+========================================================= */
 
 playHot.addEventListener("click", function() {
 
     hideAllButtons();
 
-    showScreen("regras.png");
+    answering = false;
 
-    rulesHot.style.display = "block";
+    /*
+       O áudio é iniciado diretamente
+       pela ação do usuário.
+    */
+
+    playAudio(
+
+        AUDIO.inicio,
+
+        function() {
+
+            /*
+               Quando terminar o áudio,
+               mostra as regras.
+            */
+
+            showScreen("regras.png");
+
+            rulesHot.style.display = "block";
+
+        }
+
+    );
 
 });
 
@@ -477,7 +740,11 @@ playHot.addEventListener("click", function() {
 
 rulesHot.addEventListener("click", function() {
 
+    stopAudio();
+
     hideAllButtons();
+
+    hideAudioError();
 
     showScreen("entrar.png");
 
@@ -487,7 +754,13 @@ rulesHot.addEventListener("click", function() {
 
     nameBox.focus();
 
-    playAudio(AUDIO.participante);
+    /*
+       Áudio do participante.
+    */
+
+    playAudio(
+        AUDIO.participante
+    );
 
 });
 
@@ -496,8 +769,16 @@ rulesHot.addEventListener("click", function() {
    ENTRAR
 ========================================================= */
 
-enterHot.addEventListener("click", submitName);
+enterHot.addEventListener("click", function() {
 
+    submitName();
+
+});
+
+
+/* =========================================================
+   ENTER NO CAMPO DE NOME
+========================================================= */
 
 nameBox.addEventListener("keydown", function(event) {
 
@@ -510,85 +791,142 @@ nameBox.addEventListener("keydown", function(event) {
 });
 
 
+/* =========================================================
+   ENVIAR NOME
+========================================================= */
+
 function submitName() {
 
-    playerName = nameBox.value.trim();
+    playerName =
+        nameBox.value.trim();
+
 
     if (!playerName) {
 
         nameBox.focus();
 
         return;
+
     }
+
 
     localStorage.setItem(
         "trilhar_player_name",
         playerName
     );
 
+
     hideAllButtons();
 
+    hideAudioError();
+
+
+    /*
+       Boa Sorte.
+       Quando terminar,
+       começa o primeiro valor.
+    */
+
     playAudio(
+
         AUDIO.boaSorte,
+
         function() {
 
             showValueScreen(0);
 
         }
+
     );
 
 }
 
 
 /* =========================================================
-   TELA DE VALOR
+   TELA DO VALOR
 ========================================================= */
 
 function showValueScreen(index) {
 
-    hideAllButtons();
-
     stopAudio();
 
+    hideAllButtons();
+
+    hideAudioError();
+
+    answering = false;
+
     currentQuestion = index;
+
+
+    /*
+       Mostra a tela do valor.
+    */
 
     showScreen(
         VALUES[index]
     );
 
+
+    /*
+       Toca o áudio correspondente.
+       Depois vai para a pergunta.
+    */
+
     playAudio(
+
         VALUE_AUDIO[index],
+
         function() {
 
             showQuestion(index);
 
         }
+
     );
 
 }
 
 
 /* =========================================================
-   PERGUNTA
+   TELA DA PERGUNTA
 ========================================================= */
 
 function showQuestion(index) {
 
+    stopAudio();
+
     hideAllButtons();
+
+    hideAudioError();
+
+    answering = false;
+
+
+    /*
+       Mostra a pergunta.
+    */
 
     showScreen(
         QUESTIONS[index]
     );
 
-    answers.forEach(btn => {
 
-        btn.style.display = "block";
+    /*
+       Libera os quatro botões.
+    */
+
+    answerButtons.forEach(function(button) {
+
+        button.style.display = "block";
+
+        button.style.pointerEvents = "auto";
 
     });
 
+
     /*
-       Começa o suspense somente depois
-       que a tela da pergunta aparece.
+       Começa o suspense.
     */
 
     playAudio(
@@ -599,51 +937,93 @@ function showQuestion(index) {
 
 
 /* =========================================================
-   RESPOSTAS
+   CLIQUE NAS RESPOSTAS
 ========================================================= */
 
-answers.forEach((button, index) => {
+answerA.addEventListener("click", function() {
 
-    button.addEventListener("click", function() {
-
-        answer(index + 1);
-
-    });
+    answer(1);
 
 });
 
 
+answerB.addEventListener("click", function() {
+
+    answer(2);
+
+});
+
+
+answerC.addEventListener("click", function() {
+
+    answer(3);
+
+});
+
+
+answerD.addEventListener("click", function() {
+
+    answer(4);
+
+});
+
+
+/* =========================================================
+   RESPONDER
+========================================================= */
+
 function answer(selected) {
 
     /*
-       Impede vários cliques enquanto
-       a resposta está sendo processada.
+       Evita clicar duas vezes.
     */
 
-    answers.forEach(btn => {
+    if (answering) {
 
-        btn.style.pointerEvents = "none";
+        return;
+
+    }
+
+    answering = true;
+
+
+    /*
+       Desabilita as alternativas.
+    */
+
+    answerButtons.forEach(function(button) {
+
+        button.style.pointerEvents = "none";
 
     });
 
+
+    /*
+       Para o suspense.
+    */
+
     stopAudio();
+
 
     const correct =
         CORRECT[currentQuestion];
 
 
-    /* =========================
+    /* =====================================================
        ACERTO
-    ========================= */
+    ===================================================== */
 
     if (selected === correct) {
 
         playAudio(
+
             AUDIO.certa,
+
             function() {
 
                 /*
-                   Última pergunta
+                   Se for a pergunta 10,
+                   vai direto para Parabéns.
                 */
 
                 if (currentQuestion === 9) {
@@ -651,11 +1031,12 @@ function answer(selected) {
                     showFinal();
 
                     return;
+
                 }
 
 
                 /*
-                   Próxima pergunta
+                   Próxima pergunta.
                 */
 
                 currentQuestion++;
@@ -665,33 +1046,47 @@ function answer(selected) {
                 );
 
             }
+
         );
 
         return;
+
     }
 
 
-    /* =========================
+    /* =====================================================
        ERRO
-    ========================= */
+    ===================================================== */
 
     playAudio(
+
         AUDIO.errada,
+
         function() {
+
+            /*
+               Mostra tela "Você Perdeu".
+            */
+
+            hideAllButtons();
 
             showScreen(
                 "perdeu.png"
             );
 
-            hideAllButtons();
+
+            /*
+               Moeda caindo.
+            */
 
             playAudio(
+
                 AUDIO.moeda,
+
                 function() {
 
                     /*
-                       Depois de perder,
-                       retorna para a MESMA pergunta.
+                       VOLTA PARA A MESMA PERGUNTA.
                     */
 
                     showQuestion(
@@ -699,9 +1094,11 @@ function answer(selected) {
                     );
 
                 }
+
             );
 
         }
+
     );
 
 }
@@ -717,9 +1114,17 @@ function showFinal() {
 
     hideAllButtons();
 
+    hideAudioError();
+
     showScreen(
         "parabenos.png"
     );
+
+
+    /*
+       Áudio final:
+       Parabéns, você ganhou 1 milhão...
+    */
 
     playAudio(
         AUDIO.final
@@ -729,20 +1134,7 @@ function showFinal() {
 
 
 /* =========================================================
-   BOTÃO VOLTAR
-========================================================= */
-
-backHot.addEventListener("click", function() {
-
-    stopAudio();
-
-    showStart();
-
-});
-
-
-/* =========================================================
-   INICIALIZAÇÃO
+   INICIAR
 ========================================================= */
 
 showStart();
