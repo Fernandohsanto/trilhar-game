@@ -3,156 +3,284 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Guima Show</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#000;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
 }
 
-#game{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    overflow:hidden;
-    background:#000;
+#game {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
 }
 
-#screen{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:contain;
+#screen {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    user-select: none;
 }
 
-.hotspot{
-    position:absolute;
-    border:0;
-    background:transparent;
-    cursor:pointer;
-    z-index:20;
+/* =====================================================
+   BOTÕES INVISÍVEIS
+===================================================== */
+
+.hotspot {
+    position: absolute;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    z-index: 20;
 }
 
-#playHot{
-    left:25%;
-    top:70%;
-    width:50%;
-    height:25%;
+/* INÍCIO */
+
+#playHot {
+    left: 25%;
+    top: 70%;
+
+    width: 50%;
+    height: 25%;
 }
 
-#rulesHot{
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
+
+/* REGRAS */
+
+#rulesHot {
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
 }
 
-#enterHot{
-    left:69%;
-    top:20%;
-    width:25%;
-    height:18%;
+
+/* ENTRAR */
+
+#enterHot {
+    left: 69%;
+    top: 20%;
+
+    width: 25%;
+    height: 18%;
 }
 
-#nameBox{
-    display:none;
-    position:absolute;
-    left:29%;
-    top:65%;
-    width:42%;
-    height:7%;
-    z-index:30;
 
-    background:rgba(0,0,0,.85);
-    border:3px solid white;
-    border-radius:10px;
+/* =====================================================
+   CAMPO DE NOME
+===================================================== */
 
-    color:white;
-    text-align:center;
-    font-size:clamp(18px,2vw,32px);
-    font-weight:bold;
-    outline:none;
+#nameBox {
+
+    display: none;
+
+    position: absolute;
+
+    left: 29%;
+    top: 65%;
+
+    width: 42%;
+    height: 7%;
+
+    z-index: 30;
+
+    border: 3px solid white;
+    border-radius: 10px;
+
+    background: rgba(0,0,0,.85);
+
+    color: white;
+
+    text-align: center;
+
+    font-size: clamp(18px, 2vw, 32px);
+
+    font-weight: bold;
+
+    outline: none;
 }
 
-.answer{
-    display:none;
-    position:absolute;
-    z-index:30;
-    border:0;
-    background:transparent;
-    cursor:pointer;
+#nameBox::placeholder {
+    color: #ddd;
 }
 
-#answerA{
-    left:7.5%;
-    top:38.8%;
-    width:43.8%;
-    height:6.5%;
+
+/* =====================================================
+   RESPOSTAS
+===================================================== */
+
+.answer {
+
+    display: none;
+
+    position: absolute;
+
+    z-index: 30;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
 }
 
-#answerB{
-    left:7.5%;
-    top:47%;
-    width:43.8%;
-    height:6.5%;
+
+/* A */
+
+#answerA {
+
+    left: 7.5%;
+    top: 38.8%;
+
+    width: 43.8%;
+    height: 6.5%;
 }
 
-#answerC{
-    left:7.5%;
-    top:55.2%;
-    width:43.8%;
-    height:6.5%;
+
+/* B */
+
+#answerB {
+
+    left: 7.5%;
+    top: 47%;
+
+    width: 43.8%;
+    height: 6.5%;
 }
 
-#answerD{
-    left:7.5%;
-    top:63.3%;
-    width:43.8%;
-    height:6.5%;
+
+/* C */
+
+#answerC {
+
+    left: 7.5%;
+    top: 55.2%;
+
+    width: 43.8%;
+    height: 6.5%;
 }
 
-#audioError{
-    display:none;
-    position:absolute;
-    left:50%;
-    bottom:15px;
-    transform:translateX(-50%);
-    z-index:100;
 
-    background:#b00000;
-    color:#fff;
+/* D */
 
-    padding:10px 18px;
-    border-radius:8px;
+#answerD {
 
-    font-family:Arial;
-    font-size:14px;
-    text-align:center;
+    left: 7.5%;
+    top: 63.3%;
+
+    width: 43.8%;
+    height: 6.5%;
 }
+
+
+/* =====================================================
+   MENSAGEM DE ERRO
+===================================================== */
+
+#audioError {
+
+    display: none;
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 20px;
+
+    transform: translateX(-50%);
+
+    z-index: 100;
+
+    max-width: 90%;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    background: rgba(180,0,0,.95);
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div id="game">
 
-    <img id="screen" src="inicio.png">
 
-    <button id="playHot" class="hotspot"></button>
+    <!-- =================================================
+         TELA
+    ================================================== -->
 
-    <button id="rulesHot" class="hotspot"></button>
+    <img
+        id="screen"
+        src="inicio.png"
+        alt="Guima Show"
+    >
 
-    <button id="enterHot" class="hotspot"></button>
+
+    <!-- =================================================
+         BOTÕES
+    ================================================== -->
+
+    <button
+        id="playHot"
+        class="hotspot"
+        aria-label="Começar"
+    ></button>
+
+
+    <button
+        id="rulesHot"
+        class="hotspot"
+        aria-label="Continuar"
+    ></button>
+
+
+    <button
+        id="enterHot"
+        class="hotspot"
+        aria-label="Entrar"
+    ></button>
+
+
+    <!-- =================================================
+         NOME
+    ================================================== -->
 
     <input
         id="nameBox"
@@ -162,14 +290,47 @@ html,body{
         autocomplete="off"
     >
 
-    <button id="answerA" class="answer"></button>
-    <button id="answerB" class="answer"></button>
-    <button id="answerC" class="answer"></button>
-    <button id="answerD" class="answer"></button>
+
+    <!-- =================================================
+         RESPOSTAS
+    ================================================== -->
+
+    <button
+        id="answerA"
+        class="answer"
+        aria-label="Resposta A"
+    ></button>
+
+
+    <button
+        id="answerB"
+        class="answer"
+        aria-label="Resposta B"
+    ></button>
+
+
+    <button
+        id="answerC"
+        class="answer"
+        aria-label="Resposta C"
+    ></button>
+
+
+    <button
+        id="answerD"
+        class="answer"
+        aria-label="Resposta D"
+    ></button>
+
+
+    <!-- =================================================
+         ERRO DE ÁUDIO
+    ================================================== -->
 
     <div id="audioError"></div>
 
 </div>
+
 
 <script>
 
@@ -193,10 +354,15 @@ const nameBox =
     document.getElementById("nameBox");
 
 const answerButtons = [
+
     document.getElementById("answerA"),
+
     document.getElementById("answerB"),
+
     document.getElementById("answerC"),
+
     document.getElementById("answerD")
+
 ];
 
 const audioError =
@@ -204,16 +370,16 @@ const audioError =
 
 
 /* =========================================================
-   NOMES EXATOS DOS ARQUIVOS DO GITHUB
+   ÁUDIOS
 ========================================================= */
 
 const AUDIO = {
 
     inicio:
-        "Vai come├ºar o show do milh├úo.mp3",
+        "Vai começar o show do milhao.mp3",
 
     participante:
-        "Vamos conhecer o nosso participante .mp3",
+        "Vamos conhecer nosso participante.mp3",
 
     boaSorte:
         "Boa Sorte.mp3",
@@ -231,7 +397,7 @@ const AUDIO = {
         "30 mil.mp3",
 
     valor50:
-        "50 mil(1).mp3",
+        "50 mil.mp3",
 
     valor100:
         "1000 mil.mp3",
@@ -246,10 +412,10 @@ const AUDIO = {
         "5000 mil.mp3",
 
     valor1M:
-        "1 milh├úo.mp3",
+        "1000 mil.mp3",
 
     suspense:
-        "Musica suspense de perguntas.mp3",
+        "Música suspense de perguntas.mp3",
 
     certa:
         "certa resposta.mp3",
@@ -261,62 +427,65 @@ const AUDIO = {
         "Moeda caindo quando perde.mp3",
 
     final:
-        "Parab├®ns vc ganhou 1milh├úo de reais.mp3"
+        "Parabens vc ganhou 1mila de reais.mp3"
+
 };
 
 
 /* =========================================================
-   IMAGENS
+   IMAGENS DOS VALORES
 ========================================================= */
 
 const VALUES = [
 
     "valor-1k.png",
+
     "valor-5k.png",
+
     "valor-10k.png",
+
     "valor-30k.png",
+
     "valor-50k.png",
+
     "valor-100k.png",
+
     "valor-200k.png",
+
     "valor-400k.png",
+
     "valor-500k.png",
+
     "valor-1m.png"
 
 ];
 
 
+/* =========================================================
+   PERGUNTAS
+========================================================= */
+
 const QUESTIONS = [
 
     "pergunta-1.png",
+
     "pergunta-2.png",
+
     "pergunta-3.png",
+
     "pergunta-4.png",
+
     "pergunta-5.png",
+
     "pergunta-6.png",
+
     "pergunta-7.png",
+
     "pergunta-8.png",
+
     "pergunta-9.png",
+
     "pergunta-10.png"
-
-];
-
-
-/* =========================================================
-   ÁUDIO DOS VALORES
-========================================================= */
-
-const VALUE_AUDIO = [
-
-    AUDIO.valor1,
-    AUDIO.valor5,
-    AUDIO.valor10,
-    AUDIO.valor30,
-    AUDIO.valor50,
-    AUDIO.valor100,
-    AUDIO.valor200,
-    AUDIO.valor400,
-    AUDIO.valor500,
-    AUDIO.valor1M
 
 ];
 
@@ -325,10 +494,10 @@ const VALUE_AUDIO = [
    RESPOSTAS CORRETAS
 =========================================================
 
-   A = 1
-   B = 2
-   C = 3
-   D = 4
+A = 1
+B = 2
+C = 3
+D = 4
 
 ========================================================= */
 
@@ -349,6 +518,35 @@ const CORRECT = [
 
 
 /* =========================================================
+   ÁUDIO DOS VALORES
+========================================================= */
+
+const VALUE_AUDIO = [
+
+    AUDIO.valor1,
+
+    AUDIO.valor5,
+
+    AUDIO.valor10,
+
+    AUDIO.valor30,
+
+    AUDIO.valor50,
+
+    AUDIO.valor100,
+
+    AUDIO.valor200,
+
+    AUDIO.valor400,
+
+    AUDIO.valor500,
+
+    AUDIO.valor1M
+
+];
+
+
+/* =========================================================
    CONTROLE
 ========================================================= */
 
@@ -360,10 +558,33 @@ let answering = false;
 
 
 /* =========================================================
-   ESCONDER BOTÕES
+   FUNÇÃO PARA CRIAR O CAMINHO DO ARQUIVO
+=========================================================
+
+IMPORTANTE:
+
+Não escrevemos manualmente:
+
+%20
+%C3%A7
+%C3%BA
+
+O navegador faz isso automaticamente.
+
 ========================================================= */
 
-function hideAll(){
+function fileURL(filename) {
+
+    return "./" + encodeURI(filename);
+
+}
+
+
+/* =========================================================
+   ESCONDER TUDO
+========================================================= */
+
+function hideAll() {
 
     playHot.style.display = "none";
 
@@ -373,9 +594,11 @@ function hideAll(){
 
     nameBox.style.display = "none";
 
-    answerButtons.forEach(function(button){
+
+    answerButtons.forEach(function(button) {
 
         button.style.display = "none";
+
         button.style.pointerEvents = "none";
 
     });
@@ -387,9 +610,9 @@ function hideAll(){
    PARAR ÁUDIO
 ========================================================= */
 
-function stopAudio(){
+function stopAudio() {
 
-    if(currentAudio){
+    if (currentAudio) {
 
         currentAudio.pause();
 
@@ -403,22 +626,24 @@ function stopAudio(){
 
 
 /* =========================================================
-   ERRO DE ÁUDIO
+   ERRO
 ========================================================= */
 
-function showAudioError(file){
+function hideAudioError() {
 
-    audioError.innerText =
-        "Erro ao carregar: " + file;
+    audioError.style.display = "none";
 
-    audioError.style.display = "block";
+    audioError.textContent = "";
 
 }
 
 
-function hideAudioError(){
+function showAudioError(file) {
 
-    audioError.style.display = "none";
+    audioError.textContent =
+        "Não consegui carregar: " + file;
+
+    audioError.style.display = "block";
 
 }
 
@@ -427,66 +652,109 @@ function hideAudioError(){
    TOCAR ÁUDIO
 ========================================================= */
 
-function playAudio(file, callback){
+function playAudio(file, callback) {
 
     stopAudio();
 
     hideAudioError();
 
-    console.log("Áudio:", file);
 
     const audio =
         new Audio();
 
-    currentAudio = audio;
 
-    /*
-       encodeURI transforma espaços e caracteres
-       especiais no formato correto para a URL.
-    */
+    currentAudio =
+        audio;
 
-    audio.src =
-        encodeURI(file);
 
     audio.preload =
         "auto";
 
-    audio.onended =
-        function(){
 
-            currentAudio = null;
+    /*
+       Aqui está a correção importante.
 
-            if(callback){
+       O nome normal do arquivo é passado para
+       encodeURI(), que transforma corretamente:
+
+       espaço
+       ç
+       ã
+       ú
+       etc.
+
+       em uma URL válida.
+    */
+
+    audio.src =
+        fileURL(file);
+
+
+    console.log(
+        "Carregando áudio:",
+        audio.src
+    );
+
+
+    audio.addEventListener(
+        "ended",
+        function() {
+
+            if (currentAudio === audio) {
+
+                currentAudio = null;
+
+            }
+
+            if (callback) {
 
                 callback();
 
             }
 
-        };
+        }
+    );
 
 
-    audio.onerror =
-        function(){
+    audio.addEventListener(
+        "error",
+        function() {
 
             console.error(
-                "Erro no áudio:",
-                file
+                "ERRO NO ÁUDIO:",
+                audio.src
             );
 
-            currentAudio = null;
+
+            if (currentAudio === audio) {
+
+                currentAudio = null;
+
+            }
+
 
             showAudioError(file);
 
-        };
+        }
+    );
 
 
     audio.play()
-        .catch(function(error){
+        .then(function() {
+
+            console.log(
+                "Áudio reproduzindo:",
+                file
+            );
+
+        })
+        .catch(function(error) {
 
             console.error(
-                "Erro ao tocar:",
+                "Navegador bloqueou o áudio:",
                 error
             );
+
 
             showAudioError(file);
 
@@ -499,18 +767,19 @@ function playAudio(file, callback){
    TROCAR IMAGEM
 ========================================================= */
 
-function showScreen(file){
+function showScreen(file) {
 
-    screen.src = file;
+    screen.src =
+        file;
 
 }
 
 
 /* =========================================================
-   INÍCIO
+   TELA INICIAL
 ========================================================= */
 
-function showStart(){
+function showStart() {
 
     stopAudio();
 
@@ -518,9 +787,11 @@ function showStart(){
 
     hideAudioError();
 
+
     showScreen(
         "inicio.png"
     );
+
 
     playHot.style.display =
         "block";
@@ -529,29 +800,46 @@ function showStart(){
 
 
 /* =========================================================
-   COMEÇAR
+   INÍCIO DO JOGO
+=========================================================
+
+O áudio começa somente depois do clique.
+
 ========================================================= */
 
 playHot.addEventListener(
     "click",
-    function(){
+    function() {
+
 
         hideAll();
 
+
         /*
-           O áudio começa exatamente no clique.
-           Isso evita o bloqueio de autoplay.
+           IMPORTANTE:
+
+           O play acontece diretamente dentro
+           do clique do usuário.
+
+           Isso evita bloqueio de autoplay.
         */
 
         playAudio(
 
             AUDIO.inicio,
 
-            function(){
+            function() {
+
+
+                /*
+                   Quando o áudio acabar,
+                   entra nas regras.
+                */
 
                 showScreen(
                     "regras.png"
                 );
+
 
                 rulesHot.style.display =
                     "block";
@@ -570,23 +858,37 @@ playHot.addEventListener(
 
 rulesHot.addEventListener(
     "click",
-    function(){
+    function() {
+
 
         stopAudio();
 
         hideAll();
 
+        hideAudioError();
+
+
         showScreen(
             "entrar.png"
         );
 
+
         nameBox.style.display =
             "block";
+
 
         enterHot.style.display =
             "block";
 
+
         nameBox.focus();
+
+
+        /*
+           Áudio:
+
+           Vamos conhecer nosso participante
+        */
 
         playAudio(
             AUDIO.participante
@@ -602,15 +904,23 @@ rulesHot.addEventListener(
 
 enterHot.addEventListener(
     "click",
-    submitName
+    function() {
+
+        submitName();
+
+    }
 );
 
 
+/* =========================================================
+   ENTER NO NOME
+========================================================= */
+
 nameBox.addEventListener(
     "keydown",
-    function(event){
+    function(event) {
 
-        if(event.key === "Enter"){
+        if (event.key === "Enter") {
 
             submitName();
 
@@ -621,15 +931,17 @@ nameBox.addEventListener(
 
 
 /* =========================================================
-   NOME
+   ENVIAR NOME
 ========================================================= */
 
-function submitName(){
+function submitName() {
 
-    const name =
+
+    const playerName =
         nameBox.value.trim();
 
-    if(!name){
+
+    if (!playerName) {
 
         nameBox.focus();
 
@@ -637,18 +949,28 @@ function submitName(){
 
     }
 
+
     localStorage.setItem(
         "trilhar_player_name",
-        name
+        playerName
     );
 
+
     hideAll();
+
+
+    /*
+       Boa Sorte.
+
+       Depois do áudio:
+       primeira tela de valor.
+    */
 
     playAudio(
 
         AUDIO.boaSorte,
 
-        function(){
+        function() {
 
             showValueScreen(0);
 
@@ -663,24 +985,37 @@ function submitName(){
    TELA DO VALOR
 ========================================================= */
 
-function showValueScreen(index){
+function showValueScreen(index) {
+
 
     stopAudio();
 
     hideAll();
 
+    hideAudioError();
+
+
     currentQuestion =
         index;
+
 
     showScreen(
         VALUES[index]
     );
 
+
+    /*
+       Toca o áudio do valor.
+
+       Quando acabar:
+       pergunta.
+    */
+
     playAudio(
 
         VALUE_AUDIO[index],
 
-        function(){
+        function() {
 
             showQuestion(index);
 
@@ -695,11 +1030,19 @@ function showValueScreen(index){
    PERGUNTA
 ========================================================= */
 
-function showQuestion(index){
+function showQuestion(index) {
+
 
     stopAudio();
 
     hideAll();
+
+    hideAudioError();
+
+
+    answering =
+        false;
+
 
     showScreen(
         QUESTIONS[index]
@@ -707,7 +1050,7 @@ function showQuestion(index){
 
 
     answerButtons.forEach(
-        function(button){
+        function(button) {
 
             button.style.display =
                 "block";
@@ -719,11 +1062,8 @@ function showQuestion(index){
     );
 
 
-    answering = false;
-
-
     /*
-       Música de suspense.
+       Suspense.
     */
 
     playAudio(
@@ -734,15 +1074,17 @@ function showQuestion(index){
 
 
 /* =========================================================
-   RESPOSTAS
+   BOTÕES DE RESPOSTA
 ========================================================= */
 
 answerButtons.forEach(
-    function(button,index){
+    function(button, index) {
+
 
         button.addEventListener(
             "click",
-            function(){
+            function() {
+
 
                 answer(
                     index + 1
@@ -756,22 +1098,25 @@ answerButtons.forEach(
 
 
 /* =========================================================
-   PROCESSAR RESPOSTA
+   RESPONDER
 ========================================================= */
 
-function answer(selected){
+function answer(selected) {
 
-    if(answering){
+
+    if (answering) {
 
         return;
 
     }
 
-    answering = true;
+
+    answering =
+        true;
 
 
     answerButtons.forEach(
-        function(button){
+        function(button) {
 
             button.style.pointerEvents =
                 "none";
@@ -791,20 +1136,25 @@ function answer(selected){
        ACERTO
     ===================================================== */
 
-    if(selected === correct){
+    if (selected === correct) {
+
 
         playAudio(
 
             AUDIO.certa,
 
-            function(){
+            function() {
+
 
                 /*
                    Pergunta 10:
-                   vai para o final.
+                   final.
                 */
 
-                if(currentQuestion === 9){
+                if (
+                    currentQuestion === 9
+                ) {
+
 
                     showFinal();
 
@@ -814,10 +1164,11 @@ function answer(selected){
 
 
                 /*
-                   Próximo valor.
+                   Próxima.
                 */
 
                 currentQuestion++;
+
 
                 showValueScreen(
                     currentQuestion
@@ -826,6 +1177,7 @@ function answer(selected){
             }
 
         );
+
 
         return;
 
@@ -840,24 +1192,31 @@ function answer(selected){
 
         AUDIO.errada,
 
-        function(){
+        function() {
+
 
             hideAll();
+
 
             showScreen(
                 "perdeu.png"
             );
 
 
+            /*
+               Som da moeda.
+            */
+
             playAudio(
 
                 AUDIO.moeda,
 
-                function(){
+                function() {
+
 
                     /*
-                       VOLTA PARA A MESMA
-                       PERGUNTA.
+                       Volta para a MESMA
+                       pergunta.
                     */
 
                     showQuestion(
@@ -879,16 +1238,24 @@ function answer(selected){
    FINAL
 ========================================================= */
 
-function showFinal(){
+function showFinal() {
+
 
     stopAudio();
 
     hideAll();
 
+    hideAudioError();
+
+
     showScreen(
-        "parabens.png"
+        "parabenos.png"
     );
 
+
+    /*
+       Parabéns!
+    */
 
     playAudio(
         AUDIO.final
