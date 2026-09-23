@@ -37,6 +37,7 @@ body {
     overflow: hidden;
 }
 
+
 /* =========================================================
    TELAS
 ========================================================= */
@@ -88,7 +89,7 @@ body {
 
 
 /* =========================================================
-   TELA DE REGRAS
+   REGRAS
 ========================================================= */
 
 #rulesScreen {
@@ -103,47 +104,69 @@ body {
 
 
 /* =========================================================
-   PARTICIPANTE
+   TELA DO PARTICIPANTE
 ========================================================= */
 
 #participantScreen {
-    flex-direction: column;
     position: relative;
+    flex-direction: column;
+    background: #000;
 }
 
-#participantScreen img {
+#participantBackground {
+    position: absolute;
+    inset: 0;
+
     width: 100%;
     height: 100%;
+
     object-fit: contain;
+
+    z-index: 1;
 }
 
+
+/*
+   Campo de nome fica SOBRE a imagem entrar.png.
+*/
+
 .participantControls {
+
     position: absolute;
 
     left: 50%;
-    bottom: 7%;
+    bottom: 6%;
 
     transform: translateX(-50%);
 
     display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     gap: 12px;
+
+    width: 90%;
 
     z-index: 10;
 }
 
 #playerName {
-    width: 400px;
 
-    padding: 16px 20px;
+    width: min(600px, 70vw);
 
-    border-radius: 10px;
+    padding: 18px 25px;
+
+    border-radius: 12px;
+
     border: 3px solid #fff;
 
-    background: rgba(0,0,0,0.85);
+    background: #fff;
 
-    color: #fff;
+    color: #555;
 
-    font-size: 22px;
+    font-size: 25px;
 
     text-align: center;
 
@@ -151,23 +174,28 @@ body {
 }
 
 #playerName::placeholder {
-    color: #ddd;
+    color: #777;
 }
 
 #enterButton {
-    padding: 16px 28px;
 
-    border: 0;
-    border-radius: 10px;
+    padding: 18px 35px;
+
+    border: none;
+
+    border-radius: 12px;
 
     background: #00a651;
 
     color: #fff;
 
-    font-size: 21px;
+    font-size: 24px;
+
     font-weight: bold;
 
     cursor: pointer;
+
+    min-width: 160px;
 }
 
 #enterButton:hover {
@@ -176,30 +204,35 @@ body {
 
 
 /* =========================================================
-   TELA DE VALOR
+   VALOR
 ========================================================= */
 
 #valueScreen img {
+
     width: 100%;
     height: 100%;
+
     object-fit: contain;
 }
 
 
 /* =========================================================
-   ÁREA DA PERGUNTA
+   PERGUNTA
 ========================================================= */
 
 #questionScreen {
+
+    background: #000;
+
     position: absolute;
+
     inset: 0;
 
     display: none;
 
     justify-content: center;
-    align-items: center;
 
-    background: #000;
+    align-items: center;
 }
 
 #questionScreen.active {
@@ -208,8 +241,7 @@ body {
 
 
 /*
-    O palco mantém exatamente a proporção 16:9
-    da imagem original.
+   Mantém a arte da pergunta inteira.
 */
 
 .questionStage {
@@ -217,9 +249,11 @@ body {
     position: relative;
 
     width: 100vw;
+
     height: 56.25vw;
 
     max-width: 177.777vh;
+
     max-height: 100vh;
 
     aspect-ratio: 16 / 9;
@@ -242,45 +276,36 @@ body {
 
 
 /* =========================================================
-   ÁREAS INVISÍVEIS SOBRE AS ALTERNATIVAS
+   ÁREAS INVISÍVEIS DAS RESPOSTAS
 ========================================================= */
 
 #answerHotspots {
 
     position: absolute;
 
-    /*
-       Posição baseada na imagem original 16:9.
-       As áreas ficam sobre as alternativas
-       que já estão dentro da imagem.
-    */
+    left: 7.3%;
 
-    left: 8.2%;
-    top: 37.8%;
+    top: 37.5%;
 
-    width: 42%;
+    width: 43%;
 
-    height: 32%;
+    height: 33%;
 
     display: grid;
 
     grid-template-columns: 1fr;
 
-    grid-template-rows:
-        repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
 
-    gap: 4.5%;
+    gap: 4%;
 
     z-index: 20;
 }
 
-
 .answerHotspot {
 
-    width: 100%;
-    height: 100%;
-
     border: none;
+
     outline: none;
 
     background: transparent;
@@ -290,19 +315,15 @@ body {
     opacity: 0;
 }
 
-
-/*
-   Não aparece nenhuma caixa.
-   O usuário enxerga somente a arte original.
-*/
-
 .answerHotspot:hover,
 .answerHotspot:focus,
 .answerHotspot:active {
 
-    background: transparent;
     border: none;
+
     outline: none;
+
+    background: transparent;
 }
 
 
@@ -330,7 +351,7 @@ body {
 
     color: #fff;
 
-    font-size: 22px;
+    font-size: 20px;
 
     font-weight: bold;
 
@@ -345,7 +366,9 @@ body {
 ========================================================= */
 
 #resultScreen {
+
     position: absolute;
+
     inset: 0;
 
     background: #000;
@@ -356,6 +379,7 @@ body {
 #resultImage {
 
     width: 100%;
+
     height: 100%;
 
     object-fit: contain;
@@ -363,7 +387,7 @@ body {
 
 
 /* =========================================================
-   BOTÃO CONTINUAR
+   CONTINUAR
 ========================================================= */
 
 #continueButton {
@@ -371,6 +395,7 @@ body {
     position: absolute;
 
     left: 50%;
+
     bottom: 5%;
 
     transform: translateX(-50%);
@@ -378,13 +403,15 @@ body {
     padding: 15px 35px;
 
     border: none;
+
     border-radius: 10px;
 
     background: #00a651;
 
-    color: white;
+    color: #fff;
 
     font-size: 21px;
+
     font-weight: bold;
 
     cursor: pointer;
@@ -394,24 +421,18 @@ body {
     z-index: 100;
 }
 
-#continueButton:hover {
-    background: #008f45;
-}
-
 
 /* =========================================================
-   RESPONSIVO
+   CELULAR
 ========================================================= */
 
 @media (max-width: 800px) {
 
     .participantControls {
 
-        width: 90%;
+        width: 92%;
 
         flex-direction: column;
-
-        align-items: center;
 
         bottom: 5%;
     }
@@ -420,14 +441,14 @@ body {
 
         width: 100%;
 
-        font-size: 18px;
+        font-size: 20px;
     }
 
     #enterButton {
 
         width: 100%;
 
-        font-size: 18px;
+        font-size: 20px;
     }
 
     #playerDisplay {
@@ -440,7 +461,6 @@ body {
 
         text-overflow: ellipsis;
     }
-
 }
 
 </style>
@@ -453,7 +473,7 @@ body {
 
 
     <!-- =====================================================
-         TELA INICIAL
+         INÍCIO
     ====================================================== -->
 
     <div
@@ -496,9 +516,11 @@ body {
     >
 
         <img
-            src="tela1.png"
-            alt="Participante"
+            id="participantBackground"
+            src="entrar.png"
+            alt="Entrada do participante"
         >
+
 
         <div class="participantControls">
 
@@ -510,7 +532,10 @@ body {
                 autocomplete="off"
             >
 
-            <button id="enterButton">
+            <button
+                id="enterButton"
+                type="button"
+            >
                 ENTRAR
             </button>
 
@@ -532,6 +557,7 @@ body {
             id="valueImage"
             src=""
             alt="Valor"
+
         >
 
     </div>
@@ -555,35 +581,34 @@ body {
             >
 
 
-            <!--
-                ÁREAS INVISÍVEIS DE CLIQUE.
-                NÃO APARECEM NA TELA.
-            -->
-
             <div id="answerHotspots">
 
                 <button
                     class="answerHotspot"
                     data-answer="1"
                     aria-label="Resposta 1"
+                    type="button"
                 ></button>
 
                 <button
                     class="answerHotspot"
                     data-answer="2"
                     aria-label="Resposta 2"
+                    type="button"
                 ></button>
 
                 <button
                     class="answerHotspot"
                     data-answer="3"
                     aria-label="Resposta 3"
+                    type="button"
                 ></button>
 
                 <button
                     class="answerHotspot"
                     data-answer="4"
                     aria-label="Resposta 4"
+                    type="button"
                 ></button>
 
             </div>
@@ -608,19 +633,17 @@ body {
             alt="Resultado"
         >
 
-        <button id="continueButton">
+        <button
+            id="continueButton"
+            type="button"
+        >
             VOLTAR À PERGUNTA
         </button>
 
     </div>
 
 
-    <!-- =====================================================
-         PARTICIPANTE NO TOPO
-    ====================================================== -->
-
     <div id="playerDisplay"></div>
-
 
 </div>
 
@@ -635,15 +658,11 @@ const BASE = "./";
 
 
 /* =========================================================
-   ÁUDIO ATUAL
+   ÁUDIO
 ========================================================= */
 
 let currentAudio = null;
 
-
-/* =========================================================
-   PARAR ÁUDIO
-========================================================= */
 
 function stopAudio() {
 
@@ -666,25 +685,16 @@ function stopAudio() {
 }
 
 
-/* =========================================================
-   TOCAR ÁUDIO
-========================================================= */
-
 function playAudio(file, callback = null) {
 
     stopAudio();
 
     const audio = new Audio();
 
-    /*
-       encodeURI preserva o nome do arquivo
-       e transforma espaços/acentos corretamente.
-    */
+    audio.preload = "auto";
 
     audio.src =
         BASE + encodeURI(file);
-
-    audio.preload = "auto";
 
     currentAudio = audio;
 
@@ -714,20 +724,14 @@ function playAudio(file, callback = null) {
         function() {
 
             console.error(
-                "NÃO FOI POSSÍVEL CARREGAR O ÁUDIO:",
+                "Erro ao carregar:",
                 file
             );
 
             console.error(
-                "CAMINHO:",
+                "URL:",
                 audio.src
             );
-
-
-            /*
-               Mesmo se o áudio não carregar,
-               o jogo continua.
-            */
 
             if (callback) {
 
@@ -739,23 +743,25 @@ function playAudio(file, callback = null) {
     );
 
 
-    const promise = audio.play();
+    const promise =
+        audio.play();
 
 
     if (promise !== undefined) {
 
-        promise.catch(function(error) {
+        promise.catch(
+            function(error) {
 
-            console.error(
-                "ERRO AO TOCAR ÁUDIO:",
-                file,
-                error
-            );
+                console.error(
+                    "Erro ao iniciar áudio:",
+                    file,
+                    error
+                );
 
-        });
+            }
+        );
 
     }
-
 
     return audio;
 }
@@ -934,23 +940,27 @@ function showScreen(id) {
 
     document
         .querySelectorAll(".screen")
-        .forEach(function(screen) {
+        .forEach(
+            function(screen) {
 
-            screen.classList.remove(
-                "active"
-            );
+                screen.classList.remove(
+                    "active"
+                );
 
-        });
+            }
+        );
 
 
     document
         .getElementById(id)
-        .classList.add("active");
+        .classList.add(
+            "active"
+        );
 }
 
 
 /* =========================================================
-   TELA INICIAL
+   INÍCIO
 ========================================================= */
 
 startScreen.addEventListener(
@@ -958,18 +968,15 @@ startScreen.addEventListener(
     function() {
 
         /*
-           AGORA A MÚSICA INICIAL É TOCADA
-           PELO CLIQUE DO USUÁRIO.
+           O primeiro áudio começa pelo
+           clique do usuário, evitando
+           bloqueio de autoplay.
         */
 
         playAudio(
             "Vai comecar o show do milhao.mp3"
         );
 
-
-        /*
-           Mostra as regras.
-        */
 
         showScreen(
             "rulesScreen"
@@ -987,13 +994,18 @@ rulesScreen.addEventListener(
     "click",
     function() {
 
-        playAudio(
-            "Vamos conhecer nosso participante.mp3"
+        showScreen(
+            "participantScreen"
         );
 
 
-        showScreen(
-            "participantScreen"
+        /*
+           Aqui toca somente:
+           Vamos conhecer nosso participante
+        */
+
+        playAudio(
+            "Vamos conhecer nosso participante.mp3"
         );
 
     }
@@ -1027,7 +1039,7 @@ playerNameInput.addEventListener(
 
 
 /* =========================================================
-   COMEÇAR JOGO
+   COMEÇAR
 ========================================================= */
 
 function startGame() {
@@ -1065,7 +1077,7 @@ function startGame() {
 
 
     /*
-       Boa Sorte.
+       Boa Sorte
     */
 
     playAudio(
@@ -1089,7 +1101,9 @@ function startGame() {
 function showValue() {
 
     const question =
-        questions[currentQuestion];
+        questions[
+            currentQuestion
+        ];
 
 
     stopAudio();
@@ -1106,12 +1120,6 @@ function showValue() {
         "valueScreen"
     );
 
-
-    /*
-       Última pergunta:
-       não existe áudio de valor
-       na lista fornecida.
-    */
 
     if (
         question.valueAudio
@@ -1149,7 +1157,9 @@ function showValue() {
 function showQuestion() {
 
     const question =
-        questions[currentQuestion];
+        questions[
+            currentQuestion
+        ];
 
 
     stopAudio();
@@ -1179,10 +1189,6 @@ function showQuestion() {
     );
 
 
-    /*
-       Música de suspense.
-    */
-
     playAudio(
         "Música suspense de perguntas.mp3"
     );
@@ -1191,7 +1197,7 @@ function showQuestion() {
 
 
 /* =========================================================
-   CLICAR NA ALTERNATIVA
+   CLICAR NA RESPOSTA
 ========================================================= */
 
 answerHotspots.forEach(
@@ -1257,7 +1263,7 @@ answerHotspots.forEach(
 
 
 /* =========================================================
-   RESPOSTA CERTA
+   CERTA
 ========================================================= */
 
 function correctAnswer() {
@@ -1270,8 +1276,7 @@ function correctAnswer() {
         function() {
 
             /*
-               Se for a última pergunta,
-               vai direto para o parabéns.
+               Q10 termina o jogo.
             */
 
             if (
@@ -1288,7 +1293,6 @@ function correctAnswer() {
 
             currentQuestion++;
 
-
             showValue();
 
         }
@@ -1298,7 +1302,7 @@ function correctAnswer() {
 
 
 /* =========================================================
-   RESPOSTA ERRADA
+   ERRADA
 ========================================================= */
 
 function wrongAnswer() {
@@ -1326,11 +1330,6 @@ function showLostScreen() {
 
     stopAudio();
 
-
-    /*
-       Caso exista perdeu.png,
-       ele será exibido.
-    */
 
     resultImage.src =
         BASE +
@@ -1426,7 +1425,7 @@ questions.forEach(
 
 
 /* =========================================================
-   LOG
+   CONSOLE
 ========================================================= */
 
 console.log(
@@ -1434,11 +1433,11 @@ console.log(
 );
 
 console.log(
-    "Jogo carregado com sucesso."
+    "Jogo carregado."
 );
 
 console.log(
-    "Total de perguntas:",
+    "Perguntas:",
     questions.length
 );
 
